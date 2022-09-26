@@ -1,0 +1,86 @@
+{
+  "name": "@ntix/parsing",
+  "version": "0.0.0-development",
+  "description": "a small parser",
+  "repository": {
+    "url": "https://github.com/ntix/parsing",
+    "type": "git"
+  },
+  "main": "dist/index.umd.js",
+  "module": "dist/index.js",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "barrels": "barrelsby -q --delete --directory src --include \\.ts$ --exclude \"(\\.spec|this)\\.ts$\" --location all",
+    "prebuild": "npm run clean && npm run barrels",
+    "build": "tsc && rollup -c rollup.config.ts",
+    "build.docs": "npm run build && typedoc --exclude \"**/*+(index|.spec|.e2e).ts\" --out docs src --readme docs.md --media dist",
+    "clean": "shx rm -rf dist",
+    "format": "eslint --fix && prettier --write \"./**/*.{ts,tsx,json}\"",
+    "test": "jest",
+    "test.watch": "jest --watchAll",
+    "start": "npm run build.docs && serve docs",
+    "commit": "git add . && npx git-cz",
+    "prepublishOnly": "npm run build.docs",
+    "semantic-release": "semantic-release"
+  },
+  "keywords": [
+    "parse",
+    "parser",
+    "parsing",
+    "schema parsing",
+    "validate",
+    "validating",
+    "validation",
+    "schema validation"
+  ],
+  "author": "Anthony Johnston <npm@antix.co.uk> (http://antix.co.uk)",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/jest": "^28.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "barrelsby": "^2.3.4",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.24.0",
+    "jest": "^28.1.0",
+    "prettier": "^2.6.2",
+    "rollup": "^2.75.5",
+    "semantic-release": "^19.0.2",
+    "serve": "^13.0.2",
+    "shx": "^0.3.4",
+    "ts-jest": "^28.0.4",
+    "typedoc": "^0.22.17",
+    "typescript": "^4.8.3"
+  },
+  "overrides": {
+    "minimist": "~1.2.6"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "verbose": false,
+    "testMatch": [
+      "**/*.spec.ts"
+    ],
+    "moduleNameMapper": {
+      "(.*)\\.js": "$1"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "release"
+    ]
+  }
+}
