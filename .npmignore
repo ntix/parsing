@@ -1,0 +1,8 @@
+src/
+thumbs.db
+*.log
+.editorconfig
+.gitignore
+.npmignore
+coverage/
+node_modules/
