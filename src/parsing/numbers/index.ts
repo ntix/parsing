@@ -4,12 +4,5 @@
 
 export * from './FloatParser';
 export * from './IntParser';
-export * from './NumberEqualsValidator';
-export * from './NumberMaxValidator';
-export * from './NumberMinMaxValidator';
-export * from './NumberMinValidator';
 export * from './parseFloat';
 export * from './parseInt';
-export * from './validateEquals';
-export * from './validateMax';
-export * from './validateMin';

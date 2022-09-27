@@ -3,6 +3,7 @@
  */
 
 export * from './isDate';
+export * from './isDateType';
 export * from './isEqual';
 export * from './isFloat';
 export * from './isInt';

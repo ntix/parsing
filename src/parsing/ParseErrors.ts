@@ -3,7 +3,8 @@ export class ParseErrors {
   static readonly required = { required: true };
   static readonly int = (value: number) => ({ int: value });
   static readonly float = { float: true };
+  static readonly date = { date: true };
   static readonly equals = <T>(value: T) => ({ equals: value });
-  static readonly min = (value: number) => ({ min: value });
-  static readonly max = (value: number) => ({ max: value });
+  static readonly min = <T>(value: T) => ({ min: value });
+  static readonly max = <T>(value: T) => ({ max: value });
 }

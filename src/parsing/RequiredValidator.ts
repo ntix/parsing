@@ -1,3 +1,4 @@
+import { DateParser } from './dates';
 import { IParser } from './IParser';
 import { IntParser, FloatParser } from './numbers';
 import { parse } from './parse';
@@ -9,4 +10,5 @@ export class RequiredValidator implements IParser<any> {
   readonly parse = parse(this.parent, (v) => validateRequired(v));
   readonly int = (radix?: number) => new IntParser(this, radix);
   readonly float = () => new FloatParser(this);
+  readonly date = () => new DateParser(this);
 }

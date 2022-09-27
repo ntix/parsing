@@ -3,11 +3,20 @@
  */
 
 export * from './createParseResult';
+export * from './EqualsValidator';
 export * from './IParseErrors';
 export * from './IParser';
 export * from './IParseResult';
+export * from './MaxValidator';
+export * from './MinMaxValidator';
+export * from './MinValidator';
 export * from './parse';
 export * from './ParseErrors';
+export * from './RelationalValidatorTypes';
 export * from './RequiredValidator';
+export * from './validateEquals';
+export * from './validateMax';
+export * from './validateMin';
 export * from './validateRequired';
+export * from './dates/index';
 export * from './numbers/index';
