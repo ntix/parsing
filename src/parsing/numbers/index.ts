@@ -4,5 +4,3 @@
 
 export * from './FloatParser';
 export * from './IntParser';
-export * from './parseFloat';
-export * from './parseInt';

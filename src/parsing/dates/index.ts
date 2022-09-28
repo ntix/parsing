@@ -4,5 +4,5 @@
 
 export * from './DateEqualsValidator';
 export * from './DateParser';
-export * from './parseDate';
+export * from './tryParseDate';
 export * from './validateDateEquals';

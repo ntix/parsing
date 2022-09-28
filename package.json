@@ -19,7 +19,7 @@
     "build.docs": "npm run build && typedoc --exclude \"**/*+(index|.spec|.e2e).ts\" --out docs src --readme docs.md --media dist",
     "clean": "shx rm -rf dist",
     "format": "eslint --fix && prettier --write \"./**/*.{ts,tsx,json}\"",
-    "test": "jest",
+    "test": "npm run barrels && jest",
     "test.watch": "jest --watchAll",
     "start": "npm run build.docs && serve docs",
     "commit": "git add . && npx git-cz",
