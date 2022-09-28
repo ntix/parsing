@@ -1,6 +1,6 @@
-import { isString } from './isString';
+import { isStringType } from './isStringType';
 
-describe('isString', () => {
+describe('isStringType', () => {
   [
     [null, false] as any,
     [undefined, false],
@@ -11,7 +11,7 @@ describe('isString', () => {
     ['', true],
   ].forEach(([a, expected]) => {
     it(`${a} ${expected ? 'is' : 'is not'} a string`, () => {
-      const result = isString(a);
+      const result = isStringType(a);
       expect(result).toBe(expected);
     });
   });

@@ -18,5 +18,6 @@ export * from './validateEquals';
 export * from './validateMax';
 export * from './validateMin';
 export * from './validateRequired';
+export * from './booleans/index';
 export * from './dates/index';
 export * from './numbers/index';

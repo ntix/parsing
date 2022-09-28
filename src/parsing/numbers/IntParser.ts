@@ -16,12 +16,12 @@ export class IntParser implements IParser<number> {
   /**
    * Attempt to parse a value to an int
    *
-   * Note: if the value fails to parse null is passed on to any child parser
+   * Note: if the value fails to parse, null is passed on to any child parser
    *
    * @param value to be parsed
    * @returns an int or null
    */
-   readonly parse = parse(this.parent, (value) => {
+  readonly parse = parse(this.parent, (value) => {
     if (isNullOrEmpty(value)) return createParseResult(null);
 
     if (isInt(value))

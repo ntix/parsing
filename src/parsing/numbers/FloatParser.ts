@@ -16,12 +16,12 @@ export class FloatParser implements IParser<number> {
   /**
    * Attempt to parse a value to a float
    *
-   * Note: if the value fails to parse null is passed on to any child parser
+   * Note: if the value fails to parse, null is passed on to any child parser
    *
    * @param value to be parsed
    * @returns a float or null
    */
-   readonly parse = parse(this.parent, (value) => {
+  readonly parse = parse(this.parent, (value) => {
     if (isNullOrEmpty(value)) return createParseResult(null);
 
     if (isFloat(value)) return createParseResult(Number.parseFloat(value));
