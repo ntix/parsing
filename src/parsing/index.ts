@@ -7,6 +7,7 @@ export * from './EqualsValidator';
 export * from './IParseErrors';
 export * from './IParser';
 export * from './IParseResult';
+export * from './MaxMinValidator';
 export * from './MaxValidator';
 export * from './MinMaxValidator';
 export * from './MinValidator';

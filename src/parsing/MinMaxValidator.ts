@@ -3,6 +3,9 @@ import { parseChain } from './parseChain';
 import { validateMax } from './validateMax';
 import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 
+/**
+ * Validate a value is a maximum after a minimum validator
+ */
 export class MinMaxValidator<T extends RelationalValidatorTypes>
   implements IParser<T>
 {
