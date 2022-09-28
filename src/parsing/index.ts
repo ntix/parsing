@@ -10,7 +10,7 @@ export * from './IParseResult';
 export * from './MaxValidator';
 export * from './MinMaxValidator';
 export * from './MinValidator';
-export * from './parse';
+export * from './parseChain';
 export * from './ParseErrors';
 export * from './RelationalValidatorTypes';
 export * from './RequiredValidator';

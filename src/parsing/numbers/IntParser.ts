@@ -4,7 +4,7 @@ import { EqualsValidator } from '../EqualsValidator';
 import { IParser } from '../IParser';
 import { MaxValidator } from '../MaxValidator';
 import { MinValidator } from '../MinValidator';
-import { parse } from '../parse';
+import { parseChain } from '../parseChain';
 import { ParseErrors } from '../ParseErrors';
 
 /**
@@ -21,7 +21,7 @@ export class IntParser implements IParser<number> {
    * @param value to be parsed
    * @returns an int or null
    */
-  readonly parse = parse(this.parent, (value) => {
+  readonly parse = parseChain(this.parent, (value) => {
     if (isNullOrEmpty(value)) return createParseResult(null);
 
     if (isInt(value))

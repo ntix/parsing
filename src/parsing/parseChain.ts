@@ -2,7 +2,7 @@ import { IParser } from './IParser';
 import { IParseResult } from './IParseResult';
 import { createParseResult } from './createParseResult';
 
-export function parse<T>(
+export function parseChain<T>(
   parent: IParser<T>,
   current: (value: T) => IParseResult<T>
 ) {

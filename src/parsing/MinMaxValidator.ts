@@ -1,5 +1,5 @@
 import { IParser } from './IParser';
-import { parse } from './parse';
+import { parseChain } from './parseChain';
 import { validateMax } from './validateMax';
 import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 
@@ -8,5 +8,5 @@ export class MinMaxValidator<T extends RelationalValidatorTypes>
 {
   constructor(private parent: IParser<T>, private max: T) {}
 
-  readonly parse = parse(this.parent, (v) => validateMax(v, this.max));
+  readonly parse = parseChain(this.parent, (v) => validateMax(v, this.max));
 }

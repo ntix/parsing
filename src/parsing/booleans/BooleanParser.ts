@@ -2,7 +2,7 @@ import { isNullOrEmpty } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { EqualsValidator } from '../EqualsValidator';
 import { IParser } from '../IParser';
-import { parse } from '../parse';
+import { parseChain } from '../parseChain';
 import { ParseErrors } from '../ParseErrors';
 import { tryParseBoolean } from './tryParseBoolean';
 
@@ -20,7 +20,7 @@ export class BooleanParser implements IParser<boolean> {
    * @param value to be parsed
    * @returns a boolean or null
    */
-  readonly parse = parse(this.parent, (value) => {
+  readonly parse = parseChain(this.parent, (value) => {
     if (isNullOrEmpty(value)) return createParseResult(null);
 
     value = tryParseBoolean(value);

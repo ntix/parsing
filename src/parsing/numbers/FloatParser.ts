@@ -2,7 +2,7 @@ import { IParser } from '../IParser';
 import { EqualsValidator } from '../EqualsValidator';
 import { MaxValidator } from '../MaxValidator';
 import { MinValidator } from '../MinValidator';
-import { parse } from '../parse';
+import { parseChain } from '../parseChain';
 import { isNullOrEmpty, isFloat } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
@@ -21,7 +21,7 @@ export class FloatParser implements IParser<number> {
    * @param value to be parsed
    * @returns a float or null
    */
-  readonly parse = parse(this.parent, (value) => {
+  readonly parse = parseChain(this.parent, (value) => {
     if (isNullOrEmpty(value)) return createParseResult(null);
 
     if (isFloat(value)) return createParseResult(Number.parseFloat(value));

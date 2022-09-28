@@ -1,5 +1,5 @@
 import { IParser } from '../IParser';
-import { parse } from '../parse';
+import { parseChain } from '../parseChain';
 import { validateDateEquals } from './validateDateEquals';
 
 /**
@@ -12,7 +12,7 @@ export class DateEqualsValidator implements IParser<Date> {
     private formatter: Intl.DateTimeFormat
   ) {}
 
-  readonly parse = parse(this.parent, (v) =>
+  readonly parse = parseChain(this.parent, (v) =>
     validateDateEquals(v, this.equals, this.formatter)
   );
 }

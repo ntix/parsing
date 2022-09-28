@@ -1,5 +1,5 @@
 import { IParser } from './IParser';
-import { parse } from './parse';
+import { parseChain } from './parseChain';
 import { validateEquals } from './validateEquals';
 import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 
@@ -15,7 +15,7 @@ export class EqualsValidator<T extends RelationalValidatorTypes>
     private strictly: boolean
   ) {}
 
-  readonly parse = parse(this.parent, (v) =>
+  readonly parse = parseChain(this.parent, (v) =>
     validateEquals(v, this.equals, this.strictly)
   );
 }

@@ -1,7 +1,7 @@
 import { IParser } from '../IParser';
 import { MaxValidator } from '../MaxValidator';
 import { MinValidator } from '../MinValidator';
-import { parse } from '../parse';
+import { parseChain } from '../parseChain';
 import { DateEqualsValidator } from './DateEqualsValidator';
 import { isNullOrEmpty, isDateType, isDate } from '../../predicates';
 import { createParseResult } from '../createParseResult';
@@ -23,7 +23,7 @@ export class DateParser implements IParser<Date> {
    * @param value to be parsed
    * @returns a date or null
    */
-  readonly parse = parse(this.parent, (value) => {
+  readonly parse = parseChain(this.parent, (value) => {
     if (isNullOrEmpty(value)) return createParseResult(null);
 
     if (isDateType(value)) return createParseResult(value);
