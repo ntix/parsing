@@ -6,6 +6,7 @@ import { parseChain } from '../parseChain';
 import { isNullOrEmpty, isFloat } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
+import { AnyOfValidator } from '../AnyOfValidator';
 
 /**
  * Fluent builder for parsing floats
@@ -28,7 +29,8 @@ export class FloatParser implements IParser<number> {
 
     return createParseResult(null, ParseErrors.float);
   });
-  readonly equals = (value: number) => new EqualsValidator(this, value, true);
+  readonly equals = (value: number) => new EqualsValidator(this, value);
+  readonly anyOf = (values: number[]) => new AnyOfValidator(this, values);
   readonly min = (value: number) => new MinValidator(this, value);
   readonly max = (value: number) => new MaxValidator(this, value);
 }

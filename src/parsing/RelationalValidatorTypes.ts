@@ -1,3 +1,2 @@
-/** can compare with == > < etc */
-
+/** can compare with > < etc */
 export type RelationalValidatorTypes = number | Date;

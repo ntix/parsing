@@ -1,4 +1,7 @@
-/** deep equality check */
+/** deep equality check
+ *
+ * NOTE: arrays should be in the same order
+ * */
 export function isEqual(a: any, b: any): boolean {
   if (a === b) return true;
 

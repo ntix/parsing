@@ -1,7 +1,8 @@
 import { IParser } from './IParser';
 import { parseChain } from './parseChain';
-import { validateEquals } from './validateEquals';
 import { RelationalValidatorTypes } from './RelationalValidatorTypes';
+import { isEqual, isNullOrEmpty } from '../predicates';
+import { ParseErrors } from './ParseErrors';
 
 /**
  * Fluent builder for validating as equal
@@ -9,13 +10,16 @@ import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 export class EqualsValidator<T extends RelationalValidatorTypes>
   implements IParser<T>
 {
-  constructor(
-    private parent: IParser<T>,
-    private equals: T,
-    private strictly: boolean
-  ) {}
+  constructor(private parent: IParser<T>, private equalToValue: T) {}
 
-  readonly parse = parseChain(this.parent, (v) =>
-    validateEquals(v, this.equals, this.strictly)
-  );
+  readonly parse = parseChain(this.parent, (value) => {
+    if (isNullOrEmpty(value) || isEqual(value, this.equalToValue))
+      return { value, success: true, errors: ParseErrors.empty };
+
+    return {
+      value,
+      success: false,
+      errors: ParseErrors.equals(this.equalToValue),
+    };
+  });
 }

@@ -28,5 +28,5 @@ export class BooleanParser implements IParser<boolean> {
 
     return createParseResult(value);
   });
-  readonly equals = (value: boolean) => new EqualsValidator(this, value, true);
+  readonly equals = (value: boolean) => new EqualsValidator(this, value);
 }

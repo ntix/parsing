@@ -4,8 +4,11 @@ import { EqualsValidator } from '../EqualsValidator';
 import { IParser } from '../IParser';
 import { MaxValidator } from '../MaxValidator';
 import { MinValidator } from '../MinValidator';
+import { NumberArrayOrEnumMap } from './NumberArrayOrEnumMap';
 import { parseChain } from '../parseChain';
 import { ParseErrors } from '../ParseErrors';
+import { AnyOfValidator } from '../AnyOfValidator';
+import { ensureNumbersArray } from './ensureNumbersArray';
 
 /**
  * Fluent builder for parsing ints
@@ -29,7 +32,9 @@ export class IntParser implements IParser<number> {
 
     return createParseResult(null, ParseErrors.int(this.radix));
   });
-  readonly equals = (value: number) => new EqualsValidator(this, value, true);
+  readonly equals = (value: number) => new EqualsValidator(this, value);
+  readonly anyOf = (valuesOrEnum: NumberArrayOrEnumMap) =>
+    new AnyOfValidator(this, ensureNumbersArray(valuesOrEnum));
   readonly min = (value: number) => new MinValidator(this, value);
   readonly max = (value: number) => new MaxValidator(this, value);
 }

@@ -1,12 +1,14 @@
+import { isNullOrEmpty, isDateType, isDate } from '../../predicates';
 import { IParser } from '../IParser';
 import { MaxValidator } from '../MaxValidator';
 import { MinValidator } from '../MinValidator';
 import { parseChain } from '../parseChain';
-import { DateEqualsValidator } from './DateEqualsValidator';
-import { isNullOrEmpty, isDateType, isDate } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
 import { tryParseDate } from './tryParseDate';
+import { AnyOfValidator } from '../AnyOfValidator';
+import { ensureDateArray } from './ensureDateArray';
+import { EqualsValidator } from '../EqualsValidator';
 
 /**
  * Fluent builder for parsing dates
@@ -31,8 +33,9 @@ export class DateParser implements IParser<Date> {
 
     return createParseResult(null, ParseErrors.date);
   });
-  readonly equals = (value: Date, formatter?: Intl.DateTimeFormat) =>
-    new DateEqualsValidator(this, value, formatter);
+  readonly equals = (value: Date) => new EqualsValidator(this, value);
+  readonly anyOf = (values: (Date | string)[]) =>
+    new AnyOfValidator(this, ensureDateArray(values));
   readonly min = (value: Date) => new MinValidator(this, value);
   readonly max = (value: Date) => new MaxValidator(this, value);
 }

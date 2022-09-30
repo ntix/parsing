@@ -6,6 +6,7 @@ export class ParseErrors {
   static readonly float = { float: true };
   static readonly date = { date: true };
   static readonly equals = <T>(value: T) => ({ equals: value });
+  static readonly anyOf = <T>(values: T[]) => ({ anyOf: values });
   static readonly min = <T>(value: T) => ({ min: value });
   static readonly max = <T>(value: T) => ({ max: value });
 }
