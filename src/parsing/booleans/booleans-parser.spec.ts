@@ -1,11 +1,11 @@
 import { Schema } from '../../Schema';
 import { ParseErrors } from '../ParseErrors';
 
-describe('dates', () => {
-  const schema = new Schema().date();
+describe('booleans-parser', () => {
+  const schema = Schema.boolean;
 
-  it('success date', () => {
-    const value = new Date();
+  it('success boolean', () => {
+    const value = true;
     const result = schema.parse(value);
 
     expect(result.success).toBe(true);
@@ -30,12 +30,12 @@ describe('dates', () => {
   });
 
   it('success string', () => {
-    const value = '3000-01-02';
+    const value = 'true';
     const result = schema.parse(value);
 
     expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
-    expect(result.value).toEqual(new Date(Date.parse(value)));
+    expect(result.value).toEqual(true);
   });
 
   it('success string empty', () => {
@@ -46,11 +46,13 @@ describe('dates', () => {
     expect(result.value).toBe(null);
   });
 
-  it('failure not date', () => {
+  it('failure not boolean', () => {
     const result = schema.parse('a');
 
     expect(result.success).toBe(false);
-    expect(result.errors).toEqual({ date: true });
+    expect(result.errors).toEqual({
+      boolean: true,
+    });
     expect(result.value).toBe(null);
   });
 });

@@ -3,7 +3,7 @@ import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-min', () => {
   const min = 10;
-  const minSchema = new Schema().int().min(min);
+  const minSchema = Schema.int.min(min);
 
   it('success', () => {
     const value = min + 1;
@@ -43,7 +43,7 @@ describe('numbers-min', () => {
 
   describe('max', () => {
     const max = 15;
-    const maxMinSchema = new Schema().int().min(min).max(max);
+    const maxMinSchema = Schema.int.min(min).max(max);
 
     it('success', () => {
       const value = max;

@@ -1,13 +1,14 @@
 import { isNullOrEmpty } from '../predicates';
 import { createParseResult } from './createParseResult';
-import { RelationalValidatorTypes } from './RelationalValidatorTypes';
+import { IParseErrors } from './IParseErrors';
 import { ParseErrors } from './ParseErrors';
+import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 
-export function validateMin<T extends RelationalValidatorTypes>(
-  value: T,
-  min: T
-) {
-  if (isNullOrEmpty(value) || value >= min) return createParseResult(value);
+export function validateMin<T extends RelationalValidatorTypes>(value: T, min: T, negate: boolean) {
+  if (isNullOrEmpty(value) || value >= min === !negate) return createParseResult(value);
 
-  return createParseResult(value, ParseErrors.min(min));
+  let errors: IParseErrors = ParseErrors.min(min);
+  if (negate) errors = ParseErrors.not(errors);
+
+  return createParseResult(value, errors);
 }

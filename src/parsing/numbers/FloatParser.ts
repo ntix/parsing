@@ -7,12 +7,13 @@ import { isNullOrEmpty, isFloat } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
 import { AnyOfValidator } from '../AnyOfValidator';
+import { IFloatParser } from './IFloatParser';
 
 /**
  * Fluent builder for parsing floats
  */
-export class FloatParser implements IParser<number> {
-  constructor(private parent: IParser<any>) {}
+export class FloatParser implements IFloatParser {
+  constructor(public parent: IParser<any>, public negate: boolean = false) {}
 
   /**
    * Attempt to parse a value to a float
@@ -29,8 +30,13 @@ export class FloatParser implements IParser<number> {
 
     return createParseResult(null, ParseErrors.float);
   });
-  readonly equals = (value: number) => new EqualsValidator(this, value);
-  readonly anyOf = (values: number[]) => new AnyOfValidator(this, values);
-  readonly min = (value: number) => new MinValidator(this, value);
-  readonly max = (value: number) => new MaxValidator(this, value);
+
+  readonly equals = (value: number) => new EqualsValidator<number>(this, value, this.negate);
+  readonly anyOf = (values: number[]) => new AnyOfValidator(this, values, this.negate);
+  readonly min = (value: number) => new MinValidator(this, value, this.negate);
+  readonly max = (value: number) => new MaxValidator(this, value, this.negate);
+
+  get not() {
+    return new FloatParser(this.parent, true);
+  }
 }

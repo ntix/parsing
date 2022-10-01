@@ -4,13 +4,14 @@ import { EqualsValidator } from '../EqualsValidator';
 import { IParser } from '../IParser';
 import { parseChain } from '../parseChain';
 import { ParseErrors } from '../ParseErrors';
+import { IBooleanParser } from './IBooleanParser';
 import { tryParseBoolean } from './tryParseBoolean';
 
 /**
- * Fluent builder for parsing booleans
+ * Fluent builder for parsing strings
  */
-export class BooleanParser implements IParser<boolean> {
-  constructor(private parent: IParser<any>) {}
+export class BooleanParser implements IBooleanParser {
+  constructor(private parent: IParser<any>, public negate: boolean = false) {}
 
   /**
    * Attempt to parse a value to a boolean
@@ -28,5 +29,10 @@ export class BooleanParser implements IParser<boolean> {
 
     return createParseResult(value);
   });
-  readonly equals = (value: boolean) => new EqualsValidator(this, value);
+
+  equals = (value: boolean) => new EqualsValidator<boolean>(this, value, this.negate);
+
+  get not() {
+    return new BooleanParser(this.parent, true);
+  }
 }

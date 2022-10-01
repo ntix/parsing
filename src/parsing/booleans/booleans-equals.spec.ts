@@ -3,7 +3,7 @@ import { ParseErrors } from '../ParseErrors';
 
 describe('booleans-equals', () => {
   const expectedValue = true;
-  const schema = new Schema().boolean().equals(expectedValue);
+  const schema = Schema.boolean.equals(expectedValue);
 
   it('success boolean', () => {
     const result = schema.parse(expectedValue);

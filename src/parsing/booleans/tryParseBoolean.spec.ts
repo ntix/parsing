@@ -13,15 +13,7 @@ describe('tryParseBoolean', () => {
     })
   );
 
-  [
-    null,
-    undefined,
-    '',
-    NaN,
-    Infinity,
-    Number.NaN,
-    Number.POSITIVE_INFINITY,
-  ].forEach((value) =>
+  [null, undefined, '', NaN, Infinity, Number.NaN, Number.POSITIVE_INFINITY].forEach((value) =>
     it(`${value} => null`, () => {
       expect(tryParseBoolean(value)).toBe(null);
     })

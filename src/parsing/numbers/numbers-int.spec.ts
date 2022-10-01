@@ -2,7 +2,7 @@ import { Schema } from '../../Schema';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-int', () => {
-  const schema = new Schema().int();
+  const schema = Schema.int;
 
   it('success number', () => {
     const result = schema.parse(1);
@@ -44,11 +44,11 @@ describe('numbers-int', () => {
     expect(result.value).toBe(null);
   });
 
-  it('failure not int', () => {
+  it('failure not int (float)', () => {
     const result = schema.parse(1.2);
 
     expect(result.success).toBe(false);
-    expect(result.errors).toEqual({ int: 10 });
+    expect(result.errors).toEqual(ParseErrors.int);
     expect(result.value).toBe(null);
   });
 
@@ -56,7 +56,7 @@ describe('numbers-int', () => {
     const result = schema.parse('a');
 
     expect(result.success).toBe(false);
-    expect(result.errors).toEqual({ int: 10 });
+    expect(result.errors).toEqual(ParseErrors.int);
     expect(result.value).toBe(null);
   });
 });

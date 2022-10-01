@@ -2,7 +2,7 @@ import { Schema } from '../Schema';
 import { ParseErrors } from './ParseErrors';
 
 describe('required', () => {
-  const schema = new Schema().required();
+  const schema = Schema.required;
 
   it('success', () => {
     const value = 1;

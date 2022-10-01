@@ -5,6 +5,11 @@
 export * from './AnyOfValidator';
 export * from './createParseResult';
 export * from './EqualsValidator';
+export * from './IAnyOfBuilder';
+export * from './IEqualsbuilder';
+export * from './IMaxBuilder';
+export * from './IMinBuilder';
+export * from './IMinMaxBuilder';
 export * from './IParseErrors';
 export * from './IParser';
 export * from './IParseResult';
@@ -22,3 +27,4 @@ export * from './validateRequired';
 export * from './booleans/index';
 export * from './dates/index';
 export * from './numbers/index';
+export * from './strings/index';

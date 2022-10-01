@@ -2,7 +2,7 @@ import { Schema } from '../../Schema';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-float', () => {
-  const schema = new Schema().float();
+  const schema = Schema.float;
 
   it('success number', () => {
     const result = schema.parse(1);
@@ -48,7 +48,9 @@ describe('numbers-float', () => {
     const result = schema.parse('a');
 
     expect(result.success).toBe(false);
-    expect(result.errors).toEqual({ float: true });
+    expect(result.errors).toEqual({
+      float: true,
+    });
     expect(result.value).toBe(null);
   });
 });

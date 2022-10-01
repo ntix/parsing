@@ -6,10 +6,8 @@ import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 /**
  * Validate a value is a maximum after a minimum validator
  */
-export class MinMaxValidator<T extends RelationalValidatorTypes>
-  implements IParser<T>
-{
-  constructor(private parent: IParser<T>, private max: T) {}
+export class MinMaxValidator<T extends RelationalValidatorTypes> implements IParser<T> {
+  constructor(private parent: IParser<T>, private max: T, private negate: boolean = false) {}
 
-  readonly parse = parseChain(this.parent, (v) => validateMax(v, this.max));
+  readonly parse = parseChain(this.parent, (v) => validateMax(v, this.max, this.negate));
 }

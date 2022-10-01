@@ -9,13 +9,16 @@ import { tryParseDate } from './tryParseDate';
 import { AnyOfValidator } from '../AnyOfValidator';
 import { ensureDateArray } from './ensureDateArray';
 import { EqualsValidator } from '../EqualsValidator';
+import { IDateParser } from './IDateParser';
+import { parseDate } from './parseDate';
+import { DateParsable } from './DateParsable';
 
 /**
  * Fluent builder for parsing dates
  */
-export class DateParser implements IParser<Date> {
+export class DateParser implements IDateParser {
   static DefaultFormat = new Intl.DateTimeFormat();
-  constructor(private parent: IParser<any>) {}
+  constructor(private parent: IParser<any>, public negate: boolean = false) {}
 
   /**
    * Attempt to parse a value to a date
@@ -33,9 +36,13 @@ export class DateParser implements IParser<Date> {
 
     return createParseResult(null, ParseErrors.date);
   });
-  readonly equals = (value: Date) => new EqualsValidator(this, value);
-  readonly anyOf = (values: (Date | string)[]) =>
-    new AnyOfValidator(this, ensureDateArray(values));
-  readonly min = (value: Date) => new MinValidator(this, value);
-  readonly max = (value: Date) => new MaxValidator(this, value);
+
+  readonly equals = (value: Date) => new EqualsValidator<Date, DateParsable>(this, parseDate(value), this.negate);
+  readonly anyOf = (values: DateParsable[]) => new AnyOfValidator(this, ensureDateArray(values), this.negate);
+  readonly min = (value: Date) => new MinValidator(this, parseDate(value), this.negate);
+  readonly max = (value: Date) => new MaxValidator(this, parseDate(value), this.negate);
+
+  get not() {
+    return new DateParser(this.parent, true);
+  }
 }

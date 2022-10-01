@@ -7,18 +7,7 @@ describe('isBooleanType', () => {
     })
   );
 
-  [
-    null,
-    undefined,
-    0,
-    1,
-    NaN,
-    Infinity,
-    Number.NaN,
-    Number.POSITIVE_INFINITY,
-    '',
-    'true',
-  ].forEach((value) =>
+  [null, undefined, 0, 1, NaN, Infinity, Number.NaN, Number.POSITIVE_INFINITY, '', 'true'].forEach((value) =>
     it(`${value} => false`, () => {
       expect(isBooleanType(value)).toBe(false);
     })

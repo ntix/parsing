@@ -3,7 +3,7 @@ import { ParseErrors } from '../ParseErrors';
 
 describe('dates-min', () => {
   const min = new Date(3000, 0, 1, 0, 0, 0, 0);
-  const minSchema = new Schema().date().min(min);
+  const minSchema = Schema.date.min(min);
 
   it('success', () => {
     const value = new Date(min.getTime() + 1000);
@@ -43,7 +43,7 @@ describe('dates-min', () => {
 
   describe('max', () => {
     const max = new Date(4000, 0, 1, 0, 0, 0, 0);
-    const maxMinSchema = new Schema().date().min(min).max(max);
+    const maxMinSchema = Schema.date.min(min).max(max);
 
     it('success', () => {
       const value = max;

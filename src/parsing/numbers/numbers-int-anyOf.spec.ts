@@ -6,14 +6,14 @@ describe('numbers-int-anyOf', () => {
   const anyOf = [1, 2, 4, 5];
 
   it('anyOf success', () => {
-    const result = new Schema().int().anyOf(anyOf).parse('4');
+    const result = Schema.int.anyOf(anyOf).parse('4');
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(4);
   });
 
   it('anyOf failure', () => {
-    const result = new Schema().int().anyOf(anyOf).parse('3');
+    const result = Schema.int.anyOf(anyOf).parse('3');
 
     expect(result.errors).toEqual(ParseErrors.anyOf(anyOf));
     expect(result.value).toBe(3);
@@ -26,18 +26,16 @@ describe('numbers-int-anyOf', () => {
     }
 
     it('anyOf enum success', () => {
-      const result = new Schema().int().anyOf(anyOfEnum).parse('4');
+      const result = Schema.int.anyOf(anyOfEnum).parse('4');
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toBe(anyOfEnum.four);
     });
 
     it('anyOf failure', () => {
-      const result = new Schema().int().anyOf(anyOfEnum).parse('3');
+      const result = Schema.int.anyOf(anyOfEnum).parse('3');
 
-      expect(result.errors).toEqual(
-        ParseErrors.anyOf(getNumberEnumValues(anyOfEnum))
-      );
+      expect(result.errors).toEqual(ParseErrors.anyOf(getNumberEnumValues(anyOfEnum)));
       expect(result.value).toBe(3);
     });
   });

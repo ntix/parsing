@@ -1,25 +1,22 @@
 import { IParser } from './IParser';
 import { parseChain } from './parseChain';
-import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 import { isEqual, isNullOrEmpty } from '../predicates';
 import { ParseErrors } from './ParseErrors';
+import { IParseErrors } from './IParseErrors';
+import { createParseResult } from './createParseResult';
 
 /**
- * Fluent builder for validating as equal
+ * Fluent builder for parsing strings
  */
-export class EqualsValidator<T extends RelationalValidatorTypes>
-  implements IParser<T>
-{
-  constructor(private parent: IParser<T>, private equalToValue: T) {}
+export class EqualsValidator<T, TIn = T> implements IParser<T> {
+  constructor(private parent: IParser<T>, private equalToValue: TIn, private negate: boolean) {}
 
   readonly parse = parseChain(this.parent, (value) => {
-    if (isNullOrEmpty(value) || isEqual(value, this.equalToValue))
-      return { value, success: true, errors: ParseErrors.empty };
+    if (isNullOrEmpty(value) || isEqual(value, this.equalToValue) === !this.negate) return createParseResult(value);
 
-    return {
-      value,
-      success: false,
-      errors: ParseErrors.equals(this.equalToValue),
-    };
+    let errors: IParseErrors = ParseErrors.equals(this.equalToValue);
+    if (this.negate) errors = ParseErrors.not(errors);
+
+    return createParseResult(value, errors);
   });
 }
