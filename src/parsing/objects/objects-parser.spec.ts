@@ -20,11 +20,13 @@ describe('objects-parser', () => {
     salary?: number;
   }
 
-  const schema = Is.object<IPerson>({
-    name: Is.required.object({
-      given: Is.string,
-      family: Is.required.string,
-    }),
+  const nameParser = Is.object({
+    given: Is.string,
+    family: Is.required.string,
+  });
+
+  const personParser = Is.object<IPerson>({
+    name: Is.required.use(nameParser),
     dateOfBirth: Is.required.date.max(now),
     jobType: Is.int.anyOf(JobTypes),
     salary: Is.float.min(0),
@@ -38,12 +40,26 @@ describe('objects-parser', () => {
       dateOfBirth: '2000-01-01',
     };
 
-    const result = schema.parse(value);
+    const result = personParser.parse(value);
 
     expect(result.success).toBe(true);
     expect(result.value).toEqual({
       name: value.name,
       dateOfBirth: parseDate(value.dateOfBirth),
+    });
+  });
+
+  it('parse - invalid name', () => {
+    var value = {
+      name: null,
+      dateOfBirth: '2000-01-01',
+    };
+
+    const result = personParser.parse(value);
+
+    expect(result.success).toBe(false);
+    expect(result.errors).toEqual({
+      name: ParseErrors.required,
     });
   });
 
@@ -53,7 +69,7 @@ describe('objects-parser', () => {
       dateOfBirth: '2000-01-01',
     };
 
-    const result = schema.parse(value);
+    const result = personParser.parse(value);
 
     expect(result.success).toBe(false);
     expect(result.errors).toEqual({
@@ -69,7 +85,7 @@ describe('objects-parser', () => {
       dateOfBirth: '3000-01-01',
     };
 
-    const result = schema.parse(value);
+    const result = personParser.parse(value);
 
     expect(result.success).toBe(false);
     expect(result.errors).toEqual({

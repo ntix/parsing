@@ -1,12 +1,13 @@
-import { SchemaParser } from './parsing';
+import { IRootParser, RootParser } from './parsing';
 
-/** Starting point for a new parsing and validating schema */
+/** Starting point for a new parsing and validating */
 export module Is {
-  export const boolean = new SchemaParser().boolean;
-  export const int = new SchemaParser().int;
-  export const float = new SchemaParser().float;
-  export const date = new SchemaParser().date;
-  export const string = new SchemaParser().string;
-  export const object = new SchemaParser().object;
-  export const required = new SchemaParser(true);
+  export const required: IRootParser = new RootParser(true);
+  export const boolean = new RootParser().boolean;
+  export const int = new RootParser().int;
+  export const float = new RootParser().float;
+  export const date = new RootParser().date;
+  export const string = new RootParser().string;
+  export const object = new RootParser().object;
+  export const use = new RootParser().use;
 }
