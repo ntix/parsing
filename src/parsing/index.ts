@@ -27,4 +27,5 @@ export * from './validateRequired';
 export * from './booleans/index';
 export * from './dates/index';
 export * from './numbers/index';
+export * from './objects/index';
 export * from './strings/index';

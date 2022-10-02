@@ -2,7 +2,7 @@ import { RequiredValidator } from './parsing';
 
 export class Schema extends RequiredValidator {
   private constructor() {
-    super(null);
+    super(false);
   }
 
   static get boolean() {
@@ -20,8 +20,11 @@ export class Schema extends RequiredValidator {
   static get string() {
     return new Schema().string;
   }
+  static get object() {
+    return new Schema().object;
+  }
 
   static get required() {
-    return new RequiredValidator(new Schema());
+    return new RequiredValidator(true);
   }
 }

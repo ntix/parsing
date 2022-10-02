@@ -6,7 +6,7 @@ export function parseChain<T>(parent: IParser<T>, current: (value: T) => IParseR
   return (value: any) => {
     if (parent == null)
       // when root Schema
-      return createParseResult(value);
+      return current(value);
 
     const parentResult = parent.parse(value);
     const result = current(parentResult.value);
