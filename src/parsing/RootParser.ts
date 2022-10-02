@@ -1,29 +1,33 @@
 import { isNullOrEmpty } from '../predicates';
-import { IBooleanParser, BooleanParser } from './booleans';
+import { ArrayParser, IArray } from './arrays';
+import { BooleanParser, IBoolean } from './booleans';
 import { createParseResult } from './createParseResult';
-import { IDateParser, DateParser } from './dates';
+import { DateParser, IDate } from './dates';
 import { IParser } from './IParser';
-import { IRootParser } from './IRootParser';
-import { IArrayParser, ArrayParser } from './arrays';
-import { IIntParser, IntParser, IFloatParser, FloatParser } from './numbers';
-import { ObjectSchema, IObjectParser, ObjectParser } from './objects';
+import { IRoot } from './IRootParser';
+import { FloatParser, IFloat, IInt, IntParser } from './numbers';
+import { ComplexParser, ComplexSchema, IComplex } from './complex';
 import { parseChain } from './parseChain';
 import { ParseErrors } from './ParseErrors';
-import { IStringParser, StringParser } from './strings';
+import { IString, StringParser } from './strings';
 
-export class RootParser implements IRootParser {
-  constructor(private isRequried = false) {}
+export class RootParser implements IRoot.Parser {
+  constructor(
+    private isRequried = false
+  ) { }
 
-  readonly parse = parseChain(null, (value) =>
-    this.isRequried && isNullOrEmpty(value) ? createParseResult(value, ParseErrors.required) : createParseResult(value)
-  );
+  readonly parse = parseChain(null, value =>
+    this.isRequried && isNullOrEmpty(value)
+      ? createParseResult(value, ParseErrors.required)
+      : createParseResult(value));
 
-  readonly boolean: IBooleanParser = new BooleanParser(this);
-  readonly int: IIntParser = new IntParser(this);
-  readonly float: IFloatParser = new FloatParser(this);
-  readonly date: IDateParser = new DateParser(this);
-  readonly string: IStringParser = new StringParser(this, false);
-  readonly object = <T>(schema: ObjectSchema<T>): IObjectParser<T> => new ObjectParser(this, schema);
+  readonly boolean: IBoolean.Parser = new BooleanParser(this);
+  readonly int: IInt.Parser = new IntParser(this);
+  readonly float: IFloat.Parser = new FloatParser(this);
+  readonly date: IDate.Parser = new DateParser(this);
+  readonly string: IString.Parser = new StringParser(this);
+  readonly array: IArray.Parser<unknown> = new ArrayParser<unknown>(this);
+
+  readonly for = <T>(schema: ComplexSchema<T>): IComplex.Parser<T> => new ComplexParser(this, schema);
   readonly use = <T>(parser: IParser<T>) => ({ parse: parseChain<T>(this, parser.parse) });
-  readonly array: IArrayParser = new ArrayParser(this);
 }

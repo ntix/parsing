@@ -1,38 +1,25 @@
-import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { EqualsValidator } from '../EqualsValidator';
+import { provideEquals } from '../provideEquals';
+import { IParse } from '../IParse';
 import { IParser } from '../IParser';
 import { parseChain } from '../parseChain';
-import { ParseErrors } from '../ParseErrors';
-import { IBooleanParser } from './IBooleanParser';
-import { tryParseBoolean } from './tryParseBoolean';
+import { provideParseBoolean } from './provideParseBoolean';
+import { IBoolean } from './IBoolean';
 
 /**
- * Fluent builder for parsing strings
+ * Fluent builder for parsing booleans
  */
-export class BooleanParser implements IBooleanParser {
-  constructor(private parent: IParser<any>, public negate: boolean = false) {}
+export class BooleanParser implements IBoolean.Parser {
+  constructor(
+    private parent: IParser<unknown>,
+    private parseCurrent: IParse<boolean> = provideParseBoolean(),
+    private negate: boolean = false
+  ) { }
 
-  /**
-   * Attempt to parse a value to a boolean
-   *
-   * Note: if the value fails to parse, null is passed on to any child parser
-   *
-   * @param value to be parsed
-   * @returns a boolean or null
-   */
-  readonly parse = parseChain(this.parent, (value) => {
-    if (isNullOrEmpty(value)) return createParseResult(null);
+  readonly parse = parseChain(this.parent, this.parseCurrent);
 
-    value = tryParseBoolean(value);
-    if (value === null) return createParseResult(null, ParseErrors.boolean);
-
-    return createParseResult(value);
-  });
-
-  equals = (value: boolean) => new EqualsValidator<boolean>(this, value, this.negate);
+  readonly equals = (equalToValue: boolean) => new BooleanParser(this, provideEquals(equalToValue, this.negate));
 
   get not() {
-    return new BooleanParser(this.parent, true);
+    return new BooleanParser(this.parent, provideParseBoolean(), true);
   }
 }

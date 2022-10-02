@@ -3,6 +3,6 @@
  */
 
 export * from './BooleanParser';
-export * from './IBooleanBuilder';
-export * from './IBooleanParser';
+export * from './IBoolean';
+export * from './provideParseBoolean';
 export * from './tryParseBoolean';

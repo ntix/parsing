@@ -9,7 +9,6 @@ describe('numbers-max', () => {
     const value = max - 1;
     const result = maxSchema.parse(value);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -18,31 +17,7 @@ describe('numbers-max', () => {
     const value = max + 1;
     const result = maxSchema.parse(value);
 
-    expect(result.success).toBe(false);
-    expect(result.errors).toEqual({ max });
+    expect(result.errors).toEqual(ParseErrors.max(max, false));
     expect(result.value).toBe(value);
-  });
-
-  describe('min', () => {
-    const min = 5;
-    const maxMinSchema = Is.int.max(max).min(min);
-
-    it('success', () => {
-      const value = min;
-      const result = maxMinSchema.parse(value);
-
-      expect(result.success).toBe(true);
-      expect(result.errors).toEqual(ParseErrors.empty);
-      expect(result.value).toBe(value);
-    });
-
-    it('success', () => {
-      const value = min - 1;
-      const result = maxMinSchema.parse(value);
-
-      expect(result.success).toBe(false);
-      expect(result.errors).toEqual(ParseErrors.min(min));
-      expect(result.value).toBe(value);
-    });
   });
 });

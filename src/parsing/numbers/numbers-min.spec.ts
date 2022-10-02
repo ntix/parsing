@@ -9,7 +9,6 @@ describe('numbers-min', () => {
     const value = min + 1;
     const result = minSchema.parse(value);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -18,7 +17,6 @@ describe('numbers-min', () => {
     const value = min + 1;
     const result = minSchema.parse(`${value}`);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -27,7 +25,6 @@ describe('numbers-min', () => {
     const value = null;
     const result = minSchema.parse(value);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -36,31 +33,8 @@ describe('numbers-min', () => {
     const value = min - 1;
     const result = minSchema.parse(value);
 
-    expect(result.success).toBe(false);
-    expect(result.errors).toEqual({ min });
+    expect(result.errors).toEqual(ParseErrors.min(min, false));
     expect(result.value).toBe(value);
   });
 
-  describe('max', () => {
-    const max = 15;
-    const maxMinSchema = Is.int.min(min).max(max);
-
-    it('success', () => {
-      const value = max;
-      const result = maxMinSchema.parse(value);
-
-      expect(result.success).toBe(true);
-      expect(result.errors).toEqual(ParseErrors.empty);
-      expect(result.value).toBe(value);
-    });
-
-    it('failure', () => {
-      const value = max + 1;
-      const result = maxMinSchema.parse(value);
-
-      expect(result.success).toBe(false);
-      expect(result.errors).toEqual(ParseErrors.max(max));
-      expect(result.value).toBe(value);
-    });
-  });
 });

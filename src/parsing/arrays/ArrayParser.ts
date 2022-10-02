@@ -1,23 +1,29 @@
-import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
+import { IParse } from '../IParse';
 import { IParser } from '../IParser';
-import { MaxLengthParser } from '../MaxLengthParser';
-import { MinLengthParser } from '../MinLengthParser';
+import { parseAll } from '../parseAll';
 import { parseChain } from '../parseChain';
-import { ParseErrors } from '../ParseErrors';
-import { IArrayParser } from './IArrayParser';
+import { provideMaxLength } from '../provideMaxLength';
+import { provideMinLength } from '../provideMinLength';
+import { provideRangeLength } from '../provideRangeLength';
+import { IArray } from './IArray';
+import { provideParseArray } from './provideParseArray';
 
-export class ArrayParser implements IArrayParser {
-  constructor(private parent: IParser<any>, private negate: boolean = false) {}
+export class ArrayParser<T> implements IArray.Parser<T> {
+  constructor(
+    private parent: IParser<unknown>,
+    private parseCurrent: IParse<T[]> = provideParseArray<T>(),
+    private negate: boolean = false
+  ) { }
 
-  readonly parse = parseChain(this.parent, (value) => {
-    if (isNullOrEmpty(value)) return createParseResult(value);
+  readonly parse = parseChain<T[]>(this.parent, this.parseCurrent);
 
-    if (Array.isArray(value) !== this.negate) return createParseResult(value);
+  readonly minLength = <T>(minValue: number, exclusive = false) => new ArrayParser<T>(this, provideMinLength<T[]>(minValue, exclusive, this.negate));
+  readonly maxLength = <T>(maxValue: number, exclusive = false) => new ArrayParser<T>(this, provideMaxLength<T[]>(maxValue, exclusive, this.negate));
+  readonly rangeLength = <T>(minValue: number, maxValue: number, exclusive = false) => new ArrayParser<T>(this, provideRangeLength<T[]>(minValue, maxValue, exclusive, this.negate));
 
-    return createParseResult(null, ParseErrors.array);
-  });
+  readonly each = <T>(parser: IParser<T>) => ({ parse: parseChain<T[]>(this, parseAll(parser.parse)) });
 
-  readonly minLength = (value: number) => new MinLengthParser<any[]>(this, value, this.negate);
-  readonly maxLength = (value: number) => new MaxLengthParser<any[]>(this, value, this.negate);
+  get not() {
+    return new ArrayParser<T>(this.parent, this.parseCurrent, true);
+  }
 }

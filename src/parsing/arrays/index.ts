@@ -3,4 +3,5 @@
  */
 
 export * from './ArrayParser';
-export * from './IArrayParser';
+export * from './IArray';
+export * from './provideParseArray';

@@ -9,7 +9,6 @@ describe('arrays-minLength', () => {
     const value = [1];
     const result = parser.parse(value);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -18,7 +17,6 @@ describe('arrays-minLength', () => {
     const value = [];
     const result = parser.parse(value);
 
-    expect(result.success).toBe(false);
     expect(result.errors).toEqual(ParseErrors.minLength(MIN_LENGTH));
     expect(result.value).toBe(value);
   });

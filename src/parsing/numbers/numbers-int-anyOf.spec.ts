@@ -20,23 +20,23 @@ describe('numbers-int-anyOf', () => {
   });
 
   describe('enum', () => {
-    enum anyOfEnum {
-      one = 1,
-      four = 4,
-    }
+        enum anyOfEnum {
+          one = 1,
+          four = 4,
+        }
 
-    it('anyOf enum success', () => {
-      const result = Is.int.anyOf(anyOfEnum).parse('4');
+        it('anyOf enum success', () => {
+          const result = Is.int.anyOf(anyOfEnum).parse('4');
 
-      expect(result.errors).toEqual(ParseErrors.empty);
-      expect(result.value).toBe(anyOfEnum.four);
-    });
+          expect(result.errors).toEqual(ParseErrors.empty);
+          expect(result.value).toBe(anyOfEnum.four);
+        });
 
-    it('anyOf failure', () => {
-      const result = Is.int.anyOf(anyOfEnum).parse('3');
+        it('anyOf failure', () => {
+          const result = Is.int.anyOf(anyOfEnum).parse('3');
 
-      expect(result.errors).toEqual(ParseErrors.anyOf(getNumberEnumValues(anyOfEnum)));
-      expect(result.value).toBe(3);
-    });
+          expect(result.errors).toEqual(ParseErrors.anyOf(getNumberEnumValues(anyOfEnum)));
+          expect(result.value).toBe(3);
+        });
   });
 });

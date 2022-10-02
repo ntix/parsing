@@ -1,46 +1,38 @@
-import { isNullOrEmpty, isInt } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { EqualsValidator } from '../EqualsValidator';
 import { IParser } from '../IParser';
-import { MaxParser } from '../MaxParser';
-import { MinParser } from '../MinParser';
-import { NumberArrayOrEnumMap } from './NumberArrayOrEnumMap';
 import { parseChain } from '../parseChain';
-import { ParseErrors } from '../ParseErrors';
-import { AnyOfValidator } from '../AnyOfValidator';
-import { ensureNumbersArray } from './ensureNumbersArray';
-import { IIntParser } from './IIntParser';
+import { NumberParsableTypes } from './NumberParsableTypes';
+import { IParse } from '../IParse';
+import { provideAnyOf } from '../provideAnyOf';
+import { provideEquals } from '../provideEquals';
+import { provideMax } from '../provideMax';
+import { provideMin } from '../provideMin';
+import { provideRange } from '../provideRange';
+import { ensureNumberArray } from './ensureNumberArray';
+import { IInt } from './IInt';
+import { provideParseInt } from './provideParseInt';
+import { parseInt } from './parseInt';
+import { NumberEnumMap } from './NumberEnumMap';
 
 /**
  * Fluent builder for parsing ints
  */
-export class IntParser implements IIntParser {
-  constructor(public parent: IParser<any>, public radix: number = undefined, public negate: boolean = false) {}
+export class IntParser implements IInt.Parser {
+  constructor(
+    private parent: IParser<unknown>,
+    private parseCurrent: IParse<number> = provideParseInt(),
+    private radix: number = undefined,
+    private negate: boolean = false
+  ) { }
 
-  /**
-   * Attempt to parse a value to an int
-   *
-   * Note: if the value fails to parse, null is passed on to any child parser
-   *
-   * @param value to be parsed
-   * @returns an int or null
-   */
-  readonly parse = parseChain(this.parent, (value) => {
-    if (isNullOrEmpty(value)) return createParseResult(null);
-
-    if (isInt(value)) return createParseResult(Number.parseInt(value, this.radix));
-
-    return createParseResult(null, ParseErrors.int);
-  });
-
-  readonly equals = (value: number) => new EqualsValidator<number>(this, value, this.negate);
-  readonly withRadix = (value?: number) => new IntParser(this.parent, value, this.negate);
-  readonly anyOf = (valuesOrEnum: NumberArrayOrEnumMap) =>
-    new AnyOfValidator(this, ensureNumbersArray(valuesOrEnum), this.negate);
-  readonly min = (value: number) => new MinParser(this, value, this.negate);
-  readonly max = (value: number) => new MaxParser(this, value, this.negate);
+  readonly parse = parseChain(this.parent, this.parseCurrent);
+  readonly withRadix = (value?: number) => new IntParser(this.parent, this.parseCurrent, value, this.negate);
+  readonly equals = (value: NumberParsableTypes) => new IntParser(this, provideEquals(parseInt(value, this.radix), this.negate));
+  readonly anyOf = (values: NumberParsableTypes[] | NumberEnumMap) => new IntParser(this, provideAnyOf(ensureNumberArray(values), this.negate));
+  readonly min = (value: NumberParsableTypes, exclusive = false) => new IntParser(this, provideMin(parseInt(value, this.radix), exclusive, this.negate));
+  readonly max = (value: NumberParsableTypes, exclusive = false) => new IntParser(this, provideMax(parseInt(value, this.radix), exclusive, this.negate));
+  readonly range = (min: NumberParsableTypes, max: NumberParsableTypes, exclusive = false) => new IntParser(this, provideRange(parseInt(min, this.radix), parseInt(max, this.radix), exclusive, this.negate));
 
   get not() {
-    return new IntParser(this.parent, this.radix, true);
+    return new IntParser(this.parent, this.parseCurrent, this.radix, true);
   }
 }

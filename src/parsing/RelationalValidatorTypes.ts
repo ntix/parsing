@@ -1,2 +1,2 @@
 /** can compare with > < etc */
-export type RelationalValidatorTypes = number | Date;
+export type RelationalValidatorTypes = number | Date

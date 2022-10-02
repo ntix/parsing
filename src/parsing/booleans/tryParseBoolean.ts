@@ -11,13 +11,17 @@ export const BOOLEANS_FALSE = [0, '0', 'false', 'off'];
  * @param value value to parse
  * @returns boolean or a null if failed parse
  */
-export function tryParseBoolean(value: any): boolean | null {
+export function tryParseBoolean(value: unknown): boolean | null {
   if (isNullOrEmpty(value)) return null;
   if (isBooleanType(value)) return value;
 
-  if (isStringType(value)) value = value.toLowerCase();
-  if (BOOLEANS_TRUE.some((v) => v === value)) return true;
-  if (BOOLEANS_FALSE.some((v) => v === value)) return false;
+  if (isStringType(value))
+    value = value.toLowerCase();
+
+  if (BOOLEANS_TRUE.includes(value as string | number))
+    return true;
+  if (BOOLEANS_FALSE.includes(value as string | number))
+    return false;
 
   return null;
 }

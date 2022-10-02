@@ -1,5 +1,4 @@
-import { isDateType } from '../../predicates';
-import { DateParsable } from './DateParsable';
+import { DateParsableTypes } from './DateParsableTypes';
 import { tryParseDate } from './tryParseDate';
 
 /**
@@ -8,13 +7,11 @@ import { tryParseDate } from './tryParseDate';
  * @param value to be parsed
  * @returns a date or null
  */
-
-export function parseDate(value: DateParsable): Date {
-  if (isDateType(value)) return value;
-
+export function parseDate(value: DateParsableTypes): Date {
   const result = tryParseDate(value);
 
-  if (result === null) throw new Error(`could not parse "${value}" as a date`);
+  if (result === null)
+    throw new Error(`could not parse "${value}" as a date`);
 
   return result;
 }

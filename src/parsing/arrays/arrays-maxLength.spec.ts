@@ -9,7 +9,6 @@ describe('arrays-maxLength', () => {
     const value = [1];
     const result = parser.parse(value);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -18,7 +17,6 @@ describe('arrays-maxLength', () => {
     const value = [1, 2];
     const result = parser.parse(value);
 
-    expect(result.success).toBe(false);
     expect(result.errors).toEqual(ParseErrors.maxLength(MAX_LENGTH));
     expect(result.value).toBe(value);
   });

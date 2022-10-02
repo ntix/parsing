@@ -1,4 +1,4 @@
 /* check value is a Date type */
-export function isDateType(value: any): value is Date {
-  return !!value && !isNaN(value) && Object.prototype.toString.call(value) === '[object Date]';
+export function isDateType(value: unknown): value is Date {
+  return !!value && Object.prototype.toString.call(value) === '[object Date]';
 }

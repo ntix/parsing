@@ -1,3 +1,5 @@
+import { NumberEnumMap, getNumberEnumValues } from './numbers';
+
 /**
  * Creates error objects
  */
@@ -19,15 +21,19 @@ export class ParseErrors {
   /** value should be equal to the value */
   static readonly equals = <T>(value: T) => ({ equals: value });
   /** value should be equal to any of the values */
-  static readonly anyOf = <T>(values: T[]) => ({ anyOf: values });
+  static readonly anyOf = <T>(values: T[] | NumberEnumMap) => ({ anyOf: Array.isArray(values) ? values : getNumberEnumValues(values) });
   /** value should be at least */
-  static readonly min = <T>(value: T) => ({ min: value });
+  static readonly min = <T>(value: T, exclusive: boolean) => ({ min: { value, exclusive } });
   /** value should be at most */
-  static readonly max = <T>(value: T) => ({ max: value });
+  static readonly max = <T>(value: T, exclusive: boolean) => ({ max: { value, exclusive } });
+  /** value should in range */
+  static readonly range = <T>(min: T, max: T, exclusive: boolean) => ({ range: { min, max, exclusive } });
   /** value length should be at least */
   static readonly minLength = <T>(value: T) => ({ minLength: value });
   /** value length should be at most */
   static readonly maxLength = <T>(value: T) => ({ maxLength: value });
+  /** value should in range */
+  static readonly rangeLength = <T>(min: T, max: T, exclusive: boolean) => ({ rangeLength: { min, max, exclusive } });
   /** value should be an array */
   static readonly array = { array: true };
 }

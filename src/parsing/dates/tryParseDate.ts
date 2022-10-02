@@ -1,5 +1,5 @@
-import { isDate, isNullOrEmpty } from '../../predicates';
-import { DateParsable } from './DateParsable';
+import { isDate, isDateType, isNullOrEmpty } from '../../predicates';
+import { DateParsableTypes } from './DateParsableTypes';
 
 /**
  * Attempt to parse a value to a date
@@ -8,8 +8,10 @@ import { DateParsable } from './DateParsable';
  * @param value to be parsed
  * @returns a date or null
  */
-export function tryParseDate(value: DateParsable): Date | null {
-  if (isNullOrEmpty(value) || !isDate(value)) return null;
+export function tryParseDate(value: DateParsableTypes): Date | null {
+  if (isNullOrEmpty(value)) return null;
+  if (isDateType(value)) return value;
+  if (!isDate(value)) return null;
 
   return new Date(value);
 }

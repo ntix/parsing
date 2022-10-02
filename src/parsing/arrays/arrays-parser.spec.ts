@@ -8,7 +8,6 @@ describe('arrays-parser', () => {
     const value = [1];
     const result = parser.parse(value);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
   });
@@ -17,7 +16,6 @@ describe('arrays-parser', () => {
     const value = 1;
     const result = parser.parse(value);
 
-    expect(result.success).toBe(false);
     expect(result.errors).toEqual(ParseErrors.array);
     expect(result.value).toBe(null);
   });

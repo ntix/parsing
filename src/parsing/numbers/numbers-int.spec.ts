@@ -2,60 +2,53 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-int', () => {
-  const schema = Is.int;
+  const parser = Is.int;
 
   it('success number', () => {
-    const result = schema.parse(1);
+    const result = parser.parse(1);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(1);
   });
 
   it('success undefined', () => {
-    const result = schema.parse(undefined);
+    const result = parser.parse(undefined);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success null', () => {
-    const result = schema.parse(null);
+    const result = parser.parse(null);
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success string', () => {
-    const result = schema.parse('1');
+    const result = parser.parse('1');
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(1);
   });
 
   it('success string empty', () => {
-    const result = schema.parse('');
+    const result = parser.parse('');
 
-    expect(result.success).toBe(true);
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('failure not int (float)', () => {
-    const result = schema.parse(1.2);
+    const result = parser.parse(1.2);
 
-    expect(result.success).toBe(false);
     expect(result.errors).toEqual(ParseErrors.int);
     expect(result.value).toBe(null);
   });
 
   it('failure not number', () => {
-    const result = schema.parse('a');
+    const result = parser.parse('a');
 
-    expect(result.success).toBe(false);
     expect(result.errors).toEqual(ParseErrors.int);
     expect(result.value).toBe(null);
   });
