@@ -2,8 +2,8 @@ import { isNullOrEmpty, isInt } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { EqualsValidator } from '../EqualsValidator';
 import { IParser } from '../IParser';
-import { MaxValidator } from '../MaxValidator';
-import { MinValidator } from '../MinValidator';
+import { MaxParser } from '../MaxParser';
+import { MinParser } from '../MinParser';
 import { NumberArrayOrEnumMap } from './NumberArrayOrEnumMap';
 import { parseChain } from '../parseChain';
 import { ParseErrors } from '../ParseErrors';
@@ -37,8 +37,8 @@ export class IntParser implements IIntParser {
   readonly withRadix = (value?: number) => new IntParser(this.parent, value, this.negate);
   readonly anyOf = (valuesOrEnum: NumberArrayOrEnumMap) =>
     new AnyOfValidator(this, ensureNumbersArray(valuesOrEnum), this.negate);
-  readonly min = (value: number) => new MinValidator(this, value, this.negate);
-  readonly max = (value: number) => new MaxValidator(this, value, this.negate);
+  readonly min = (value: number) => new MinParser(this, value, this.negate);
+  readonly max = (value: number) => new MaxParser(this, value, this.negate);
 
   get not() {
     return new IntParser(this.parent, this.radix, true);

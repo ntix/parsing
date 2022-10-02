@@ -1,7 +1,7 @@
 import { isNullOrEmpty, isDateType, isDate } from '../../predicates';
 import { IParser } from '../IParser';
-import { MaxValidator } from '../MaxValidator';
-import { MinValidator } from '../MinValidator';
+import { MaxParser } from '../MaxParser';
+import { MinParser } from '../MinParser';
 import { parseChain } from '../parseChain';
 import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
@@ -39,8 +39,8 @@ export class DateParser implements IDateParser {
 
   readonly equals = (value: Date) => new EqualsValidator<Date, DateParsable>(this, parseDate(value), this.negate);
   readonly anyOf = (values: DateParsable[]) => new AnyOfValidator(this, ensureDateArray(values), this.negate);
-  readonly min = (value: Date) => new MinValidator(this, parseDate(value), this.negate);
-  readonly max = (value: Date) => new MaxValidator(this, parseDate(value), this.negate);
+  readonly min = (value: Date) => new MinParser<Date>(this, parseDate(value), this.negate);
+  readonly max = (value: Date) => new MaxParser<Date>(this, parseDate(value), this.negate);
 
   get not() {
     return new DateParser(this.parent, true);

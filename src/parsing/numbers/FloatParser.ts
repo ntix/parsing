@@ -1,7 +1,7 @@
 import { IParser } from '../IParser';
 import { EqualsValidator } from '../EqualsValidator';
-import { MaxValidator } from '../MaxValidator';
-import { MinValidator } from '../MinValidator';
+import { MaxParser } from '../MaxParser';
+import { MinParser } from '../MinParser';
 import { parseChain } from '../parseChain';
 import { isNullOrEmpty, isFloat } from '../../predicates';
 import { createParseResult } from '../createParseResult';
@@ -33,8 +33,8 @@ export class FloatParser implements IFloatParser {
 
   readonly equals = (value: number) => new EqualsValidator<number>(this, value, this.negate);
   readonly anyOf = (values: number[]) => new AnyOfValidator(this, values, this.negate);
-  readonly min = (value: number) => new MinValidator(this, value, this.negate);
-  readonly max = (value: number) => new MaxValidator(this, value, this.negate);
+  readonly min = (value: number) => new MinParser<number>(this, value, this.negate);
+  readonly max = (value: number) => new MaxParser<number>(this, value, this.negate);
 
   get not() {
     return new FloatParser(this.parent, true);

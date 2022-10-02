@@ -9,5 +9,6 @@ export module Is {
   export const date = new RootParser().date;
   export const string = new RootParser().string;
   export const object = new RootParser().object;
+  export const array = new RootParser().array;
   export const use = new RootParser().use;
 }

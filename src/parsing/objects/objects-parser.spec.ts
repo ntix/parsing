@@ -18,18 +18,31 @@ describe('objects-parser', () => {
     dateOfBirth: Date;
     jobType?: JobTypes;
     salary?: number;
+    emails?: {
+      name: string;
+      address: string;
+    }[];
   }
 
+  const GIVEN_NAME_MAX_LENGTH = 25;
+  const FAMILY_NAME_MAX_LENGTH = 50;
+
   const nameParser = Is.object({
-    given: Is.string,
-    family: Is.required.string,
+    given: Is.string.maxLength(GIVEN_NAME_MAX_LENGTH),
+    family: Is.required.string.maxLength(FAMILY_NAME_MAX_LENGTH),
   });
+
+  // const emailParser = Is.object({
+  //   name: Is.required.string,
+  //   address: Is.required.string,
+  // });
 
   const personParser = Is.object<IPerson>({
     name: Is.required.use(nameParser),
     dateOfBirth: Is.required.date.max(now),
     jobType: Is.int.anyOf(JobTypes),
     salary: Is.float.min(0),
+    //emails: Is.many.min(1).each.use(emailParser)
   });
 
   it('parse', () => {
@@ -65,7 +78,7 @@ describe('objects-parser', () => {
 
   it('parse - invalid family name', () => {
     var value = {
-      name: {},
+      name: { family: 'X'.repeat(100) },
       dateOfBirth: '2000-01-01',
     };
 
@@ -73,7 +86,7 @@ describe('objects-parser', () => {
 
     expect(result.success).toBe(false);
     expect(result.errors).toEqual({
-      name: { family: ParseErrors.required },
+      name: { family: ParseErrors.maxLength(FAMILY_NAME_MAX_LENGTH) },
     });
   });
 

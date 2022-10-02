@@ -12,7 +12,7 @@ export class EqualsValidator<T, TIn = T> implements IParser<T> {
   constructor(private parent: IParser<T>, private equalToValue: TIn, private negate: boolean) {}
 
   readonly parse = parseChain(this.parent, (value) => {
-    if (isNullOrEmpty(value) || isEqual(value, this.equalToValue) === !this.negate) return createParseResult(value);
+    if (isNullOrEmpty(value) || isEqual(value, this.equalToValue) !== this.negate) return createParseResult(value);
 
     let errors: IParseErrors = ParseErrors.equals(this.equalToValue);
     if (this.negate) errors = ParseErrors.not(errors);
