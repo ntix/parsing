@@ -1,8 +1,8 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('dates-parser', () => {
-  const schema = Schema.date;
+  const schema = Is.date;
 
   it('success date', () => {
     const value = new Date();

@@ -1,9 +1,9 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('strings-not-equals', () => {
   const expectedValue = 'value';
-  const schema = Schema.string.not.equals(expectedValue);
+  const schema = Is.string.not.equals(expectedValue);
 
   it('success', () => {
     const value = 'not-value';

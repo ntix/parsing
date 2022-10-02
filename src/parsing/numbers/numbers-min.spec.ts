@@ -1,9 +1,9 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-min', () => {
   const min = 10;
-  const minSchema = Schema.int.min(min);
+  const minSchema = Is.int.min(min);
 
   it('success', () => {
     const value = min + 1;
@@ -43,7 +43,7 @@ describe('numbers-min', () => {
 
   describe('max', () => {
     const max = 15;
-    const maxMinSchema = Schema.int.min(min).max(max);
+    const maxMinSchema = Is.int.min(min).max(max);
 
     it('success', () => {
       const value = max;

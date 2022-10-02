@@ -1,8 +1,8 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('strings', () => {
-  const schema = Schema.string;
+  const schema = Is.string;
 
   it('success', () => {
     const value = 'string';

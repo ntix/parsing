@@ -1,5 +1,5 @@
-import { IParseResult } from './IParseResult';
+import { IParse } from './IParse';
 
 export interface IParser<T> {
-  parse(value: any): IParseResult<T>;
+  parse: IParse<T>;
 }

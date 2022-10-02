@@ -1,8 +1,8 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-float', () => {
-  const schema = Schema.float;
+  const schema = Is.float;
 
   it('success number', () => {
     const result = schema.parse(1);

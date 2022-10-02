@@ -1,9 +1,9 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('strings-equals', () => {
   const expectedValue = 'value';
-  const schema = Schema.string.equals(expectedValue);
+  const schema = Is.string.equals(expectedValue);
 
   it('success', () => {
     const result = schema.parse(expectedValue);

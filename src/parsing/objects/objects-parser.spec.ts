@@ -1,4 +1,4 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { parseDate } from '../dates';
 import { ParseErrors } from '../ParseErrors';
 
@@ -20,14 +20,14 @@ describe('objects-parser', () => {
     salary?: number;
   }
 
-  const schema = Schema.object<IPerson>({
-    name: Schema.required.object({
-      given: Schema.string,
-      family: Schema.required.string,
+  const schema = Is.object<IPerson>({
+    name: Is.required.object({
+      given: Is.string,
+      family: Is.required.string,
     }),
-    dateOfBirth: Schema.required.date.max(now),
-    jobType: Schema.int.anyOf(JobTypes),
-    salary: Schema.float.min(0),
+    dateOfBirth: Is.required.date.max(now),
+    jobType: Is.int.anyOf(JobTypes),
+    salary: Is.float.min(0),
   });
 
   it('parse', () => {

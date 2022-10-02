@@ -1,9 +1,9 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-float-equals', () => {
   const expectedValue = 1;
-  const schema = Schema.float.equals(expectedValue);
+  const schema = Is.float.equals(expectedValue);
 
   it('success number', () => {
     const result = schema.parse(expectedValue);
@@ -55,7 +55,7 @@ describe('numbers-float-equals', () => {
   });
 
   describe('not', () => {
-    const schema = Schema.float.not.equals(10);
+    const schema = Is.float.not.equals(10);
 
     it('success', () => {
       const value = 9;

@@ -1,8 +1,8 @@
 import { IParser } from './IParser';
-import { IParseResult } from './IParseResult';
 import { createParseResult } from './createParseResult';
+import { IParse } from './IParse';
 
-export function parseChain<T>(parent: IParser<T>, current: (value: T) => IParseResult<T>) {
+export function parseChain<T>(parent: IParser<T>, current: IParse<T>) {
   return (value: any) => {
     if (parent == null)
       // when root Schema

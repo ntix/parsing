@@ -1,10 +1,10 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 import { parseDate } from './parseDate';
 
 describe('dates-equals', () => {
   const expectedValue = new Date(3000, 0, 1, 0, 0, 0, 0);
-  const schema = Schema.date.equals(expectedValue);
+  const schema = Is.date.equals(expectedValue);
 
   it('success date', () => {
     const result = schema.parse(expectedValue);
@@ -56,7 +56,7 @@ describe('dates-equals', () => {
   });
 
   describe('not', () => {
-    const schema = Schema.date.not.equals('2000-01-01');
+    const schema = Is.date.not.equals('2000-01-01');
 
     it('success', () => {
       const value = parseDate('3000-01-01');

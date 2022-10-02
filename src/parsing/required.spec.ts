@@ -1,8 +1,8 @@
-import { Schema } from '../Schema';
+import { Is } from '../Is';
 import { ParseErrors } from './ParseErrors';
 
 describe('required', () => {
-  const schema = Schema.required;
+  const schema = Is.required;
 
   it('success', () => {
     const value = 1;

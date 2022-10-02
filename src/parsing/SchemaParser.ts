@@ -1,16 +1,15 @@
 import { IBooleanParser, BooleanParser } from './booleans';
 import { createParseResult } from './createParseResult';
 import { IDateParser, DateParser } from './dates';
-import { IParser } from './IParser';
-import { IIntParser, IntParser, FloatParser, IFloatParser } from './numbers';
-import { IObjectParser, ObjectParser, ObjectSchema } from './objects';
+import { ISchemaParser } from './ISchemaParser';
+import { IIntParser, IntParser, IFloatParser, FloatParser } from './numbers';
+import { ObjectSchema, IObjectParser, ObjectParser } from './objects';
 import { parseChain } from './parseChain';
-import { StringParser } from './strings';
-import { IStringParser } from './strings/IStringParser';
+import { IStringParser, StringParser } from './strings';
 import { validateRequired } from './validateRequired';
 
-export class RequiredValidator implements IParser<any> {
-  constructor(private isRequried) {}
+export class SchemaParser implements ISchemaParser {
+  constructor(private isRequried = false) {}
 
   readonly parse = parseChain(null, (value) => (this.isRequried ? validateRequired(value) : createParseResult(value)));
   readonly boolean: IBooleanParser = new BooleanParser(this);

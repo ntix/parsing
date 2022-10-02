@@ -1,8 +1,8 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('booleans-parser', () => {
-  const schema = Schema.boolean;
+  const schema = Is.boolean;
 
   it('success boolean', () => {
     const value = true;

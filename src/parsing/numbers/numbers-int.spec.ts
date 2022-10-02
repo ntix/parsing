@@ -1,8 +1,8 @@
-import { Schema } from '../../Schema';
+import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('numbers-int', () => {
-  const schema = Schema.int;
+  const schema = Is.int;
 
   it('success number', () => {
     const result = schema.parse(1);
