@@ -2,7 +2,7 @@ import { isInt } from './isInt';
 
 describe('isInt', () => {
   [
-    [null, false] as any,
+    [null, false] as [unknown, boolean],
     [undefined, false],
     [{}, false],
     [[], false],
@@ -11,7 +11,7 @@ describe('isInt', () => {
     [1.2, false],
     ['1.2', false],
     ['', false],
-    ['not number', false],
+    ['not number', false]
   ].forEach(([a, expected]) => {
     it(`${a} ${expected ? 'is' : 'is not'} an integer`, () => {
       const result = isInt(a);

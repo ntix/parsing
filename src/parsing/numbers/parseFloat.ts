@@ -1,11 +1,11 @@
-import { isFloat, isNullOrEmpty } from '../../predicates';
-import { ParseErrors } from '../ParseErrors';
-import { createParseResult } from '../createParseResult';
+import { NumberParsableTypes } from './NumberParsableTypes';
+import { tryParseFloat } from './tryParseFloat';
 
-export function parseFloat(value: any) {
-  if (isNullOrEmpty(value)) return createParseResult(null);
+export function parseFloat(value: NumberParsableTypes): number {
+  const result = tryParseFloat(value);
 
-  if (isFloat(value)) return createParseResult(Number.parseFloat(value));
+  if (result === null)
+    throw new Error(`could not parse "${value}" as a number`);
 
-  return createParseResult(null, ParseErrors.float);
+  return result;
 }

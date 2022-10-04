@@ -1,11 +1,18 @@
-import { isInt, isNullOrEmpty } from '../../predicates';
-import { ParseErrors } from '../ParseErrors';
-import { createParseResult } from '../createParseResult';
+import { NumberParsableTypes } from './NumberParsableTypes';
+import { tryParseInt } from './tryParseInt';
 
-export function parseInt(value: any, radix: number = 10) {
-  if (isNullOrEmpty(value)) return createParseResult(null);
+/**
+ * Parse the value passed
+ *
+ * @param value a parsable number type
+ * @param radix base (2-36) defaults to 10 for decimal
+ * @returns number or throws if not
+ */
+export function parseInt(value: NumberParsableTypes, radix: number): number {
+  const result = tryParseInt(value, radix);
 
-  if (isInt(value)) return createParseResult(Number.parseInt(value, radix));
+  if (result === null)
+    throw new Error(`could not parse "${value}" as a number`);
 
-  return createParseResult(null, ParseErrors.int(radix));
+  return result;
 }

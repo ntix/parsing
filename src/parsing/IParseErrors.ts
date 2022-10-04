@@ -1,3 +1,3 @@
 export interface IParseErrors {
-  [k: string]: any;
+  [k: string]: unknown
 }
