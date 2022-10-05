@@ -8,7 +8,7 @@ export declare class Is {
     static readonly float: import("./parsing").IFloat.Parser;
     static readonly date: import("./parsing").IDate.Parser;
     static readonly string: import("./parsing").IString.Parser;
-    static readonly array: import("./parsing").IArray.Parser<unknown>;
+    static readonly array: import("./parsing").IArray.Parser;
     static readonly for: <T>(schema: import("./parsing").ComplexSchema<T>) => import("./parsing").IComplex.Parser<T>;
     static readonly use: <T>(parser: import("./parsing").IParser<T>) => {
         parse: import("./parsing").IParse<T>;

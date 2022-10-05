@@ -3,4 +3,10 @@
  */
 export * from './IString';
 export * from './StringParser';
+export * from './provideAnyOfString';
+export * from './provideEndsWithString';
+export * from './provideEqualsString';
+export * from './provideIncludesString';
+export * from './provideMatchesString';
 export * from './provideParseString';
+export * from './provideStartsWithString';

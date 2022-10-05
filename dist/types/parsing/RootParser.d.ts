@@ -2,7 +2,7 @@ import { IArray } from './arrays';
 import { IBoolean } from './booleans';
 import { IDate } from './dates';
 import { IParser } from './IParser';
-import { IRoot } from './IRootParser';
+import { IRoot } from './IRoot';
 import { IFloat, IInt } from './numbers';
 import { ComplexSchema, IComplex } from './complex';
 import { IString } from './strings';
@@ -15,7 +15,7 @@ export declare class RootParser implements IRoot.Parser {
     readonly float: IFloat.Parser;
     readonly date: IDate.Parser;
     readonly string: IString.Parser;
-    readonly array: IArray.Parser<unknown>;
+    readonly array: IArray.Parser;
     readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>;
     readonly use: <T>(parser: IParser<T>) => {
         parse: import("./IParse").IParse<T>;

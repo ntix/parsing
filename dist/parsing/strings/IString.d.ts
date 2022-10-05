@@ -1,24 +1,22 @@
 import { IParser } from '../IParser';
+import { RemoveFromBuilder } from '../RemoveFromBuilder';
 /** Fluent API interfaces for strings */
 export declare namespace IString {
-    interface Parser extends IParser<string>, Builder {
+    export interface Parser extends IParser<string>, Builder {
         readonly not: Builder;
     }
-    interface Builder {
-        equals(value: string): EqualsParser;
-        anyOf(values: string[]): AnyOfParser;
-        minLength(value: number, exclusive?: boolean): MinLengthParser;
-        maxLength(value: number, exclusive?: boolean): MaxLengthParser;
-        rangeLength(min: number, max: number, exclusive?: boolean): RangeLengthParser;
+    interface Builder extends Common {
+        equals(value: string, ignoreCase?: boolean): IParser<string>;
+        anyOf(values: string[], ignoreCase?: boolean): IParser<string>;
     }
-    interface EqualsParser extends IParser<string> {
+    interface Common extends IParser<string> {
+        minLength(value: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
+        maxLength(value: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
+        rangeLength(min: number, max: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
+        matches(value: string | RegExp, name?: string): RemoveFromBuilder<Common, 'matches' | 'includes' | 'startsWith' | 'endsWith'>;
+        includes(value: string, ignoreCase?: boolean): RemoveFromBuilder<Common, 'includes' | 'matches'>;
+        startsWith(value: string, ignoreCase?: boolean): RemoveFromBuilder<Common, 'startsWith' | 'matches'>;
+        endsWith(value: string, ignoreCase?: boolean): RemoveFromBuilder<Common, 'endsWith' | 'matches'>;
     }
-    interface AnyOfParser extends IParser<string> {
-    }
-    interface MinLengthParser extends IParser<string> {
-    }
-    interface MaxLengthParser extends IParser<string> {
-    }
-    interface RangeLengthParser extends IParser<string> {
-    }
+    export {};
 }

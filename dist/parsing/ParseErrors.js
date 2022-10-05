@@ -36,3 +36,11 @@ ParseErrors.maxLength = (value) => ({ maxLength: value });
 ParseErrors.rangeLength = (min, max, exclusive) => ({ rangeLength: { min, max, exclusive } });
 /** value should be an array */
 ParseErrors.array = { array: true };
+/** value includes */
+ParseErrors.matches = (name) => ({ matches: name });
+/** value includes */
+ParseErrors.includes = (value, ignoreCase) => ({ includes: { value, ignoreCase } });
+/** starts with */
+ParseErrors.startsWith = (value, ignoreCase) => ({ startsWith: { value, ignoreCase } });
+/** ends with */
+ParseErrors.endsWith = (value, ignoreCase) => ({ endsWith: { value, ignoreCase } });

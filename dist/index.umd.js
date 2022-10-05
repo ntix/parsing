@@ -319,6 +319,14 @@
     ParseErrors.rangeLength = (min, max, exclusive) => ({ rangeLength: { min, max, exclusive } });
     /** value should be an array */
     ParseErrors.array = { array: true };
+    /** value includes */
+    ParseErrors.matches = (name) => ({ matches: name });
+    /** value includes */
+    ParseErrors.includes = (value, ignoreCase) => ({ includes: { value, ignoreCase } });
+    /** starts with */
+    ParseErrors.startsWith = (value, ignoreCase) => ({ startsWith: { value, ignoreCase } });
+    /** ends with */
+    ParseErrors.endsWith = (value, ignoreCase) => ({ endsWith: { value, ignoreCase } });
 
     /**
      * parse all elements of an array
@@ -545,11 +553,95 @@
         }
     }
 
+    function provideEndsWithString(endswithValue, ignoreCase, negate) {
+        return (value) => {
+            if (isNullOrEmpty(value))
+                return createParseResult(null);
+            const a = ignoreCase ? value.toLowerCase() : value;
+            const b = ignoreCase ? endswithValue.toLowerCase() : endswithValue;
+            if (a.endsWith(b) !== negate)
+                return createParseResult(value);
+            return createParseResult(value, ParseErrors.endsWith(value, ignoreCase));
+        };
+    }
+
     function provideParseString() {
         return (value) => {
             if (isNullOrEmpty(value))
                 return createParseResult(null);
             return createParseResult(value.toString());
+        };
+    }
+
+    function provideIncludesString(includesValue, ignoreCase = false, negate) {
+        return (value) => {
+            if (isNullOrEmpty(value))
+                return createParseResult(null);
+            if (ignoreCase) {
+                value = value.toLowerCase();
+                includesValue = includesValue.toLowerCase();
+            }
+            if (value.includes(includesValue) !== negate)
+                return createParseResult(value);
+            return createParseResult(value, ParseErrors.includes(value, ignoreCase));
+        };
+    }
+
+    function provideStartsWithString(startswithValue, ignoreCase, negate) {
+        return (value) => {
+            if (isNullOrEmpty(value))
+                return createParseResult(null);
+            const a = ignoreCase ? value.toLowerCase() : value;
+            const b = ignoreCase ? startswithValue.toLowerCase() : startswithValue;
+            if (a.startsWith(b) !== negate)
+                return createParseResult(value);
+            return createParseResult(value, ParseErrors.startsWith(value, ignoreCase));
+        };
+    }
+
+    function provideMatchesString(matchValue, name, negate) {
+        return (value) => {
+            if (isNullOrEmpty(value))
+                return createParseResult(null);
+            const re = isStringType(matchValue)
+                ? new RegExp(matchValue)
+                : matchValue;
+            if (re.test(value) !== negate)
+                return createParseResult(value);
+            return createParseResult(value, ParseErrors.matches(name !== null && name !== void 0 ? name : matchValue));
+        };
+    }
+
+    function provideEqualsString(equalToValue, ignoreCase, negate) {
+        return (value) => {
+            if (isNullOrEmpty(value))
+                return createParseResult(value);
+            const a = ignoreCase ? value.toLowerCase() : value;
+            const b = ignoreCase ? equalToValue.toLowerCase() : equalToValue;
+            if (isEqual(a, b) !== negate)
+                return createParseResult(value);
+            const errors = negate
+                ? ParseErrors.not(ParseErrors.equals(equalToValue))
+                : ParseErrors.equals(equalToValue);
+            return createParseResult(value, errors);
+        };
+    }
+
+    /**
+     * Validate a value is any of values passed
+     */
+    function provideAnyOfString(values, ignoreCase, negate) {
+        return (value) => {
+            if (isNullOrEmpty(value))
+                return createParseResult(null);
+            const a = ignoreCase ? value.toLowerCase() : value;
+            const b = ignoreCase ? values.map(v => v.toLowerCase()) : values;
+            if (b.some(v => isEqual(v, a)) !== negate)
+                return createParseResult(value);
+            const errors = negate
+                ? ParseErrors.not(ParseErrors.anyOf(values))
+                : ParseErrors.anyOf(values);
+            return createParseResult(value, errors);
         };
     }
 
@@ -562,11 +654,15 @@
             this.parseCurrent = parseCurrent;
             this.negate = negate;
             this.parse = parseChain(this.parent, this.parseCurrent);
-            this.equals = (value) => new StringParser(this, provideEquals(value, this.negate));
-            this.anyOf = (values) => new StringParser(this, provideAnyOf(values, this.negate));
+            this.equals = (value, ignoreCase = false) => new StringParser(this, provideEqualsString(value, ignoreCase, this.negate));
+            this.anyOf = (values, ignoreCase = false) => new StringParser(this, provideAnyOfString(values, ignoreCase, this.negate));
             this.minLength = (value, exclusive = false) => new StringParser(this, provideMinLength(value, exclusive, this.negate));
             this.maxLength = (value, exclusive = false) => new StringParser(this, provideMaxLength(value, exclusive, this.negate));
             this.rangeLength = (min, max, exclusive = false) => new StringParser(this, provideRangeLength(min, max, exclusive, this.negate));
+            this.matches = (value, name = null) => new StringParser(this, provideMatchesString(value, name, this.negate));
+            this.includes = (value, ignoreCase = false) => new StringParser(this, provideIncludesString(value, ignoreCase, this.negate));
+            this.startsWith = (value, ignoreCase = false) => new StringParser(this, provideStartsWithString(value, ignoreCase, this.negate));
+            this.endsWith = (value, ignoreCase = false) => new StringParser(this, provideEndsWithString(value, ignoreCase, this.negate));
         }
         get not() {
             return new StringParser(this.parent, this.parseCurrent, true);
@@ -637,7 +733,12 @@
     exports.parseFloat = parseFloat;
     exports.parseInt = parseInt;
     exports.provideAnyOf = provideAnyOf;
+    exports.provideAnyOfString = provideAnyOfString;
+    exports.provideEndsWithString = provideEndsWithString;
     exports.provideEquals = provideEquals;
+    exports.provideEqualsString = provideEqualsString;
+    exports.provideIncludesString = provideIncludesString;
+    exports.provideMatchesString = provideMatchesString;
     exports.provideMax = provideMax;
     exports.provideMaxLength = provideMaxLength;
     exports.provideMin = provideMin;
@@ -650,6 +751,7 @@
     exports.provideParseString = provideParseString;
     exports.provideRange = provideRange;
     exports.provideRangeLength = provideRangeLength;
+    exports.provideStartsWithString = provideStartsWithString;
     exports.tryParseBoolean = tryParseBoolean;
     exports.tryParseDate = tryParseDate;
     exports.tryParseFloat = tryParseFloat;

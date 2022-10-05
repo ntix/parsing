@@ -79,4 +79,29 @@ export declare class ParseErrors {
     static readonly array: {
         array: boolean;
     };
+    /** value includes */
+    static readonly matches: <T>(name: T) => {
+        matches: T;
+    };
+    /** value includes */
+    static readonly includes: <T>(value: T, ignoreCase: boolean) => {
+        includes: {
+            value: T;
+            ignoreCase: boolean;
+        };
+    };
+    /** starts with */
+    static readonly startsWith: <T>(value: T, ignoreCase: boolean) => {
+        startsWith: {
+            value: T;
+            ignoreCase: boolean;
+        };
+    };
+    /** ends with */
+    static readonly endsWith: <T>(value: T, ignoreCase: boolean) => {
+        endsWith: {
+            value: T;
+            ignoreCase: boolean;
+        };
+    };
 }

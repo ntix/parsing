@@ -1,25 +1,19 @@
 import { IParser } from '../IParser';
+import { RemoveFromBuilder } from '../RemoveFromBuilder';
 import { DateParsableTypes } from './DateParsableTypes';
 /** Fluent API interfaces for dates */
 export declare namespace IDate {
-    interface Parser extends IParser<Date>, Builder {
+    export interface Parser extends Builder {
         readonly not: Builder;
     }
-    interface Builder {
-        equals(value: DateParsableTypes): EqualsParser;
-        anyOf(values: DateParsableTypes[]): AnyOfParser;
-        min(value: DateParsableTypes, exclusive?: boolean): MinParser;
-        max(value: DateParsableTypes, exclusive?: boolean): MaxParser;
-        range(min: DateParsableTypes, max: DateParsableTypes, exclusive?: boolean): RangeParser;
+    interface Builder extends Common {
+        equals(value: DateParsableTypes): IParser<Date>;
+        anyOf(values: DateParsableTypes[]): IParser<Date>;
     }
-    interface EqualsParser extends IParser<Date> {
+    interface Common extends IParser<Date> {
+        min(value: DateParsableTypes, exclusive?: boolean): RemoveFromBuilder<Common, 'min' | 'max' | 'range'>;
+        max(value: DateParsableTypes, exclusive?: boolean): RemoveFromBuilder<Common, 'min' | 'max' | 'range'>;
+        range(min: DateParsableTypes, max: DateParsableTypes, exclusive?: boolean): RemoveFromBuilder<Common, 'min' | 'max' | 'range'>;
     }
-    interface AnyOfParser extends IParser<Date> {
-    }
-    interface MinParser extends IParser<Date> {
-    }
-    interface MaxParser extends IParser<Date> {
-    }
-    interface RangeParser extends IParser<Date> {
-    }
+    export {};
 }
