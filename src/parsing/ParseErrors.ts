@@ -37,6 +37,8 @@ export class ParseErrors {
   /** value should be an array */
   static readonly array = { array: true };
   /** value includes */
+  static readonly matches = <T>(name: T) => ({ matches: name });
+  /** value includes */
   static readonly includes = <T>(value: T, caseSensitive: boolean) => ({ includes: { value, caseSensitive } });
   /** starts with */
   static readonly startsWith = <T>(value: T, caseSensitive: boolean) => ({ startsWith: { value, caseSensitive } });

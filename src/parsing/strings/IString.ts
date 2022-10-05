@@ -17,8 +17,9 @@ export namespace IString {
     minLength(value: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
     maxLength(value: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
     rangeLength(min: number, max: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
-    includes(value: string, caseSensitive?: boolean): RemoveFromBuilder<Common, 'includes'>;
-    startsWith(value: string, caseSensitive?: boolean): RemoveFromBuilder<Common, 'startsWith'>;
-    endsWith(value: string, caseSensitive?: boolean): RemoveFromBuilder<Common, 'endsWith'>;
+    matches(value: string | RegExp, name?: string): RemoveFromBuilder<Common, 'matches' | 'includes' | 'startsWith' | 'endsWith'>;
+    includes(value: string, caseSensitive?: boolean): RemoveFromBuilder<Common, 'includes' | 'matches'>;
+    startsWith(value: string, caseSensitive?: boolean): RemoveFromBuilder<Common, 'startsWith' | 'matches'>;
+    endsWith(value: string, caseSensitive?: boolean): RemoveFromBuilder<Common, 'endsWith' | 'matches'>;
   }
 }

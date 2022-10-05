@@ -16,4 +16,3 @@ type RemoveFromReturnedBuilder<T, method extends string | number | symbol>
   : T extends (...a: infer P) => infer R
   ? (...args: P) => RemoveFromBuilder<R, method>
   : T;
-

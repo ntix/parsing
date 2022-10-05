@@ -73,6 +73,17 @@ describe('complex-parser', () => {
     expect(result.errors).toEqual({ emails: { [0]: { name: ParseErrors.required } } });
   });
 
+  it('parse - invalid email address', () => {
+    const value = {
+      ...valid,
+      emails: [{ ...valid.emails[0], address: 'email@example.co.uk' }]
+    };
+
+    const result = personParser.parse(value);
+
+    expect(result.errors).toEqual({ emails: { [0]: { address: ParseErrors.matches('email') } } });
+  });
+
   it('parse - invalid name', () => {
     const value = {
       ...valid,
@@ -156,7 +167,7 @@ describe('complex-parser', () => {
 
   const emailParser = Is.for<IEmail>({
     name: Is.required.string,
-    address: Is.required.string
+    address: Is.required.string.matches(/.*?\.com/, 'email')
   });
 
   const EMAILS_MIN_LENGTH = 1;
