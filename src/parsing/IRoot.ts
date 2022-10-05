@@ -16,7 +16,7 @@ export namespace IRoot {
     readonly float: IFloat.Parser;
     readonly date: IDate.Parser;
     readonly string: IString.Parser;
-    readonly array: IArray.Parser<unknown>;
+    readonly array: IArray.Parser;
 
     readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>
     readonly use: <T>(parser: IParser<T>) => IParser<T>

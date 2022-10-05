@@ -1,4 +1,5 @@
 import { IParser } from '../IParser';
+import { RemoveFromBuilder } from '../RemoveFromBuilder';
 
 /** Fluent API interfaces for strings */
 export namespace IString {
@@ -7,17 +8,18 @@ export namespace IString {
     readonly not: Builder;
   }
 
-  export interface Builder {
-    equals(value: string): EqualsParser;
-    anyOf(values: string[]): AnyOfParser;
-    minLength(value: number, exclusive?: boolean): MinLengthParser;
-    maxLength(value: number, exclusive?: boolean): MaxLengthParser;
-    rangeLength(min: number, max: number, exclusive?: boolean): RangeLengthParser;
+  interface Builder extends Common {
+    equals(value: string, ignoreCase?: boolean): IParser<string>;
+    anyOf(values: string[], ignoreCase?: boolean): IParser<string>;
   }
 
-  export interface EqualsParser extends IParser<string> { }
-  export interface AnyOfParser extends IParser<string> { }
-  export interface MinLengthParser extends IParser<string> { }
-  export interface MaxLengthParser extends IParser<string> { }
-  export interface RangeLengthParser extends IParser<string> { }
+  interface Common extends IParser<string> {
+    minLength(value: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
+    maxLength(value: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
+    rangeLength(min: number, max: number, exclusive?: boolean): RemoveFromBuilder<Common, 'minLength' | 'maxLength' | 'rangeLength'>;
+    matches(value: string | RegExp, name?: string): RemoveFromBuilder<Common, 'matches' | 'includes' | 'startsWith' | 'endsWith'>;
+    includes(value: string, ignoreCase?: boolean): RemoveFromBuilder<Common, 'includes' | 'matches'>;
+    startsWith(value: string, ignoreCase?: boolean): RemoveFromBuilder<Common, 'startsWith' | 'matches'>;
+    endsWith(value: string, ignoreCase?: boolean): RemoveFromBuilder<Common, 'endsWith' | 'matches'>;
+  }
 }

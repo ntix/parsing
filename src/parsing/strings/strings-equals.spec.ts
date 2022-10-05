@@ -12,6 +12,23 @@ describe('strings-equals', () => {
     expect(result.value).toEqual(expectedValue);
   });
 
+  it('failure case', () => {
+    const value = expectedValue.toUpperCase();
+    const result = parser.parse(value);
+
+    expect(result.errors).toEqual(ParseErrors.equals(expectedValue));
+    expect(result.value).toEqual(value);
+  });
+
+  it('success ignore case', () => {
+    const parser = Is.string.equals(expectedValue, true);
+    const value = expectedValue.toUpperCase();
+    const result = parser.parse(value);
+
+    expect(result.errors).toEqual(ParseErrors.empty);
+    expect(result.value).toEqual(value);
+  });
+
   it('success undefined', () => {
     const result = parser.parse(undefined);
 
