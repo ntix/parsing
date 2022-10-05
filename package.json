@@ -6,6 +6,10 @@
     "url": "https://github.com/ntix/parsing",
     "type": "git"
   },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
+  },
   "main": "dist/index.umd.js",
   "module": "dist/index.js",
   "typings": "dist/types/index.d.ts",
@@ -46,6 +50,8 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
     "@rollup/plugin-typescript": "^8.5.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/jest": "^29.0.3",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
@@ -76,10 +82,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "release": {
-    "branches": [
-      "release"
-    ]
   }
 }
