@@ -2,7 +2,7 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('strings', () => {
-  const parser = Is.string;
+  const parser = Is.string.minLength(0);
 
   it('success', () => {
     const value = 'string';

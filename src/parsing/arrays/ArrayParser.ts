@@ -8,7 +8,7 @@ import { provideRangeLength } from '../provideRangeLength';
 import { IArray } from './IArray';
 import { provideParseArray } from './provideParseArray';
 
-export class ArrayParser<T> implements IArray.Parser<T> {
+export class ArrayParser<T> implements IArray.Parser {
   constructor(
     private parent: IParser<unknown>,
     private parseCurrent: IParse<T[]> = provideParseArray<T>(),
@@ -17,9 +17,9 @@ export class ArrayParser<T> implements IArray.Parser<T> {
 
   readonly parse = parseChain<T[]>(this.parent, this.parseCurrent);
 
-  readonly minLength = <T>(minValue: number, exclusive = false) => new ArrayParser<T>(this, provideMinLength<T[]>(minValue, exclusive, this.negate));
-  readonly maxLength = <T>(maxValue: number, exclusive = false) => new ArrayParser<T>(this, provideMaxLength<T[]>(maxValue, exclusive, this.negate));
-  readonly rangeLength = <T>(minValue: number, maxValue: number, exclusive = false) => new ArrayParser<T>(this, provideRangeLength<T[]>(minValue, maxValue, exclusive, this.negate));
+  readonly minLength = (minValue: number, exclusive = false) => new ArrayParser<T>(this, provideMinLength<T[]>(minValue, exclusive, this.negate));
+  readonly maxLength = (maxValue: number, exclusive = false) => new ArrayParser<T>(this, provideMaxLength<T[]>(maxValue, exclusive, this.negate));
+  readonly rangeLength = (minValue: number, maxValue: number, exclusive = false) => new ArrayParser<T>(this, provideRangeLength<T[]>(minValue, maxValue, exclusive, this.negate));
 
   readonly each = <T>(parser: IParser<T>) => ({ parse: parseChain<T[]>(this, parseAll(parser.parse)) });
 

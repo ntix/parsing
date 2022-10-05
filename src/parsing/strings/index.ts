@@ -3,5 +3,7 @@
  */
 
 export * from './IString';
+export * from './provideEndsWithString';
 export * from './provideParseString';
+export * from './provideStartsWithString';
 export * from './StringParser';

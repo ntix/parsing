@@ -1,24 +1,20 @@
 import { IParser } from '../IParser';
+import { RemoveFromBuilder } from '../RemoveFromBuilder';
 
 /** Fluent API interfaces for arrays */
 export namespace IArray {
 
-  export interface Parser<T> extends IParser<T[]>, Builder {
+  export interface Parser extends BuilderParser {
     readonly not: Builder
   }
 
-  export interface Builder {
-    readonly minLength: <T>(value: number, exclusive?: boolean) => MinParser<T>
-    readonly maxLength: <T>(value: number, exclusive?: boolean) => MaxParser<T>
-    readonly rangeLength: <T>(min: number, max: number, exclusive?: boolean) => RangeParser<T>
-    readonly each: <T>(parser: IParser<T>) => IParser<T[]>
+  interface Builder {
+    readonly minLength: (value: number, exclusive?: boolean) => RemoveFromBuilder<BuilderParser, 'minLength' | 'maxLength' | 'rangeLength'>;
+    readonly maxLength: (value: number, exclusive?: boolean) => RemoveFromBuilder<BuilderParser, 'minLength' | 'maxLength' | 'rangeLength'>;
+    readonly rangeLength: (min: number, max: number, exclusive?: boolean) => RemoveFromBuilder<BuilderParser, 'minLength' | 'maxLength' | 'rangeLength'>;
   }
 
-  export interface MinParser<T> extends EachParser<T> { }
-  export interface MaxParser<T> extends EachParser<T> { }
-  export interface RangeParser<T> extends EachParser<T> { }
-
-  export interface EachParser<T> extends IParser<T[]> {
+  interface BuilderParser extends IParser<unknown[]>, Builder {
     readonly each: <T>(parser: IParser<T>) => IParser<T[]>
   }
 }

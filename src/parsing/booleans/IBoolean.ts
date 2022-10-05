@@ -6,9 +6,7 @@ export namespace IBoolean {
     readonly not: Builder
   }
 
-  export interface Builder {
-    equals(value: boolean): EqualsParser
+  interface Builder {
+    equals(value: boolean): IParser<boolean>
   }
-
-  export interface EqualsParser extends IParser<boolean> { }
 }
