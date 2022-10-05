@@ -39,9 +39,9 @@ export class ParseErrors {
   /** value includes */
   static readonly matches = <T>(name: T) => ({ matches: name });
   /** value includes */
-  static readonly includes = <T>(value: T, caseSensitive: boolean) => ({ includes: { value, caseSensitive } });
+  static readonly includes = <T>(value: T, ignoreCase: boolean) => ({ includes: { value, ignoreCase } });
   /** starts with */
-  static readonly startsWith = <T>(value: T, caseSensitive: boolean) => ({ startsWith: { value, caseSensitive } });
+  static readonly startsWith = <T>(value: T, ignoreCase: boolean) => ({ startsWith: { value, ignoreCase } });
   /** ends with */
-  static readonly endsWith = <T>(value: T, caseSensitive: boolean) => ({ endsWith: { value, caseSensitive } });
+  static readonly endsWith = <T>(value: T, ignoreCase: boolean) => ({ endsWith: { value, ignoreCase } });
 }

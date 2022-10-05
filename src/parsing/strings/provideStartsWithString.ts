@@ -4,21 +4,19 @@ import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideStartsWithString(
-  startswithValue: string, caseSensitive:boolean, negate:boolean
+  startswithValue: string, ignoreCase: boolean, negate: boolean
 ) {
 
   return (value: string): IParseResult<string> => {
     if (isNullOrEmpty(value))
       return createParseResult(null);
 
-    if (!caseSensitive) {
-      value = value.toLowerCase();
-      startswithValue = startswithValue.toLocaleLowerCase();
-    }
+    const a = ignoreCase ? value.toLowerCase() : value;
+    const b = ignoreCase ? startswithValue.toLowerCase() : startswithValue;
 
-    if (value.startsWith(startswithValue) !== negate)
+    if (a.startsWith(b) !== negate)
       return createParseResult(value);
 
-    return createParseResult(value, ParseErrors.startsWith(value, caseSensitive));
+    return createParseResult(value, ParseErrors.startsWith(value, ignoreCase));
   };
 }

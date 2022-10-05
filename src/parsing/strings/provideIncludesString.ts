@@ -4,21 +4,21 @@ import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideIncludesString(
-  includesValue: string, caseSensitive = false, negate: boolean
+  includesValue: string, ignoreCase = false, negate: boolean
 ) {
 
   return (value: string): IParseResult<string> => {
     if (isNullOrEmpty(value))
       return createParseResult(null);
 
-    if (!caseSensitive) {
+    if (ignoreCase) {
       value = value.toLowerCase();
-      includesValue = includesValue.toLocaleLowerCase();
+      includesValue = includesValue.toLowerCase();
     }
 
     if (value.includes(includesValue) !== negate)
       return createParseResult(value);
 
-    return createParseResult(value, ParseErrors.includes(value, caseSensitive));
+    return createParseResult(value, ParseErrors.includes(value, ignoreCase));
   };
 }
