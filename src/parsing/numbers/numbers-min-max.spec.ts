@@ -1,10 +1,10 @@
 import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
-describe('numbers-range', () => {
+describe('numbers-min-max', () => {
   const min = 5;
   const max = 10;
-  const maxMinSchema = Is.int.range(min, max);
+  const maxMinSchema = Is.int.min(min).max(max);
 
   it('success', () => {
     const value = min;
@@ -14,11 +14,19 @@ describe('numbers-range', () => {
     expect(result.value).toBe(value);
   });
 
-  it('success', () => {
+  it('failure min', () => {
     const value = min - 1;
     const result = maxMinSchema.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.range(min, max, false));
+    expect(result.errors).toEqual(ParseErrors.min(min));
+    expect(result.value).toBe(value);
+  });
+
+  it('failure max', () => {
+    const value = max + 1;
+    const result = maxMinSchema.parse(value);
+
+    expect(result.errors).toEqual(ParseErrors.max(max));
     expect(result.value).toBe(value);
   });
 });
