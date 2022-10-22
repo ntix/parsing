@@ -1,14 +1,13 @@
 {
   "name": "@ntix/parsing",
-  "version": "0.0.0-development",
+  "version": "1.0.1",
   "description": "a small parser",
   "repository": {
     "url": "https://github.com/ntix/parsing",
     "type": "git"
   },
   "publishConfig": {
-    "access": "restricted",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "main": "dist/index.umd.js",
   "module": "dist/index.js",
@@ -44,9 +43,6 @@
   ],
   "author": "Anthony Johnston <npm@antix.co.uk> (http://antix.co.uk)",
   "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
     "@rollup/plugin-typescript": "^8.5.0",

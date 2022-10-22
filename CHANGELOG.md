@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/ntix/parsing/compare/v1.0.0...v1.0.1) (2022-10-22)
+
+
+### Bug Fixes
+
+* **parsing:** NextBuilder add/remove methods ([d1d1657](https://github.com/ntix/parsing/commit/d1d16577c1b17f5444920804ddcaa5c46e902e35))
+
 # 1.0.0 (2022-10-05)
 
 
