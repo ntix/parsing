@@ -1,12 +1,11 @@
 import { IParser } from '../IParser';
+import { NextBuilder } from '../NextBuilder';
 
 /** Fluent API interfaces for booleans */
 export namespace IBoolean {
-  export interface Parser extends IParser<boolean>, Builder {
-    readonly not: Builder
-  }
+  export interface Parser extends IParser<boolean> {
+    readonly not: NextBuilder<Parser, 'not'>
 
-  interface Builder {
-    equals(value: boolean): IParser<boolean>
+    equals(value: boolean): NextBuilder<Parser, 'equals' | 'not'>
   }
 }

@@ -1,27 +1,20 @@
 import { IParser } from '../IParser';
+import { NextBuilder } from '../NextBuilder';
 import { NumberEnumMap } from './NumberEnumMap';
 import { NumberParsableTypes } from './NumberParsableTypes';
 
+/** Fluent API interfaces for integers */
 export namespace IInt {
 
-  export interface Parser extends IParser<number>, Builder {
-    readonly not: Builder;
+  export interface Parser extends IParser<number> {
+    withRadix: (value?: number) => NextBuilder<Parser, 'withRadix', 'parse'>;
+
+    readonly not: NextBuilder<Parser, 'not' | 'parse'>;
+
+    equals(value: NumberParsableTypes): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
+    anyOf(values: NumberParsableTypes[] | NumberEnumMap): NextBuilder<Parser, 'anyOf', 'not' | 'parse'>;
+
+    min(value: NumberParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'min', 'not' | 'parse'>;
+    max(value: NumberParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'max', 'not' | 'parse'>;
   }
-
-  export interface Builder {
-
-    withRadix: (value?: number) => Parser;
-
-    equals(value: NumberParsableTypes): EqualsParser;
-    anyOf(values: NumberParsableTypes[] | NumberEnumMap): AnyOfParser;
-    min(value: NumberParsableTypes, exclusive?: boolean): MinParser;
-    max(value: NumberParsableTypes, exclusive?: boolean): MaxParser;
-    range(min: NumberParsableTypes, max: NumberParsableTypes, exclusive?: boolean): RangeParser;
-  }
-
-  export interface EqualsParser extends IParser<number> { }
-  export interface AnyOfParser extends IParser<number> { }
-  export interface MinParser extends IParser<number> { }
-  export interface MaxParser extends IParser<number> { }
-  export interface RangeParser extends IParser<number> { }
 }

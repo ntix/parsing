@@ -23,17 +23,13 @@ export class ParseErrors {
   /** value should be equal to any of the values */
   static readonly anyOf = <T>(values: T[] | NumberEnumMap) => ({ anyOf: Array.isArray(values) ? values : getNumberEnumValues(values) });
   /** value should be at least */
-  static readonly min = <T>(value: T, exclusive: boolean) => ({ min: { value, exclusive } });
+  static readonly min = <T>(value: T, exclusive: boolean = false) => ({ min: { value, exclusive } });
   /** value should be at most */
-  static readonly max = <T>(value: T, exclusive: boolean) => ({ max: { value, exclusive } });
-  /** value should in range */
-  static readonly range = <T>(min: T, max: T, exclusive: boolean) => ({ range: { min, max, exclusive } });
+  static readonly max = <T>(value: T, exclusive: boolean = false) => ({ max: { value, exclusive } });
   /** value length should be at least */
   static readonly minLength = <T>(value: T) => ({ minLength: value });
   /** value length should be at most */
   static readonly maxLength = <T>(value: T) => ({ maxLength: value });
-  /** value should in range */
-  static readonly rangeLength = <T>(min: T, max: T, exclusive: boolean) => ({ rangeLength: { min, max, exclusive } });
   /** value should be an array */
   static readonly array = { array: true };
   /** value includes */
@@ -44,4 +40,6 @@ export class ParseErrors {
   static readonly startsWith = <T>(value: T, ignoreCase: boolean) => ({ startsWith: { value, ignoreCase } });
   /** ends with */
   static readonly endsWith = <T>(value: T, ignoreCase: boolean) => ({ endsWith: { value, ignoreCase } });
+  /** values unique */
+  static readonly unique = { unique: true };
 }

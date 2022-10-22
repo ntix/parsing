@@ -5,7 +5,6 @@ import { IParse } from '../IParse';
 import { provideEquals } from '../provideEquals';
 import { provideMin } from '../provideMin';
 import { provideAnyOf } from '../provideAnyOf';
-import { provideRange } from '../provideRange';
 import { ensureDateArray } from './ensureDateArray';
 import { IDate } from './IDate';
 import { parseDate } from './parseDate';
@@ -29,7 +28,6 @@ export class DateParser implements IDate.Parser {
   readonly anyOf = (values: DateParsableTypes[]) => new DateParser(this, provideAnyOf(ensureDateArray(values), this.negate));
   readonly min = (value: DateParsableTypes, exclusive = false) => new DateParser(this, provideMin(parseDate(value), exclusive, this.negate));
   readonly max = (value: DateParsableTypes, exclusive = false) => new DateParser(this, provideMax(parseDate(value), exclusive, this.negate));
-  readonly range = (min: DateParsableTypes, max: DateParsableTypes, exclusive = false) => new DateParser(this, provideRange(parseDate(min), parseDate(max), exclusive, this.negate));
 
   get not() {
     return new DateParser(this.parent, this.parseCurrent, true);

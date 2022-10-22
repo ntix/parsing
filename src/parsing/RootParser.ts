@@ -26,7 +26,7 @@ export class RootParser implements IRoot.Parser {
   readonly float: IFloat.Parser = new FloatParser(this);
   readonly date: IDate.Parser = new DateParser(this);
   readonly string: IString.Parser = new StringParser(this);
-  readonly array: IArray.Parser = new ArrayParser<unknown>(this);
+  readonly array: IArray.Parser = new ArrayParser(this);
 
   readonly for = <T>(schema: ComplexSchema<T>): IComplex.Parser<T> => new ComplexParser(this, schema);
   readonly use = <T>(parser: IParser<T>) => ({ parse: parseChain<T>(this, parser.parse) });

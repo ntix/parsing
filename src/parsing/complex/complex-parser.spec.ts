@@ -178,8 +178,6 @@ describe('complex-parser', () => {
     jobType: Is.int.anyOf(JobTypes),
     salary: Is.float.min(0),
     scores: Is.required.array.each(Is.float),
-    emails: Is.array
-      .minLength(EMAILS_MIN_LENGTH)
-      .each<IEmail>(emailParser)
+    emails: Is.array.each(emailParser).minLength(EMAILS_MIN_LENGTH)
   });
 });

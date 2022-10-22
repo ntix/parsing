@@ -11,8 +11,8 @@ export function provideEndsWithString(
     if (isNullOrEmpty(value))
       return createParseResult(null);
 
-      const a = ignoreCase ? value.toLowerCase() : value;
-      const b = ignoreCase ? endswithValue.toLowerCase() : endswithValue;
+    const a = ignoreCase ? value.toLowerCase() : value;
+    const b = ignoreCase ? endswithValue.toLowerCase() : endswithValue;
 
     if (a.endsWith(b) !== negate)
       return createParseResult(value);

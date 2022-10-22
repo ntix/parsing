@@ -3,7 +3,6 @@ import { IParser } from '../IParser';
 import { parseChain } from '../parseChain';
 import { provideMaxLength } from '../provideMaxLength';
 import { provideMinLength } from '../provideMinLength';
-import { provideRangeLength } from '../provideRangeLength';
 import { IString } from './IString';
 import { provideEndsWithString } from './provideEndsWithString';
 import { provideParseString } from './provideParseString';
@@ -19,7 +18,7 @@ import { provideAnyOfString } from './provideAnyOfString';
 export class StringParser implements IString.Parser {
   constructor(
     private parent: IParser<unknown>,
-    private parseCurrent: IParse<string> = provideParseString(),
+    private parseCurrent: IParse<string|undefined> = provideParseString(),
     private negate: boolean = false
   ) { }
 
@@ -28,7 +27,6 @@ export class StringParser implements IString.Parser {
   readonly anyOf = (values: string[], ignoreCase = false) => new StringParser(this, provideAnyOfString(values, ignoreCase, this.negate));
   readonly minLength = (value: number, exclusive = false) => new StringParser(this, provideMinLength<string>(value, exclusive, this.negate));
   readonly maxLength = (value: number, exclusive = false) => new StringParser(this, provideMaxLength<string>(value, exclusive, this.negate));
-  readonly rangeLength = (min: number, max: number, exclusive = false) => new StringParser(this, provideRangeLength<string>(min, max, exclusive, this.negate));
   readonly matches = (value: string | RegExp, name: string = null) => new StringParser(this, provideMatchesString(value, name, this.negate));
   readonly includes = (value: string, ignoreCase = false) => new StringParser(this, provideIncludesString(value, ignoreCase, this.negate));
   readonly startsWith = (value: string, ignoreCase = false) => new StringParser(this, provideStartsWithString(value, ignoreCase, this.negate));

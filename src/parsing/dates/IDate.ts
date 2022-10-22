@@ -1,21 +1,16 @@
 import { IParser } from '../IParser';
-import { RemoveFromBuilder } from '../RemoveFromBuilder';
+import { NextBuilder } from '../NextBuilder';
 import { DateParsableTypes } from './DateParsableTypes';
 
 /** Fluent API interfaces for dates */
 export namespace IDate {
-  export interface Parser extends Builder {
-    readonly not: Builder
-  }
+  export interface Parser extends IParser<Date> {
+    readonly not: NextBuilder<Parser, 'not' | 'parse'>;
 
-  interface Builder extends Common {
-    equals(value: DateParsableTypes): IParser<Date>;
-    anyOf(values: DateParsableTypes[]): IParser<Date>;
-  }
+    equals(value: DateParsableTypes): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
+    anyOf(values: DateParsableTypes[]): NextBuilder<Parser, 'anyOf', 'not' | 'parse'>;
 
-  interface Common extends IParser<Date> {
-    min(value: DateParsableTypes, exclusive?: boolean): RemoveFromBuilder<Common, 'min' | 'max' | 'range'>;
-    max(value: DateParsableTypes, exclusive?: boolean): RemoveFromBuilder<Common, 'min' | 'max' | 'range'>;
-    range(min: DateParsableTypes, max: DateParsableTypes, exclusive?: boolean): RemoveFromBuilder<Common, 'min' | 'max' | 'range'>;
+    min(value: DateParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'min', 'not' | 'parse'>;
+    max(value: DateParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'max', 'not' | 'parse'>;
   }
 }

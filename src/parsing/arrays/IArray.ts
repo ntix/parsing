@@ -1,20 +1,18 @@
 import { IParser } from '../IParser';
-import { RemoveFromBuilder } from '../RemoveFromBuilder';
+import { NextBuilder } from '../NextBuilder';
 
 /** Fluent API interfaces for arrays */
 export namespace IArray {
 
-  export interface Parser extends BuilderParser {
-    readonly not: Builder
-  }
+  export interface Parser<T = unknown> extends IParser<T[]> {
+    readonly not: NextBuilder<Parser<T>, 'of' | 'each' | 'not'>
 
-  interface Builder {
-    readonly minLength: (value: number, exclusive?: boolean) => RemoveFromBuilder<BuilderParser, 'minLength' | 'maxLength' | 'rangeLength'>;
-    readonly maxLength: (value: number, exclusive?: boolean) => RemoveFromBuilder<BuilderParser, 'minLength' | 'maxLength' | 'rangeLength'>;
-    readonly rangeLength: (min: number, max: number, exclusive?: boolean) => RemoveFromBuilder<BuilderParser, 'minLength' | 'maxLength' | 'rangeLength'>;
-  }
+    readonly of: <U>() => NextBuilder<Parser<U>, 'of' | 'each', 'unique'>
+    readonly each: <U = T>(parser: IParser<U>) => NextBuilder<Parser<U>, 'of' | 'each'>
 
-  interface BuilderParser extends IParser<unknown[]>, Builder {
-    readonly each: <T>(parser: IParser<T>) => IParser<T[]>
+    readonly unique: (distinctor: (item: T) => unknown) => NextBuilder<Parser<T>, 'of' | 'each' | 'unique'>;
+    readonly minLength: (value: number, exclusive?: boolean) => NextBuilder<Parser<T>, 'of'  | 'each'| 'minLength'>;
+    readonly maxLength: (value: number, exclusive?: boolean) => NextBuilder<Parser<T>, 'of' | 'each' | 'maxLength'>;
+
   }
 }

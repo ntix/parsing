@@ -2,7 +2,7 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('arrays-parser', () => {
-  const parser = Is.array;
+  const parser = Is.array.not;
 
   it('success', () => {
     const value = [1];
