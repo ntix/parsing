@@ -1,27 +1,24 @@
 name: Deploy
 
-on: workflow_dispatch
+on: workflow_dispatch 
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-      NPM_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-
+    
     steps:
-
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        registry-url: https://npm.pkg.github.com/
-
-    - name: npm install, build, test
-      run: |
-        npm i
-        npm run build
-        npm run test
-        
-    - name: deploy
-      run: npx semantic-release
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+          
+      - run: npm ci
+      - run: npm test
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
