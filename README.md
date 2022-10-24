@@ -1,4 +1,5 @@
 ![build](https://github.com/ntix/parsing/workflows/Build/badge.svg)
+[![CodeQL](https://github.com/ntix/parsing/actions/workflows/codeql.yml/badge.svg)](https://github.com/ntix/parsing/actions/workflows/codeql.yml)
 
 [Documentation](https://ntix.github.io/parsing/)
 
