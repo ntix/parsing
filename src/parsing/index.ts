@@ -3,6 +3,7 @@
  */
 
 export * from './createParseResult';
+export * from './hasParseErrors';
 export * from './IHasLength';
 export * from './IParse';
 export * from './IParseErrors';
