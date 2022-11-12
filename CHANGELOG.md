@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/ntix/parsing/compare/v1.0.1...v1.0.2) (2022-11-12)
+
+
+### Bug Fixes
+
+* **build:** sync package lock ([bf9e638](https://github.com/ntix/parsing/commit/bf9e63882f1dff579437b368274a71bfcec908ab))
+* **dates:** when browser parse/format is different for day/month position ([97a413d](https://github.com/ntix/parsing/commit/97a413d8f111281a61492b246fdbcafa0b1a5dec))
+
 ## [1.0.1](https://github.com/ntix/parsing/compare/v1.0.0...v1.0.1) (2022-10-22)
 
 
