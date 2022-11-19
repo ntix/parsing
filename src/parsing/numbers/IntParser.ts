@@ -9,8 +9,8 @@ import { provideMin } from '../provideMin';
 import { IInt } from './IInt';
 import { provideParseInt } from './provideParseInt';
 import { tryParseInt } from './tryParseInt';
-import { NumberEnumMap } from './NumberEnumMap';
 import { Nullable } from '../Nullable';
+import { NumberEnumMap } from '../../numbers';
 
 /**
  * Fluent builder for parsing ints

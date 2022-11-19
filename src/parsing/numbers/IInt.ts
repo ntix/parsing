@@ -1,7 +1,7 @@
+import { NumberEnumMap } from '../../numbers';
 import { IParser } from '../IParser';
 import { NextBuilder } from '../NextBuilder';
 import { Nullable } from '../Nullable';
-import { NumberEnumMap } from './NumberEnumMap';
 import { NumberParsableTypes } from './NumberParsableTypes';
 
 /** Fluent API interfaces for integers */

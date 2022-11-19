@@ -1,7 +1,7 @@
 import { isNullOrUndefined } from '../predicates';
 import { isOneOf } from '../predicates/isOneOf';
 import { createParseResult } from './createParseResult';
-import { NumberEnumMap } from './numbers';
+import { NumberEnumMap } from '../numbers';
 import { ParseErrors } from './ParseErrors';
 
 /**
