@@ -2,6 +2,7 @@ import { Is } from '../../Is';
 import { isOneOf } from '../../predicates';
 import { parseDate } from '../dates';
 import { ParseErrors } from '../ParseErrors';
+import { If } from '../If';
 
 describe('complex-parser', () => {
 
@@ -189,7 +190,7 @@ describe('complex-parser', () => {
     name: Is.required.use(nameParser),
     dateOfBirth: Is.required.date.max(now),
     jobType: Is.int.oneOf(JobTypes),
-    salary: Is.if(
+    salary: If(
       p => isOneOf(p.jobType, JobTypes),
       Is.required.float.min(0),
       Is.float.min(0)

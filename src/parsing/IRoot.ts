@@ -23,12 +23,6 @@ export namespace IRoot {
     /** parse an array */
     readonly array: IArray.Parser;
 
-    /** conditional if */
-    readonly if: <P, T>(
-      predicate: (value: P) => boolean,
-      trueAction: IParser<T>,
-      falseAction?: IParser<T>
-    ) => IParser<T>
     /** parse a complex object */
     readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>
     /** parse with a function */

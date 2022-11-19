@@ -24,8 +24,6 @@ export class Is {
   /** parse an array */
   static readonly array = new RootParser().array;
 
-  /** conditional if */
-  static readonly if = new RootParser().if;
   /** parse a complex object */
   static readonly for = new RootParser().for;
   /** parse with a function */
