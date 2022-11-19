@@ -6,8 +6,10 @@ export class Is {
     throw new Error('static class');
   }
 
-  /** value is required */
-  static readonly required: IRoot.Parser = new RootParser(true);
+  /** value is not undefined, allows null or empty string */
+  static readonly defined: IRoot.Parser = new RootParser(true, false);
+  /** value is not undefined or null */
+  static readonly required: IRoot.Parser = new RootParser(false, true);
 
   /** parse a boolean */
   static readonly boolean = new RootParser().boolean;

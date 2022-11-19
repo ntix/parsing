@@ -17,13 +17,16 @@ import { provideIfParser } from './provideIfParser';
  */
 export class RootParser implements IRoot.Parser {
   constructor(
+    private isDefained = false,
     private isRequried = false
   ) { }
 
   readonly parse = parseChain(null, value =>
-    this.isRequried && isNullOrEmpty(value)
-      ? createParseResult(value, ParseErrors.required)
-      : createParseResult(value));
+    this.isDefained && value === undefined
+      ? createParseResult(value, ParseErrors.defined)
+      : this.isRequried && isNullOrEmpty(value)
+        ? createParseResult(value, ParseErrors.required)
+        : createParseResult(value));
 
   readonly boolean: IBoolean.Parser = new BooleanParser(this);
   readonly int: IInt.Parser = new IntParser(this);

@@ -7,7 +7,9 @@ import { NumberEnumMap } from './numbers/NumberEnumMap';
 export class ParseErrors {
   /** not an error */
   static readonly empty = {};
-  /** required */
+  /** not undefined, allows null or empty string*/
+  static readonly defined = { defined: true };
+  /** not undefined, null or empty string */
   static readonly required = { required: true };
   /** wrap error in a not */
   static readonly not = <T>(value: T) => ({ not: value });
