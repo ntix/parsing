@@ -6,7 +6,7 @@ describe('numbers-int-enum', () => {
     One,
     Two
   }
-  const parser = Is.int.anyOf(SomeValues);
+  const parser = Is.int.oneOf(SomeValues);
 
   it('success number', () => {
     const result = parser.parse(1);
@@ -18,7 +18,7 @@ describe('numbers-int-enum', () => {
   it('failure number out of range', () => {
     const result = parser.parse(99);
 
-    expect(result.errors).toEqual(ParseErrors.anyOf(SomeValues));
+    expect(result.errors).toEqual(ParseErrors.oneOf(SomeValues));
     expect(result.value).toBe(99);
   });
 

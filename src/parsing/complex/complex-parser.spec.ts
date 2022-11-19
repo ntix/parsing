@@ -1,4 +1,5 @@
 import { Is } from '../../Is';
+import { isOneOf } from '../../predicates';
 import { parseDate } from '../dates';
 import { ParseErrors } from '../ParseErrors';
 
@@ -26,7 +27,19 @@ describe('complex-parser', () => {
 
     const result = personParser.parse(value);
 
-    expect(result.errors).toEqual({ jobType: ParseErrors.anyOf(JobTypes) });
+    expect(result.errors).toEqual({ jobType: ParseErrors.oneOf(JobTypes) });
+  });
+
+  it('parse - valid job type, invalid salary', () => {
+    const value = {
+      ...valid,
+      jobType: JobTypes.developer,
+      salary: null
+    };
+
+    const result = personParser.parse(value);
+
+    expect(result.errors).toEqual({ salary: ParseErrors.required });
   });
 
   it('parse - invalid null scores', () => {
@@ -175,8 +188,12 @@ describe('complex-parser', () => {
   const personParser = Is.for<IPerson>({
     name: Is.required.use(nameParser),
     dateOfBirth: Is.required.date.max(now),
-    jobType: Is.int.anyOf(JobTypes),
-    salary: Is.float.min(0),
+    jobType: Is.int.oneOf(JobTypes),
+    salary: Is.if(
+      p => isOneOf(p.jobType, JobTypes),
+      Is.required.float.min(0),
+      Is.float.min(0)
+    ),
     scores: Is.required.array.each(Is.float),
     emails: Is.array.each(emailParser).minLength(EMAILS_MIN_LENGTH)
   });

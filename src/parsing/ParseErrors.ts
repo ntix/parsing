@@ -21,8 +21,8 @@ export class ParseErrors {
   static readonly date = { date: true };
   /** value should be equal to the value */
   static readonly equals = <T>(value: T) => ({ equals: value });
-  /** value should be equal to any of the values */
-  static readonly anyOf = <T>(values: T[] | NumberEnumMap) => ({ anyOf: Array.isArray(values) ? values : getNumberEnumValues(values) });
+  /** value should be equal to one of the values */
+  static readonly oneOf = <T>(values: T[] | NumberEnumMap) => ({ oneOf: Array.isArray(values) ? values : getNumberEnumValues(values) });
   /** value should be at least */
   static readonly min = <T>(value: T, exclusive = false) => ({ min: { value, exclusive } });
   /** value should be at most */
