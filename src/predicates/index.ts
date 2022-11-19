@@ -11,4 +11,5 @@ export * from './isInt';
 export * from './isNullOrEmpty';
 export * from './isNullOrUndefined';
 export * from './isNumberType';
+export * from './isOneOf';
 export * from './isStringType';

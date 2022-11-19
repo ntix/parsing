@@ -4,7 +4,12 @@ import { isNullOrEmpty } from './isNullOrEmpty';
 import { isNumberType } from './isNumberType';
 import { isStringType } from './isStringType';
 
-/** checks value is a date */
+/**
+ * Check value is a parsable date or not
+ *
+ * @param value to check
+ * @returns true if value is parsable date
+ */
 export function isDate(value: unknown): value is DateParsableTypes {
   if (isNullOrEmpty(value)) return false;
   if (isDateType(value)) return true;

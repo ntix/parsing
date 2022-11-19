@@ -10,7 +10,7 @@ import { provideIncludesString } from './provideIncludesString';
 import { provideStartsWithString } from './provideStartsWithString';
 import { provideMatchesString } from './provideMatchesString';
 import { provideEqualsString } from './provideEqualsString';
-import { provideAnyOfString } from './provideAnyOfString';
+import { provideOneOfString } from './provideOneOfString';
 
 /**
  * Fluent builder for parsing strings
@@ -24,7 +24,7 @@ export class StringParser implements IString.Parser {
 
   readonly parse = parseChain(this.parent, this.parseCurrent);
   readonly equals = (value: string, ignoreCase = false) => new StringParser(this, provideEqualsString(value, ignoreCase, this.negate));
-  readonly anyOf = (values: string[], ignoreCase = false) => new StringParser(this, provideAnyOfString(values, ignoreCase, this.negate));
+  readonly oneOf = (values: string[], ignoreCase = false) => new StringParser(this, provideOneOfString(values, ignoreCase, this.negate));
   readonly minLength = (value: number, exclusive = false) => new StringParser(this, provideMinLength<string>(value, exclusive, this.negate));
   readonly maxLength = (value: number, exclusive = false) => new StringParser(this, provideMaxLength<string>(value, exclusive, this.negate));
   readonly matches = (value: string | RegExp, name: string = null) => new StringParser(this, provideMatchesString(value, name, this.negate));

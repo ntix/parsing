@@ -3,9 +3,9 @@ import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
 
 /**
- * Validate a value is any of values passed
+ * Validate a value is one of values passed
  */
-export function provideAnyOfString(
+export function provideOneOfString(
   values: string[], ignoreCase: boolean, negate: boolean
 ) {
 
@@ -20,8 +20,8 @@ export function provideAnyOfString(
       return createParseResult(value);
 
     const errors = negate
-      ? ParseErrors.not(ParseErrors.anyOf(values))
-      : ParseErrors.anyOf(values);
+      ? ParseErrors.not(ParseErrors.oneOf(values))
+      : ParseErrors.oneOf(values);
 
     return createParseResult(value, errors);
   };

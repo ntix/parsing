@@ -4,7 +4,7 @@ import { parseChain } from '../parseChain';
 import { IParse } from '../IParse';
 import { provideEquals } from '../provideEquals';
 import { provideMin } from '../provideMin';
-import { provideAnyOf } from '../provideAnyOf';
+import { provideOneOf } from '../provideOneOf';
 import { ensureDateArray } from './ensureDateArray';
 import { IDate } from './IDate';
 import { parseDate } from './parseDate';
@@ -25,7 +25,7 @@ export class DateParser implements IDate.Parser {
 
   readonly parse = parseChain(this.parent, this.parseCurrent);
   readonly equals = (value: DateParsableTypes) => new DateParser(this, provideEquals(parseDate(value), this.negate));
-  readonly anyOf = (values: DateParsableTypes[]) => new DateParser(this, provideAnyOf(ensureDateArray(values), this.negate));
+  readonly oneOf = (values: DateParsableTypes[]) => new DateParser(this, provideOneOf(ensureDateArray(values), this.negate));
   readonly min = (value: DateParsableTypes, exclusive = false) => new DateParser(this, provideMin(parseDate(value), exclusive, this.negate));
   readonly max = (value: DateParsableTypes, exclusive = false) => new DateParser(this, provideMax(parseDate(value), exclusive, this.negate));
 

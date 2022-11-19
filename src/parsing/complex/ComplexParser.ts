@@ -17,7 +17,7 @@ export class ComplexParser<T> implements IComplex.Parser<T> {
     return Object
       .keys(this.schema)
       .reduce<IParseResult<T>>((r, key) => {
-        const result = this.schema[key].parse(originalValue[key]);
+        const result = this.schema[key].parse(originalValue[key], originalValue);
         const value
           = result.value == null
             ? r.value

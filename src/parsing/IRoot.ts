@@ -8,17 +8,30 @@ import { IArray } from './arrays';
 
 export namespace IRoot {
 
-  export interface Parser extends IParser<unknown>, Builder { }
+  export interface Parser extends IParser<unknown> {
 
-  export interface Builder {
+    /** parse a boolean */
     readonly boolean: IBoolean.Parser;
+    /** parse a number (int) */
     readonly int: IInt.Parser;
+    /** parse a number (floa) */
     readonly float: IFloat.Parser;
+    /** parse a date */
     readonly date: IDate.Parser;
+    /** parse a string */
     readonly string: IString.Parser;
+    /** parse an array */
     readonly array: IArray.Parser;
 
+    /** conditional if */
+    readonly if: <P, T>(
+      predicate: (value: P) => boolean,
+      trueAction: IParser<T>,
+      falseAction?: IParser<T>
+    ) => IParser<T>
+    /** parse a complex object */
     readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>
+    /** parse with a function */
     readonly use: <T>(parser: IParser<T>) => IParser<T>
   }
 }

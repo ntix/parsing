@@ -1,5 +1,5 @@
 import { IParseResult } from './IParseResult';
 
-export interface IParse<T> {
-  (value: unknown): IParseResult<T>
+export interface IParse<T, P = unknown> {
+  (value: unknown, parentValue?: P): IParseResult<T>
 }
