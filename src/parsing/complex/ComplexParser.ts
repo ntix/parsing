@@ -1,4 +1,4 @@
-import { isEqual, isNullOrEmpty } from '../../predicates';
+import { isEqual, isNullOrUndefined } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { IParser } from '../IParser';
 import { IParseResult } from '../IParseResult';
@@ -11,7 +11,7 @@ export class ComplexParser<T> implements IComplex.Parser<T> {
   constructor(private parent: IParser<unknown>, private schema: ComplexSchema<T>) { }
 
   readonly parse = parseChain(this.parent, (originalValue: unknown) => {
-    if (isNullOrEmpty(originalValue))
+    if (isNullOrUndefined(originalValue))
       return createParseResult(null);
 
     return Object

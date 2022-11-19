@@ -1,4 +1,4 @@
-import { isEqual, isNullOrEmpty } from '../predicates';
+import { isEqual, isNullOrUndefined } from '../predicates';
 import { createParseResult } from './createParseResult';
 import { IParseErrors } from './IParseErrors';
 import { ParseErrors } from './ParseErrors';
@@ -8,7 +8,8 @@ export function provideEquals<T>(
 ) {
 
   return (value: T) => {
-    if (isNullOrEmpty(value) || isEqual(value, equalToValue) !== negate)
+    if (isNullOrUndefined(value)
+      || isEqual(value, equalToValue) !== negate)
       return createParseResult(value);
 
     let errors: IParseErrors = ParseErrors.equals(equalToValue);

@@ -33,7 +33,7 @@ describe('strings-equals', () => {
     const result = parser.parse(undefined);
 
     expect(result.errors).toEqual(ParseErrors.empty);
-    expect(result.value).toBe(null);
+    expect(result.value).toBe(undefined);
   });
 
   it('success null', () => {

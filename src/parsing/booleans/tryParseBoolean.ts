@@ -1,4 +1,5 @@
-import { isBooleanType, isNullOrEmpty, isStringType } from '../../predicates';
+import { isBooleanType, isNullOrUndefined, isStringType } from '../../predicates';
+import { Nullable } from '../Nullable';
 
 /** values considered to be a boolean true */
 export const BOOLEANS_TRUE = [1, '1', 'true', 'on'];
@@ -9,10 +10,10 @@ export const BOOLEANS_FALSE = [0, '0', 'false', 'off'];
  * try and parse the value as a boolean
  *
  * @param value value to parse
- * @returns boolean or a null if failed parse
+ * @returns boolean, undefined or null
  */
-export function tryParseBoolean(value: unknown): boolean | null {
-  if (isNullOrEmpty(value)) return null;
+export function tryParseBoolean(value: unknown): Nullable<boolean> {
+  if (isNullOrUndefined(value)) return null;
   if (isBooleanType(value)) return value;
 
   if (isStringType(value))

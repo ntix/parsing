@@ -1,4 +1,4 @@
-import { isEqual, isNullOrEmpty } from '../../predicates';
+import { isEqual, isNullOrUndefined } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { ParseErrors } from '../ParseErrors';
 
@@ -10,7 +10,7 @@ export function provideAnyOfString(
 ) {
 
   return (value: string) => {
-    if (isNullOrEmpty(value))
+    if (isNullOrUndefined(value))
       return createParseResult(null);
 
     const a = ignoreCase ? value.toLowerCase() : value;

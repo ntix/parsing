@@ -24,9 +24,9 @@ export class ParseErrors {
   /** value should be equal to any of the values */
   static readonly anyOf = <T>(values: T[] | NumberEnumMap) => ({ anyOf: Array.isArray(values) ? values : getNumberEnumValues(values) });
   /** value should be at least */
-  static readonly min = <T>(value: T, exclusive: boolean = false) => ({ min: { value, exclusive } });
+  static readonly min = <T>(value: T, exclusive = false) => ({ min: { value, exclusive } });
   /** value should be at most */
-  static readonly max = <T>(value: T, exclusive: boolean = false) => ({ max: { value, exclusive } });
+  static readonly max = <T>(value: T, exclusive = false) => ({ max: { value, exclusive } });
   /** value length should be at least */
   static readonly minLength = <T>(value: T) => ({ minLength: value });
   /** value length should be at most */

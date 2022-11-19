@@ -11,7 +11,7 @@ export namespace IArray {
     readonly each: <U = T>(parser: IParser<U>) => NextBuilder<Parser<U>, 'of' | 'each'>
 
     readonly unique: (distinctor: (item: T) => unknown) => NextBuilder<Parser<T>, 'of' | 'each' | 'unique'>;
-    readonly minLength: (value: number, exclusive?: boolean) => NextBuilder<Parser<T>, 'of'  | 'each'| 'minLength'>;
+    readonly minLength: (value: number, exclusive?: boolean) => NextBuilder<Parser<T>, 'of' | 'each'| 'minLength'>;
     readonly maxLength: (value: number, exclusive?: boolean) => NextBuilder<Parser<T>, 'of' | 'each' | 'maxLength'>;
 
   }

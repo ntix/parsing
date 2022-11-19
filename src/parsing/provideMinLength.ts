@@ -1,4 +1,4 @@
-import { isNullOrEmpty } from '../predicates';
+import { isNullOrUndefined } from '../predicates';
 import { createParseResult } from './createParseResult';
 import { IParseErrors } from './IParseErrors';
 import { ParseErrors } from './ParseErrors';
@@ -10,7 +10,7 @@ export function provideMinLength<T extends IHasLength>(
 ) {
 
   return (value: T): IParseResult<T> => {
-    if (isNullOrEmpty(value)
+    if (isNullOrUndefined(value)
       || (exclusive ? value.length > minLength : value.length >= minLength) !== negate)
       return createParseResult(value);
 
