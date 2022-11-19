@@ -1,4 +1,4 @@
-import { NumberEnumMap, getNumberEnumValues } from '../parsing';
+import { NumberEnumMap, getNumberEnumValues } from '../numbers';
 import { isEqual } from './isEqual';
 
 export function isOneOf<T>(value: T, values: T[] | NumberEnumMap) {
