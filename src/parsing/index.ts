@@ -4,6 +4,7 @@
 
 export * from './createParseResult';
 export * from './hasParseErrors';
+export * from './If';
 export * from './IHasLength';
 export * from './IParse';
 export * from './IParseErrors';
@@ -17,7 +18,6 @@ export * from './parseCast';
 export * from './parseChain';
 export * from './ParseErrors';
 export * from './provideEquals';
-export * from './provideIfParser';
 export * from './provideMax';
 export * from './provideMaxLength';
 export * from './provideMin';
