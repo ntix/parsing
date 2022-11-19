@@ -1,4 +1,4 @@
-import { isNullOrEmpty } from '../../predicates';
+import { isNullOrUndefined } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
@@ -6,7 +6,7 @@ import { ParseErrors } from '../ParseErrors';
 export function provideParseArray<T>() {
 
   return (value: T): IParseResult<T[]> => {
-    if (isNullOrEmpty(value))
+    if (isNullOrUndefined(value))
       return createParseResult(null);
 
     if (Array.isArray(value))

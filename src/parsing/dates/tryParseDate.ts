@@ -1,4 +1,4 @@
-import { isDateType, isNullOrEmpty, isNumberType, isStringType } from '../../predicates';
+import { isDateType, isNullOrUndefined, isNumberType, isStringType } from '../../predicates';
 import { DateParsableTypes } from './DateParsableTypes';
 import { DATE_SETTINGS } from './DATE_SETTINGS';
 
@@ -9,8 +9,10 @@ import { DATE_SETTINGS } from './DATE_SETTINGS';
  * @returns a date or null
  */
 export function tryParseDate(value: DateParsableTypes): Date | null {
-  if (isNullOrEmpty(value)) return null;
+  if (isNullOrUndefined(value)) return value;
+  if (value === '') return null;
   if (isDateType(value)) return value;
+
   if (isStringType(value)) {
     value = value.trim();
 

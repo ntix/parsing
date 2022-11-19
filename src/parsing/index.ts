@@ -11,6 +11,7 @@ export * from './IParser';
 export * from './IParseResult';
 export * from './IRoot';
 export * from './NextBuilder';
+export * from './Nullable';
 export * from './parseAll';
 export * from './parseCast';
 export * from './parseChain';

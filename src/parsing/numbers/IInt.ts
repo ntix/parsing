@@ -1,5 +1,6 @@
 import { IParser } from '../IParser';
 import { NextBuilder } from '../NextBuilder';
+import { Nullable } from '../Nullable';
 import { NumberEnumMap } from './NumberEnumMap';
 import { NumberParsableTypes } from './NumberParsableTypes';
 
@@ -11,7 +12,7 @@ export namespace IInt {
 
     readonly not: NextBuilder<Parser, 'not' | 'parse'>;
 
-    equals(value: NumberParsableTypes): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
+    equals(value: Nullable<NumberParsableTypes>): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
     anyOf(values: NumberParsableTypes[] | NumberEnumMap): NextBuilder<Parser, 'anyOf', 'not' | 'parse'>;
 
     min(value: NumberParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'min', 'not' | 'parse'>;

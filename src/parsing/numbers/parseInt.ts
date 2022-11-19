@@ -6,7 +6,7 @@ import { tryParseInt } from './tryParseInt';
  *
  * @param value a parsable number type
  * @param radix base (2-36) defaults to 10 for decimal
- * @returns number or throws if not
+ * @returns number (int) or throws if not
  */
 export function parseInt(value: NumberParsableTypes, radix: number): number {
   const result = tryParseInt(value, radix);

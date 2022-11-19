@@ -1,7 +1,8 @@
 import { IParseErrors } from './IParseErrors';
+import { Nullable } from './Nullable';
 
 export interface IParseResult<T> {
-  value: T | null
-  success: boolean
-  errors: IParseErrors
+  value: Nullable<T>;
+  success: boolean;
+  errors: IParseErrors;
 }

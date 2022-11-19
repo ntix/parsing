@@ -16,7 +16,7 @@ describe('numbers-float-equals', () => {
     const result = parser.parse(undefined);
 
     expect(result.errors).toEqual(ParseErrors.empty);
-    expect(result.value).toBe(null);
+    expect(result.value).toBe(undefined);
   });
 
   it('success null', () => {
@@ -33,7 +33,7 @@ describe('numbers-float-equals', () => {
     expect(result.value).toBe(expectedValue);
   });
 
-  it('success string empty', () => {
+  it('success string empty - normalised to null', () => {
     const result = parser.parse('');
 
     expect(result.errors).toEqual(ParseErrors.empty);
@@ -41,30 +41,27 @@ describe('numbers-float-equals', () => {
   });
 
   it('failure not equal', () => {
-    const value = 2;
-    const result = parser.parse(value);
+    const result = parser.parse(2);
 
     expect(result.errors).toEqual(ParseErrors.equals(expectedValue));
-    expect(result.value).toBe(value);
+    expect(result.value).toBe(2);
   });
 
   describe('not', () => {
     const parser = Is.float.not.equals(10);
 
     it('success', () => {
-      const value = 9;
-      const result = parser.parse(value);
+      const result = parser.parse(9);
 
       expect(result.errors).toEqual(ParseErrors.empty);
-      expect(result.value).toEqual(value);
+      expect(result.value).toEqual(9);
     });
 
     it('failure', () => {
-      const value = 10;
-      const result = parser.parse(value);
+      const result = parser.parse(10);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(value)));
-      expect(result.value).toEqual(value);
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(10)));
+      expect(result.value).toEqual(10);
     });
   });
 });

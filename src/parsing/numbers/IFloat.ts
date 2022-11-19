@@ -1,5 +1,6 @@
 import { IParser } from '../IParser';
 import { NextBuilder } from '../NextBuilder';
+import { Nullable } from '../Nullable';
 import { NumberParsableTypes } from './NumberParsableTypes';
 
 /** Fluent API interfaces for floating points */
@@ -8,7 +9,7 @@ export namespace IFloat {
   export interface Parser extends IParser<number> {
     readonly not: NextBuilder<Parser, 'not' | 'parse'>;
 
-    equals(value: NumberParsableTypes): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
+    equals(value: Nullable<NumberParsableTypes>): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
     anyOf(values: NumberParsableTypes[]): NextBuilder<Parser, 'anyOf', 'not' | 'parse'>;
 
     min(value: NumberParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'min', 'not' | 'parse'>;
