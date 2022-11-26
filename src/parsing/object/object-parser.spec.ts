@@ -20,6 +20,24 @@ describe('object-parser', () => {
     expect(result.errors).toEqual(ParseErrors.empty);
   });
 
+  it('parse null', () => {
+    const value = null;
+
+    const result = personParser.parse(value);
+
+    expect(result.value).toEqual(null);
+    expect(result.errors).toEqual(ParseErrors.empty);
+  });
+
+  it('parse required null', () => {
+    const value = null;
+
+    const result = Is.required.use(personParser).parse(value);
+
+    expect(result.value).toEqual(null);
+    expect(result.errors).toEqual(ParseErrors.required);
+  });
+
   it('parse - invalid job type', () => {
     const value = {
       ...valid,
