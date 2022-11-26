@@ -1,6 +1,6 @@
 import { Is } from '../../Is';
+import { getNumberEnumValues } from '../../numbers';
 import { ParseErrors } from '../ParseErrors';
-import { getNumberEnumValues } from './getNumberEnumValues';
 
 describe('numbers-int-oneOf', () => {
   const oneOf = [1, 2, 4, 5];
