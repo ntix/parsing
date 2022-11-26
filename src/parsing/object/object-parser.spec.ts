@@ -4,7 +4,7 @@ import { parseDate } from '../dates';
 import { ParseErrors } from '../ParseErrors';
 import { If } from '../If';
 
-describe('complex-parser', () => {
+describe('object-parser', () => {
 
   it('parse', () => {
     const value = valid;
@@ -174,19 +174,19 @@ describe('complex-parser', () => {
   const GIVEN_NAME_MAX_LENGTH = 25;
   const FAMILY_NAME_MAX_LENGTH = 50;
 
-  const nameParser = Is.for({
+  const nameParser = Is.object({
     given: Is.string.maxLength(GIVEN_NAME_MAX_LENGTH),
     family: Is.required.string.maxLength(FAMILY_NAME_MAX_LENGTH)
   });
 
-  const emailParser = Is.for<IEmail>({
+  const emailParser = Is.object<IEmail>({
     name: Is.required.string,
     address: Is.required.string.matches(/.*?\.com/, 'email')
   });
 
   const EMAILS_MIN_LENGTH = 1;
 
-  const personParser = Is.for<IPerson>({
+  const personParser = Is.object<IPerson>({
     name: Is.required.use(nameParser),
     dateOfBirth: Is.required.date.max(now),
     jobType: Is.int.oneOf(JobTypes),

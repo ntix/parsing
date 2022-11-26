@@ -2,7 +2,7 @@ import { IBoolean } from './booleans';
 import { IDate } from './dates';
 import { IParser } from './IParser';
 import { IFloat, IInt } from './numbers';
-import { ComplexSchema, IComplex } from './complex';
+import { ObjectSchema, IObject } from './object';
 import { IString } from './strings';
 import { IArray } from './arrays';
 
@@ -23,8 +23,8 @@ export namespace IRoot {
     /** parse an array */
     readonly array: IArray.Parser;
 
-    /** parse a complex object */
-    readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>
+    /** parse a object object */
+    readonly object: <T>(schema: ObjectSchema<T>) => IObject.Parser<T>
     /** parse with a function */
     readonly use: <T>(parser: IParser<T>) => IParser<T>
   }

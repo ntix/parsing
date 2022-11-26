@@ -4,11 +4,11 @@ import { IParser } from '../IParser';
 import { IParseResult } from '../IParseResult';
 import { parseChain } from '../parseChain';
 import { ParseErrors } from '../ParseErrors';
-import { IComplex } from './IComplex';
-import { ComplexSchema } from './ComplexSchema';
+import { IObject } from './IObject';
+import { ObjectSchema } from './ObjectSchema';
 
-export class ComplexParser<T> implements IComplex.Parser<T> {
-  constructor(private parent: IParser<unknown>, private schema: ComplexSchema<T>) { }
+export class ObjectParser<T> implements IObject.Parser<T> {
+  constructor(private parent: IParser<unknown>, private schema: ObjectSchema<T>) { }
 
   readonly parse = parseChain(this.parent, (originalValue: unknown) => {
     if (isNullOrUndefined(originalValue))

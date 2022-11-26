@@ -5,7 +5,7 @@ import { ParseErrors } from './ParseErrors';
 describe('parseAll', () => {
 
   interface IModel { name: string, age?: number }
-  const parser = Is.for<IModel>({
+  const parser = Is.object<IModel>({
     name: Is.required.string,
     age: Is.int.min(25)
   });
