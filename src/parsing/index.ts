@@ -16,6 +16,7 @@ export * from './Nullable';
 export * from './parseAll';
 export * from './parseCast';
 export * from './parseChain';
+export * from './ParseErrorCallback';
 export * from './ParseErrors';
 export * from './provideEquals';
 export * from './provideMax';

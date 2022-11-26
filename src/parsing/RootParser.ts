@@ -10,6 +10,7 @@ import { ObjectParser, ObjectSchema, IObject } from './object';
 import { parseChain } from './parseChain';
 import { ParseErrors } from './ParseErrors';
 import { IString, StringParser } from './strings';
+import { ParseErrorCallback } from './ParseErrorCallback';
 
 /**
  * Root Parser
@@ -35,5 +36,5 @@ export class RootParser implements IRoot.Parser {
   readonly array: IArray.Parser = new ArrayParser(this);
 
   readonly object = <T>(schema: ObjectSchema<T>): IObject.Parser<T> => new ObjectParser(this, schema);
-  readonly use = <T>(parser: IParser<T>) => ({ parse: parseChain<T>(this, parser.parse) });
+  readonly use = <T>(parser: IParser<T>, onError?: ParseErrorCallback) => ({ parse: parseChain<T>(this, parser.parse, onError) });
 }
