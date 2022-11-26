@@ -1,38 +1,14 @@
-import { isEqual, isNullOrUndefined } from '../../predicates';
-import { createParseResult } from '../createParseResult';
 import { IParser } from '../IParser';
-import { IParseResult } from '../IParseResult';
 import { parseChain } from '../parseChain';
-import { ParseErrors } from '../ParseErrors';
 import { IObject } from './IObject';
 import { ObjectSchema } from './ObjectSchema';
+import { provideParseObject } from './provideParseObject';
 
 export class ObjectParser<T> implements IObject.Parser<T> {
-  constructor(private parent: IParser<unknown>, private schema: ObjectSchema<T>) { }
+  constructor(
+    private parent: IParser<unknown>,
+    private schema: ObjectSchema<T>
+  ) { }
 
-  readonly parse = parseChain(this.parent, (originalValue: unknown) => {
-    if (isNullOrUndefined(originalValue))
-      return createParseResult(null);
-
-    return Object
-      .keys(this.schema)
-      .reduce<IParseResult<T>>((r, key) => {
-        const result = this.schema[key].parse(originalValue[key], originalValue);
-        const value
-          = result.value == null
-            ? r.value
-            : {
-              ...r.value,
-              [key]: result.value
-            };
-        const errors = isEqual(result.errors, ParseErrors.empty)
-          ? r.errors
-          : {
-            ...r.errors,
-            [key]: result.errors
-          };
-
-        return createParseResult(value, errors);
-      }, createParseResult(originalValue as T));
-  });
+  readonly parse = parseChain(this.parent, provideParseObject<T>(this.schema));
 }

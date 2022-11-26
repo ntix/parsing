@@ -5,3 +5,4 @@
 export * from './IObject';
 export * from './ObjectParser';
 export * from './ObjectSchema';
+export * from './provideParseObject';
