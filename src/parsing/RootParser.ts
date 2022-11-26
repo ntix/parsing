@@ -17,12 +17,12 @@ import { ParseErrorCallback } from './ParseErrorCallback';
  */
 export class RootParser implements IRoot.Parser {
   constructor(
-    private isDefained = false,
+    private isDefined = false,
     private isRequried = false
   ) { }
 
   readonly parse = parseChain(null, value =>
-    this.isDefained && value === undefined
+    this.isDefined && value === undefined
       ? createParseResult(value, ParseErrors.defined)
       : this.isRequried && isNullOrEmpty(value)
         ? createParseResult(value, ParseErrors.required)
