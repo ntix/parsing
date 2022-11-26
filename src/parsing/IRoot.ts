@@ -5,6 +5,7 @@ import { IFloat, IInt } from './numbers';
 import { ObjectSchema, IObject } from './object';
 import { IString } from './strings';
 import { IArray } from './arrays';
+import { ParseErrorCallback } from './ParseErrorCallback';
 
 export namespace IRoot {
 
@@ -26,6 +27,6 @@ export namespace IRoot {
     /** parse a object object */
     readonly object: <T>(schema: ObjectSchema<T>) => IObject.Parser<T>
     /** parse with a function */
-    readonly use: <T>(parser: IParser<T>) => IParser<T>
+    readonly use: <T>(parser: IParser<T>, onError?: ParseErrorCallback) => IParser<T>
   }
 }
