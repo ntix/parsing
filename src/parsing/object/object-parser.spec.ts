@@ -20,12 +20,21 @@ describe('object-parser', () => {
     expect(result.errors).toEqual(ParseErrors.empty);
   });
 
+  it('parse undefined', () => {
+    const value = undefined;
+
+    const result = personParser.parse(value);
+
+    expect(result.value).toEqual(value);
+    expect(result.errors).toEqual(ParseErrors.empty);
+  });
+
   it('parse null', () => {
     const value = null;
 
     const result = personParser.parse(value);
 
-    expect(result.value).toEqual(null);
+    expect(result.value).toEqual(value);
     expect(result.errors).toEqual(ParseErrors.empty);
   });
 

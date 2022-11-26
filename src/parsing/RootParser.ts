@@ -21,12 +21,15 @@ export class RootParser implements IRoot.Parser {
     private isRequried = false
   ) { }
 
-  readonly parse = parseChain(null, value =>
-    this.isDefined && value === undefined
-      ? createParseResult(value, ParseErrors.defined)
-      : this.isRequried && isNullOrEmpty(value)
-        ? createParseResult(value, ParseErrors.required)
-        : createParseResult(value));
+  readonly parse = parseChain(null, value => {
+    if (this.isDefined && value === undefined)
+      return createParseResult(value, ParseErrors.defined);
+
+    if (this.isRequried && isNullOrEmpty(value))
+      return createParseResult(value, ParseErrors.required)
+
+    return createParseResult(value);
+  });
 
   readonly boolean: IBoolean.Parser = new BooleanParser(this);
   readonly int: IInt.Parser = new IntParser(this);

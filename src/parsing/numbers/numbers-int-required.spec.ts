@@ -24,4 +24,23 @@ describe('numbers-int-required', () => {
     expect(result.errors).toEqual(ParseErrors.required);
     expect(result.value).toBe(null);
   });
+
+  describe('additional rules', () => {
+    const min = 2;
+    const parserMin = parser.min(min);
+
+    it('failure undefined', () => {
+      const result = parserMin.parse(undefined);
+
+      expect(result.errors).toEqual(ParseErrors.required);
+      expect(result.value).toBe(undefined);
+    });
+
+    it('failure below min', () => {
+      const result = parserMin.parse(1);
+
+      expect(result.errors).toEqual(ParseErrors.min(min));
+      expect(result.value).toBe(1);
+    });
+  });
 });
