@@ -1,6 +1,6 @@
 import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
-import { ensureDateArray } from './ensureDateArray';
+import { parseDateArray } from './parseDateArray';
 import { parseDate } from './parseDate';
 
 describe('dates-oneOf', () => {
@@ -26,7 +26,7 @@ describe('dates-oneOf', () => {
     const value = '4000-01-01';
     const result = Is.date.oneOf(oneOf).parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.oneOf(ensureDateArray(oneOf)));
+    expect(result.errors).toEqual(ParseErrors.oneOf(parseDateArray(oneOf)));
     expect(result.value).toEqual(parseDate(value));
   });
 
@@ -34,7 +34,7 @@ describe('dates-oneOf', () => {
     const value = oneOf[0];
     const result = Is.date.not.oneOf(oneOf).parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.not(ParseErrors.oneOf(ensureDateArray(oneOf))));
+    expect(result.errors).toEqual(ParseErrors.not(ParseErrors.oneOf(parseDateArray(oneOf))));
     expect(result.value).toEqual(parseDate(value));
   });
 });
