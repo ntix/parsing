@@ -27,7 +27,7 @@ export * from './RelationalValidatorTypes';
 export * from './RootParser';
 export * from './arrays/index';
 export * from './booleans/index';
-export * from './complex/index';
 export * from './dates/index';
 export * from './numbers/index';
+export * from './object/index';
 export * from './strings/index';
