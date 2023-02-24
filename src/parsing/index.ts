@@ -3,6 +3,8 @@
  */
 
 export * from './createParseResult';
+export * from './hasParseErrors';
+export * from './If';
 export * from './IHasLength';
 export * from './IParse';
 export * from './IParseErrors';
@@ -10,21 +12,23 @@ export * from './IParser';
 export * from './IParseResult';
 export * from './IRoot';
 export * from './NextBuilder';
+export * from './Nullable';
 export * from './parseAll';
 export * from './parseCast';
 export * from './parseChain';
+export * from './ParseErrorCallback';
 export * from './ParseErrors';
-export * from './provideAnyOf';
 export * from './provideEquals';
 export * from './provideMax';
 export * from './provideMaxLength';
 export * from './provideMin';
 export * from './provideMinLength';
+export * from './provideOneOf';
 export * from './RelationalValidatorTypes';
 export * from './RootParser';
 export * from './arrays/index';
 export * from './booleans/index';
-export * from './complex/index';
 export * from './dates/index';
 export * from './numbers/index';
+export * from './object/index';
 export * from './strings/index';

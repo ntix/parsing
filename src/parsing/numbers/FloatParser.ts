@@ -3,11 +3,10 @@ import { parseChain } from '../parseChain';
 import { IFloat } from './IFloat';
 import { NumberParsableTypes } from './NumberParsableTypes';
 import { IParse } from '../IParse';
-import { provideAnyOf } from '../provideAnyOf';
+import { provideOneOf } from '../provideOneOf';
 import { provideEquals } from '../provideEquals';
 import { provideMax } from '../provideMax';
 import { provideMin } from '../provideMin';
-import { ensureNumberArray } from './ensureNumberArray';
 import { parseFloat } from './parseFloat';
 import { provideParseFloat } from './provideParseFloat';
 
@@ -23,7 +22,7 @@ export class FloatParser implements IFloat.Parser {
 
   readonly parse = parseChain(this.parent, this.parseCurrent);
   readonly equals = (value: NumberParsableTypes) => new FloatParser(this, provideEquals(parseFloat(value), this.negate));
-  readonly anyOf = (values: NumberParsableTypes[]) => new FloatParser(this, provideAnyOf(ensureNumberArray(values), this.negate));
+  readonly oneOf = (values: NumberParsableTypes[]) => new FloatParser(this, provideOneOf(values, this.negate));
   readonly min = (value: NumberParsableTypes, exclusive = false) => new FloatParser(this, provideMin(parseFloat(value), exclusive, this.negate));
   readonly max = (value: NumberParsableTypes, exclusive = false) => new FloatParser(this, provideMax(parseFloat(value), exclusive, this.negate));
 

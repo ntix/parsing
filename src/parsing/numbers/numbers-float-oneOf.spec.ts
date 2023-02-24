@@ -1,26 +1,26 @@
 import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
-describe('numbers-float-anyOf', () => {
-  const anyOf = [1.1, 2, 4.2, 5.3];
-  const parser = Is.float.anyOf(anyOf);
+describe('numbers-float-oneOf', () => {
+  const oneOf = [1.1, 2, 4.2, 5.3];
+  const parser = Is.float.oneOf(oneOf);
 
-  it('anyOf success', () => {
-    const result = parser.parse(anyOf[2]);
+  it('oneOf success', () => {
+    const result = parser.parse(oneOf[2]);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(4.2);
   });
 
-  it('anyOf failure', () => {
+  it('oneOf failure', () => {
     const result = parser.parse('3.3');
 
-    expect(result.errors).toEqual(ParseErrors.anyOf(anyOf));
+    expect(result.errors).toEqual(ParseErrors.oneOf(oneOf));
     expect(result.value).toBe(3.3);
   });
 
   describe('not', () => {
-    const parser = Is.float.not.anyOf(anyOf);
+    const parser = Is.float.not.oneOf(oneOf);
 
     it('success', () => {
       const value = 1;
@@ -31,10 +31,10 @@ describe('numbers-float-anyOf', () => {
     });
 
     it('failure', () => {
-      const value = anyOf[0];
+      const value = oneOf[0];
       const result = parser.parse(value);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.anyOf(anyOf)));
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.oneOf(oneOf)));
       expect(result.value).toEqual(value);
     });
   });

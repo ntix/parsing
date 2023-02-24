@@ -1,4 +1,4 @@
-import { isNullOrEmpty } from '../../predicates';
+import { isNullOrUndefined } from '../../predicates';
 import { createParseResult } from '../createParseResult';
 import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
@@ -8,7 +8,7 @@ export function provideIncludesString(
 ) {
 
   return (value: string): IParseResult<string> => {
-    if (isNullOrEmpty(value))
+    if (isNullOrUndefined(value))
       return createParseResult(null);
 
     if (ignoreCase) {

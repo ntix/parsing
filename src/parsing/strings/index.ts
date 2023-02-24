@@ -3,11 +3,11 @@
  */
 
 export * from './IString';
-export * from './provideAnyOfString';
 export * from './provideEndsWithString';
 export * from './provideEqualsString';
 export * from './provideIncludesString';
 export * from './provideMatchesString';
+export * from './provideOneOfString';
 export * from './provideParseString';
 export * from './provideStartsWithString';
 export * from './StringParser';

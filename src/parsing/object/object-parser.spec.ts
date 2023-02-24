@@ -1,8 +1,10 @@
 import { Is } from '../../Is';
+import { isOneOf } from '../../predicates';
 import { parseDate } from '../dates';
 import { ParseErrors } from '../ParseErrors';
+import { If } from '../If';
 
-describe('complex-parser', () => {
+describe('object-parser', () => {
 
   it('parse', () => {
     const value = valid;
@@ -18,6 +20,33 @@ describe('complex-parser', () => {
     expect(result.errors).toEqual(ParseErrors.empty);
   });
 
+  it('parse undefined', () => {
+    const value = undefined;
+
+    const result = personParser.parse(value);
+
+    expect(result.value).toEqual(value);
+    expect(result.errors).toEqual(ParseErrors.empty);
+  });
+
+  it('parse null', () => {
+    const value = null;
+
+    const result = personParser.parse(value);
+
+    expect(result.value).toEqual(value);
+    expect(result.errors).toEqual(ParseErrors.empty);
+  });
+
+  it('parse required null', () => {
+    const value = null;
+
+    const result = Is.required.use(personParser).parse(value);
+
+    expect(result.value).toEqual(null);
+    expect(result.errors).toEqual(ParseErrors.required);
+  });
+
   it('parse - invalid job type', () => {
     const value = {
       ...valid,
@@ -26,7 +55,19 @@ describe('complex-parser', () => {
 
     const result = personParser.parse(value);
 
-    expect(result.errors).toEqual({ jobType: ParseErrors.anyOf(JobTypes) });
+    expect(result.errors).toEqual({ jobType: ParseErrors.oneOf(JobTypes) });
+  });
+
+  it('parse - valid job type, invalid salary', () => {
+    const value = {
+      ...valid,
+      jobType: JobTypes.developer,
+      salary: null
+    };
+
+    const result = personParser.parse(value);
+
+    expect(result.errors).toEqual({ salary: ParseErrors.required });
   });
 
   it('parse - invalid null scores', () => {
@@ -160,23 +201,27 @@ describe('complex-parser', () => {
   const GIVEN_NAME_MAX_LENGTH = 25;
   const FAMILY_NAME_MAX_LENGTH = 50;
 
-  const nameParser = Is.for({
+  const nameParser = Is.object({
     given: Is.string.maxLength(GIVEN_NAME_MAX_LENGTH),
     family: Is.required.string.maxLength(FAMILY_NAME_MAX_LENGTH)
   });
 
-  const emailParser = Is.for<IEmail>({
+  const emailParser = Is.object<IEmail>({
     name: Is.required.string,
     address: Is.required.string.matches(/.*?\.com/, 'email')
   });
 
   const EMAILS_MIN_LENGTH = 1;
 
-  const personParser = Is.for<IPerson>({
+  const personParser = Is.object<IPerson>({
     name: Is.required.use(nameParser),
     dateOfBirth: Is.required.date.max(now),
-    jobType: Is.int.anyOf(JobTypes),
-    salary: Is.float.min(0),
+    jobType: Is.int.oneOf(JobTypes),
+    salary: If(
+      p => isOneOf(p.jobType, JobTypes),
+      Is.required.float.min(0),
+      Is.float.min(0)
+    ),
     scores: Is.required.array.each(Is.float),
     emails: Is.array.each(emailParser).minLength(EMAILS_MIN_LENGTH)
   });

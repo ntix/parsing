@@ -3,5 +3,6 @@
  */
 
 export * from './Is';
+export * from './numbers/index';
 export * from './parsing/index';
 export * from './predicates/index';

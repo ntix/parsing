@@ -20,6 +20,6 @@ export class BooleanParser implements IBoolean.Parser {
   readonly equals = (equalToValue: boolean) => new BooleanParser(this, provideEquals(equalToValue, this.negate));
 
   get not() {
-    return new BooleanParser(this.parent, provideParseBoolean(), true);
+    return new BooleanParser(this.parent, this.parseCurrent, true);
   }
 }

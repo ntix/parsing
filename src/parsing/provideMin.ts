@@ -1,4 +1,4 @@
-import { isNullOrEmpty } from '../predicates';
+import { isNullOrUndefined } from '../predicates';
 import { createParseResult } from './createParseResult';
 import { IParseErrors } from './IParseErrors';
 import { ParseErrors } from './ParseErrors';
@@ -12,7 +12,7 @@ export function provideMin<T extends RelationalValidatorTypes>(
 ) {
 
   return (value: T) => {
-    if (isNullOrEmpty(value)
+    if (isNullOrUndefined(value)
       || (exclusive ? value > minValue : value >= minValue) !== negate)
       return createParseResult(value);
 

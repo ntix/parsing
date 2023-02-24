@@ -5,7 +5,7 @@ describe('arrays-unique', () => {
   interface IThing {
     id: number
   }
-  const thingParser = Is.for<IThing>({ id: Is.required.int });
+  const thingParser = Is.object<IThing>({ id: Is.required.int });
   const parser = Is.array
     .each(thingParser)
     .minLength(2)
