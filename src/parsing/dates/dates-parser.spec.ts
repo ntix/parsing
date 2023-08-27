@@ -26,9 +26,16 @@ describe('dates-parser', () => {
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
-
   it('success string', () => {
     const value = '3000-01-02';
+    const result = parser.parse(value);
+
+    expect(result.errors).toEqual(ParseErrors.empty);
+    expect(result.value).toEqual(new Date(Date.parse(value)));
+  });
+
+  it('success string iso', () => {
+    const value = '2023-04-14T22:54:23.861073+01:00';
     const result = parser.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);

@@ -1,5 +1,4 @@
 import { Is } from '../../Is';
-import { parseDate } from '../dates';
 import { ParseErrors } from '../ParseErrors';
 
 describe('complex-parser', () => {
@@ -11,9 +10,10 @@ describe('complex-parser', () => {
 
     expect(result.value).toEqual({
       name: value.name,
-      dateOfBirth: parseDate(value.dateOfBirth),
+      dateOfBirth: new Date(value.dateOfBirth),
       emails: value.emails,
-      scores: value.scores
+      scores: value.scores,
+      lastSeen: new Date(value.lastSeen)
     });
     expect(result.errors).toEqual(ParseErrors.empty);
   });
@@ -133,7 +133,8 @@ describe('complex-parser', () => {
     },
     dateOfBirth: '2000-01-01',
     emails: [{ name: 'work', address: 'email@example.com' }],
-    scores: []
+    scores: [],
+    lastSeen: '2023-04-14T22:54:23.861073+01:00'
   };
 
   /** Models */
@@ -153,7 +154,8 @@ describe('complex-parser', () => {
     jobType?: JobTypes,
     salary?: number,
     scores: number[],
-    emails?: IEmail[]
+    emails?: IEmail[],
+    lastSeen?: Date
   }
 
   /** Parsers */
@@ -178,6 +180,7 @@ describe('complex-parser', () => {
     jobType: Is.int.anyOf(JobTypes),
     salary: Is.float.min(0),
     scores: Is.required.array.each(Is.float),
-    emails: Is.array.each(emailParser).minLength(EMAILS_MIN_LENGTH)
+    emails: Is.array.each(emailParser).minLength(EMAILS_MIN_LENGTH),
+    lastSeen: Is.date
   });
 });
