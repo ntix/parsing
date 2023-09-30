@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/ntix/parsing/compare/v1.0.2...v1.1.0) (2023-09-30)
+
+
+### Bug Fixes
+
+* **deps:** recommended updates ([ad4da2f](https://github.com/ntix/parsing/commit/ad4da2fcc93cf088f24102c7da7464d9718d67a7))
+
+
+### Features
+
+* **dictionaries:** basic support ([#19](https://github.com/ntix/parsing/issues/19)) ([882dea7](https://github.com/ntix/parsing/commit/882dea7c027c38db592390acf04989ca428ff4ba))
+
 ## [1.0.2](https://github.com/ntix/parsing/compare/v1.0.1...v1.0.2) (2022-11-12)
 
 
