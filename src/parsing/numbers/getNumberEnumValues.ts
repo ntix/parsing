@@ -1,4 +1,4 @@
-import { isInt } from '../../predicates';
+import { isInt } from '../../predicates/isInt';
 import { NumberEnumMap } from './NumberEnumMap';
 
 /** get a number values array from the map */

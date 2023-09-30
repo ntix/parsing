@@ -1,6 +1,8 @@
 import { IParser } from '../IParser';
 import { parseChain } from '../parseChain';
 import { IFloat } from './IFloat';
+import { parseFloat } from './parseFloat';
+import { provideParseFloat } from './provideParseFloat';
 import { NumberParsableTypes } from './NumberParsableTypes';
 import { IParse } from '../IParse';
 import { provideAnyOf } from '../provideAnyOf';
@@ -8,8 +10,6 @@ import { provideEquals } from '../provideEquals';
 import { provideMax } from '../provideMax';
 import { provideMin } from '../provideMin';
 import { ensureNumberArray } from './ensureNumberArray';
-import { parseFloat } from './parseFloat';
-import { provideParseFloat } from './provideParseFloat';
 
 /**
  * Fluent builder for parsing floats
