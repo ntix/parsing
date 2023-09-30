@@ -1,6 +1,6 @@
-import { createParseResult } from './createParseResult';
-import { IParse } from './IParse';
-import { IParseResult } from './IParseResult';
+import { createParseResult } from '../createParseResult';
+import { IParse } from '../IParse';
+import { IParseResult } from '../IParseResult';
 
 /**
  * parse all elements of an array
@@ -8,7 +8,7 @@ import { IParseResult } from './IParseResult';
  * @param parse function
  * @returns IParseResult<T[]>
  */
-export function parseAll<T>(
+export function parseAllArray<T>(
   parse: IParse<T>
 ) {
 

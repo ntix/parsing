@@ -1,5 +1,6 @@
 import { isNullOrEmpty } from '../predicates';
 import { ArrayParser, IArray } from './arrays';
+import { DictionaryParser, IDictionary } from './dictionaries';
 import { BooleanParser, IBoolean } from './booleans';
 import { createParseResult } from './createParseResult';
 import { DateParser, IDate } from './dates';
@@ -27,6 +28,7 @@ export class RootParser implements IRoot.Parser {
   readonly date: IDate.Parser = new DateParser(this);
   readonly string: IString.Parser = new StringParser(this);
   readonly array: IArray.Parser = new ArrayParser(this);
+  readonly dictionary: IDictionary.Parser = new DictionaryParser(this);
 
   readonly for = <T>(schema: ComplexSchema<T>): IComplex.Parser<T> => new ComplexParser(this, schema);
   readonly use = <T>(parser: IParser<T>) => ({ parse: parseChain<T>(this, parser.parse) });

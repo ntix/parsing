@@ -14,6 +14,7 @@ export class Is {
   static readonly date = new RootParser().date;
   static readonly string = new RootParser().string;
   static readonly array = new RootParser().array;
+  static readonly dictionary = new RootParser().dictionary;
 
   static readonly for = new RootParser().for;
   static readonly use = new RootParser().use;
