@@ -1,8 +1,8 @@
-import { Is } from '../Is';
-import { parseAll } from './parseAll';
-import { ParseErrors } from './ParseErrors';
+import { Is } from '../../Is';
+import { parseAllArray } from './parseAllArray';
+import { ParseErrors } from '../ParseErrors';
 
-describe('parseAll', () => {
+describe('parseAllArray', () => {
 
   interface IModel { name: string, age?: number }
   const parser = Is.for<IModel>({
@@ -16,7 +16,7 @@ describe('parseAll', () => {
       { name: 'NAME-2', age: 32 }
     ];
 
-    const result = parseAll(parser.parse)(values);
+    const result = parseAllArray(parser.parse)(values);
 
     expect(result.value).toEqual(values);
     expect(result.errors).toBe(ParseErrors.empty);
@@ -28,7 +28,7 @@ describe('parseAll', () => {
       { name: 'NAME-2', age: 1 }
     ];
 
-    const result = parseAll(parser.parse)(values);
+    const result = parseAllArray(parser.parse)(values);
 
     expect(result.value).toEqual(values);
     expect(result.errors).toEqual({

@@ -10,4 +10,5 @@ export * from './isFloat';
 export * from './isInt';
 export * from './isNullOrEmpty';
 export * from './isNumberType';
+export * from './isObject';
 export * from './isStringType';

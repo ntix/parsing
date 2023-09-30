@@ -1,6 +1,6 @@
 import { IParse } from '../IParse';
 import { IParser } from '../IParser';
-import { parseAll } from '../parseAll';
+import { parseAllArray } from './parseAllArray';
 import { parseChain } from '../parseChain';
 import { provideMaxLength } from '../provideMaxLength';
 import { provideMinLength } from '../provideMinLength';
@@ -23,7 +23,7 @@ export class ArrayParser<T> implements IArray.Parser<T> {
   }
 
   readonly of = <U>() => new ArrayParser<U>(this.parent);
-  readonly each = <U = T>(parser: IParser<U>) => new ArrayParser<U>(this, parseAll(parser.parse), this.negate);
+  readonly each = <U = T>(parser: IParser<U>) => new ArrayParser<U>(this, parseAllArray(parser.parse), this.negate);
 
   readonly unique = (distinctor: (item: T) => unknown) => new ArrayParser<T>(this, provideUniqueArray(distinctor, this.negate));
   readonly minLength = (minValue: number, exclusive = false) => new ArrayParser<T>(this, provideMinLength<T[]>(minValue, exclusive, this.negate));

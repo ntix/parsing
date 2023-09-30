@@ -32,6 +32,8 @@ export class ParseErrors {
   static readonly maxLength = <T>(value: T) => ({ maxLength: value });
   /** value should be an array */
   static readonly array = { array: true };
+  /** value should be a array */
+  static readonly dictionary = { dictionary: true };
   /** value includes */
   static readonly matches = <T>(name: T) => ({ matches: name });
   /** value includes */
