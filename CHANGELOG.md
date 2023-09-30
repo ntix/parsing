@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/ntix/parsing/compare/v1.1.0...v1.1.1) (2023-09-30)
+
+
+### Bug Fixes
+
+* **build:** docs ([84afc9d](https://github.com/ntix/parsing/commit/84afc9dafbae8862dc574e17f39f54a2bd7f58c3))
+
 # [1.1.0](https://github.com/ntix/parsing/compare/v1.0.2...v1.1.0) (2023-09-30)
 
 
