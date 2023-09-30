@@ -1,3 +1,32 @@
+# [1.1.0](https://github.com/ntix/parsing/compare/v1.0.2...v1.1.0) (2023-09-30)
+
+
+### Bug Fixes
+
+* **build:** add node types ([5973cfd](https://github.com/ntix/parsing/commit/5973cfd06421ae6bb1f52e0c022e2d198ef765d2))
+* **build:** add node types ([0d9c797](https://github.com/ntix/parsing/commit/0d9c797771eb4bcdf7300a3502b8203cf0832d22))
+* **build:** rollup ([#20](https://github.com/ntix/parsing/issues/20)) ([f9b5260](https://github.com/ntix/parsing/commit/f9b526034cd0dafdadf4fb44899120036aa96f71))
+* **deps:** recommended updates ([ad4da2f](https://github.com/ntix/parsing/commit/ad4da2fcc93cf088f24102c7da7464d9718d67a7))
+
+
+### Features
+
+* **dictionaries:** basic support ([ff58b8c](https://github.com/ntix/parsing/commit/ff58b8c328c0ef353612586cc6be1dac16f9a15b))
+* **dictionaries:** basic support ([#19](https://github.com/ntix/parsing/issues/19)) ([882dea7](https://github.com/ntix/parsing/commit/882dea7c027c38db592390acf04989ca428ff4ba))
+
+# [1.2.0](https://github.com/ntix/parsing/compare/v1.1.1...v1.2.0) (2023-09-30)
+
+
+### Bug Fixes
+
+* **build:** add node types ([5973cfd](https://github.com/ntix/parsing/commit/5973cfd06421ae6bb1f52e0c022e2d198ef765d2))
+* **build:** add node types ([0d9c797](https://github.com/ntix/parsing/commit/0d9c797771eb4bcdf7300a3502b8203cf0832d22))
+
+
+### Features
+
+* **dictionaries:** basic support ([ff58b8c](https://github.com/ntix/parsing/commit/ff58b8c328c0ef353612586cc6be1dac16f9a15b))
+
 ## [1.1.1](https://github.com/ntix/parsing/compare/v1.1.0...v1.1.1) (2023-09-30)
 
 
