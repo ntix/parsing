@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/ntix/parsing/compare/v1.1.0...v1.1.1) (2023-09-30)
+
+
+### Bug Fixes
+
+* **build:** rollup ([#20](https://github.com/ntix/parsing/issues/20)) ([f9b5260](https://github.com/ntix/parsing/commit/f9b526034cd0dafdadf4fb44899120036aa96f71))
+
 # [1.1.0](https://github.com/ntix/parsing/compare/v1.0.2...v1.1.0) (2023-09-30)
 
 
