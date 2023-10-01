@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/ntix/parsing/compare/v1.1.0...v1.2.0) (2023-10-01)
+
+
+### Features
+
+* **dictionaries:** required ([e8dfdd8](https://github.com/ntix/parsing/commit/e8dfdd89f5a3ffbee97a1c76707a9be50305da92))
+* **json:** allow parsing JSON data ([21ff30f](https://github.com/ntix/parsing/commit/21ff30fdcd408773bf7492bfa950251061598a8f))
+
 # [1.1.0](https://github.com/ntix/parsing/compare/v1.0.2...v1.1.0) (2023-09-30)
 
 
