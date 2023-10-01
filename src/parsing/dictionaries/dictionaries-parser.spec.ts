@@ -2,7 +2,7 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('dictionaries-parser', () => {
-  const parser = Is.dictionary;
+  const parser = Is.required.dictionary;
 
   it('success', () => {
     const value = { a: '1' };
@@ -18,6 +18,21 @@ describe('dictionaries-parser', () => {
 
     expect(result.errors).toEqual(ParseErrors.dictionary);
     expect(result.value).toBe(null);
+  });
+
+  it('required', () => {
+
+    const result = parser.parse(null);
+
+    expect(result.errors).toEqual(ParseErrors.required);
+  });
+
+  it('not required', () => {
+    const requiredParser = Is.dictionary;
+
+    const result = requiredParser.parse(null);
+
+    expect(result.errors).toEqual(ParseErrors.empty);
   });
 
   it('each', () => {
