@@ -6,6 +6,7 @@ import { ComplexSchema, IComplex } from './complex';
 import { IString } from './strings';
 import { IArray } from './arrays';
 import { IDictionary } from './dictionaries';
+import { IJson } from './json/IJson';
 
 export namespace IRoot {
 
@@ -19,8 +20,9 @@ export namespace IRoot {
     readonly string: IString.Parser;
     readonly array: IArray.Parser;
     readonly dictionary: IDictionary.Parser;
+    readonly json: IJson.Parser;
 
-    readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>
-    readonly use: <T>(parser: IParser<T>) => IParser<T>
+    readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>;
+    readonly use: <T>(parser: IParser<T>) => IParser<T>;
   }
 }

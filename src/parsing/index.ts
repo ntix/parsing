@@ -26,5 +26,6 @@ export * from './booleans/index';
 export * from './complex/index';
 export * from './dates/index';
 export * from './dictionaries/index';
+export * from './json/index';
 export * from './numbers/index';
 export * from './strings/index';

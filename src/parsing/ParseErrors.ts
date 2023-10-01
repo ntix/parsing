@@ -35,6 +35,8 @@ export class ParseErrors {
   static readonly array = { array: true };
   /** value should be a array */
   static readonly dictionary = { dictionary: true };
+  /** value should be a json */
+  static readonly json = { json: true };
   /** value includes */
   static readonly matches = <T>(name: T) => ({ matches: name });
   /** value includes */
