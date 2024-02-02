@@ -18,20 +18,20 @@
   ],
   "scripts": {
     "barrels": "barrelsby -q --delete --directory src --include \\.ts$ --exclude \"(\\.spec|this)\\.ts$\" --location all",
-    "prebuild": "npm run clean && npm run barrels && npm run coverage",
+    "prebuild": "npm run clean && npm run barrels",
     "build": "tsc && rollup -c rollup.config.js",
     "build.docs": "npm run build && typedoc --exclude \"**/*+(index|.spec|.e2e).ts\" --out docs src --readme README.md --media dist",
     "clean": "shx rm -rf dist",
     "format": "eslint src --fix",
     "pretest": "npm run barrels",
     "test": "jest",
+    "test.coverage": "jest --coverage",
     "test.debug": "jest --runInBand",
     "test.watch": "jest --watchAll",
     "start": "npm run build.docs && serve docs",
     "commit": "git add . && npx git-cz",
     "prepublishOnly": "npm run build.docs",
-    "semantic-release": "semantic-release",
-    "coverage": "typescript-coverage-report -o ./coverage"
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "parse",
@@ -65,12 +65,25 @@
     "shx": "^0.3.4",
     "ts-jest": "^29.1.2",
     "typedoc": "^0.25.7",
-    "typescript": "^5.3.3",
-    "typescript-coverage-report": "^0.8.0"
+    "typescript": "^5.3.3"
   },
   "jest": {
     "preset": "ts-jest",
-    "verbose": false,
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
     "testMatch": [
       "**/*.spec.ts"
     ],

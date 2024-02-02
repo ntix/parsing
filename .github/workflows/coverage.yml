@@ -1,4 +1,4 @@
-name: Codacy Coverage Reporter
+name: Coverage
 
 on: ["push"]
 
@@ -8,8 +8,17 @@ jobs:
     name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+        
+      - name: npm install, build, test
+        run: |
+          npm ci
+          npm run test.coverage
+
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          api-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: coverage/typescript-coverage.json
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info
