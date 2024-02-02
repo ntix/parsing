@@ -20,11 +20,11 @@ describe('numbers-float-anyOf', () => {
   });
 
   describe('not', () => {
-    const parser = Is.float.not.anyOf(anyOf);
+    const notParser = Is.float.not.anyOf(anyOf);
 
     it('success', () => {
       const value = 1;
-      const result = parser.parse(value);
+      const result = notParser.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toEqual(value);
@@ -32,7 +32,7 @@ describe('numbers-float-anyOf', () => {
 
     it('failure', () => {
       const value = anyOf[0];
-      const result = parser.parse(value);
+      const result = notParser.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.anyOf(anyOf)));
       expect(result.value).toEqual(value);

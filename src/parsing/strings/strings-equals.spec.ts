@@ -21,9 +21,9 @@ describe('strings-equals', () => {
   });
 
   it('success ignore case', () => {
-    const parser = Is.string.equals(expectedValue, true);
+    const ignoreCaseParser = Is.string.equals(expectedValue, true);
     const value = expectedValue.toUpperCase();
-    const result = parser.parse(value);
+    const result = ignoreCaseParser.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(value);

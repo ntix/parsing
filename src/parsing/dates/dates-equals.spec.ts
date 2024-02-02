@@ -50,11 +50,11 @@ describe('dates-equals', () => {
   });
 
   describe('not', () => {
-    const parser = Is.date.not.equals('2000-01-01');
+    const notParser = Is.date.not.equals('2000-01-01');
 
     it('success', () => {
       const value = parseDate('3000-01-01');
-      const result = parser.parse(value);
+      const result = notParser.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toEqual(value);
@@ -62,7 +62,7 @@ describe('dates-equals', () => {
 
     it('failure', () => {
       const value = parseDate('2000-01-01');
-      const result = parser.parse(value);
+      const result = notParser.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(value)));
       expect(result.value).toEqual(value);

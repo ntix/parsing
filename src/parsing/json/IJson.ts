@@ -6,7 +6,7 @@ export namespace IJson {
 
     export interface Parser<T = unknown> extends IParser<T> {
 
-        readonly for: <T>(schema: ComplexSchema<T>) => IComplex.Parser<T>;
-        readonly use: <T>(parser: IParser<T>) => IParser<T>;
+        readonly for: <U>(schema: ComplexSchema<U>) => IComplex.Parser<U>;
+        readonly use: <U>(parser: IParser<U>) => IParser<U>;
     }
 }

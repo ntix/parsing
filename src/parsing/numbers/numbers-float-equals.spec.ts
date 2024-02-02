@@ -49,11 +49,11 @@ describe('numbers-float-equals', () => {
   });
 
   describe('not', () => {
-    const parser = Is.float.not.equals(10);
+    const notParser = Is.float.not.equals(10);
 
     it('success', () => {
       const value = 9;
-      const result = parser.parse(value);
+      const result = notParser.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toEqual(value);
@@ -61,7 +61,7 @@ describe('numbers-float-equals', () => {
 
     it('failure', () => {
       const value = 10;
-      const result = parser.parse(value);
+      const result = notParser.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(value)));
       expect(result.value).toEqual(value);
