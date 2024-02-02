@@ -1,5 +1,5 @@
-import { NumberEnumMap } from "./numbers/NumberEnumMap";
-import { getNumberEnumValues } from "./numbers/getNumberEnumValues";
+import { NumberEnumMap } from './numbers/NumberEnumMap';
+import { getNumberEnumValues } from './numbers/getNumberEnumValues';
 
 /**
  * Creates error objects

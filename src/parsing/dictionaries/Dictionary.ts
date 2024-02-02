@@ -1,2 +1,2 @@
 
-export type Dictionary<T> = { [k: string]: T; };
+export interface Dictionary<T> { [k: string]: T; }

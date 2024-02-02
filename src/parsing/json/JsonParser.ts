@@ -7,13 +7,13 @@ import { provideParseJson } from './provideParseJson';
 
 export class JsonParser<T> implements IJson.Parser<T> {
 
-    constructor(
-        private parent: IParser<unknown>,
-        private parseCurrent: IParse<T> = provideParseJson<T>()
-    ) { }
+  constructor(
+    private parent: IParser<unknown>,
+    private parseCurrent: IParse<T> = provideParseJson<T>()
+  ) { }
 
-    readonly parse = parseChain<T>(this.parent, this.parseCurrent);
+  readonly parse = parseChain<T>(this.parent, this.parseCurrent);
 
-    readonly for = <T>(schema: ComplexSchema<T>): IComplex.Parser<T> => new ComplexParser(this, schema);
-    readonly use = <T>(parser: IParser<T>) => ({ parse: parseChain<T>(this, parser.parse) });
+  readonly for = <U>(schema: ComplexSchema<U>): IComplex.Parser<U> => new ComplexParser(this, schema);
+  readonly use = <U>(parser: IParser<U>) => ({ parse: parseChain<U>(this, parser.parse) });
 }
