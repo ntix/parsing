@@ -3,6 +3,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   rules: {
+    "no-shadow": "off",
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "indent": ["error", 2],
@@ -16,9 +17,11 @@ module.exports = {
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/no-empty-interface": ["off"],
     "@typescript-eslint/no-namespace": ["off"],
+    "@typescript-eslint/no-shadow": "warn",
+    "@typescript-eslint/no-unused-vars": "off",
     "sort-imports": ["error", { "allowSeparatedGroups": false, "ignoreDeclarationSort": true }],
     "no-empty-interface": "off",
-    //"no-unused-vars": ["off", { "args": "none" }]
+    "no-unused-vars": "off",
   },
   root: true,
 };

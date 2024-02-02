@@ -68,5 +68,5 @@ describe('dates-parser', () => {
     expect(result.value).toEqual(new Date(2000, 1, 1));
 
     DATE_SETTINGS.parseDayFirst = original;
-  })
+  });
 });

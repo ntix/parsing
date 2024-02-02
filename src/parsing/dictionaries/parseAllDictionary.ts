@@ -10,26 +10,26 @@ import { Dictionary } from './Dictionary';
  * @returns IParseResult<Dictionary<T>>
  */
 export function parseAllDictionary<T>(
-    parse: IParse<T>
+  parse: IParse<T>
 ): IParse<Dictionary<T>> {
 
-    return value => {
-        if (value == null) return createParseResult(null);
+  return value => {
+    if (value == null) return createParseResult(null);
 
-        return Object.keys(value).reduce<IParseResult<Dictionary<T>>>(
-            (r, n) => {
+    return Object.keys(value).reduce<IParseResult<Dictionary<T>>>(
+      (r, n) => {
 
-                const result = parse(value[n]);
-                const errors = result.success
-                    ? r.errors
-                    : { ...r.errors, [n]: result.errors };
+        const result = parse(value[n]);
+        const errors = result.success
+          ? r.errors
+          : { ...r.errors, [n]: result.errors };
 
-                return createParseResult(
-                    { ...r.value, [n]: result.value },
-                    errors
-                );
-
-            }, createParseResult<Dictionary<T>>({})
+        return createParseResult(
+          { ...r.value, [n]: result.value },
+          errors
         );
-    };
+
+      }, createParseResult<Dictionary<T>>({})
+    );
+  };
 }
