@@ -11,14 +11,16 @@ export function provideIncludesString(
     if (isNullOrEmpty(value))
       return createParseResult(null);
 
-    if (ignoreCase) {
-      value = value.toLowerCase();
-      includesValue = includesValue.toLowerCase();
-    }
+    const a = ignoreCase ? value.toLowerCase() : value;
+    const b = ignoreCase ? includesValue.toLowerCase() : includesValue;
 
-    if (value.includes(includesValue) !== negate)
+    if (a.includes(b) !== negate)
       return createParseResult(value);
 
-    return createParseResult(value, ParseErrors.includes(value, ignoreCase));
+    const errors = negate
+      ? ParseErrors.not(ParseErrors.includes(includesValue))
+      : ParseErrors.includes(includesValue);
+
+    return createParseResult(value, errors);
   };
 }

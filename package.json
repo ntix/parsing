@@ -75,7 +75,6 @@
     "collectCoverageFrom": [
       "src/**/*.ts"
     ],
-    "collectCoverage": true,
     "moduleFileExtensions": [
       "js",
       "json",

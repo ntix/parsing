@@ -17,6 +17,10 @@ export function provideStartsWithString(
     if (a.startsWith(b) !== negate)
       return createParseResult(value);
 
-    return createParseResult(value, ParseErrors.startsWith(value, ignoreCase));
+    const errors = negate
+      ? ParseErrors.not(ParseErrors.startsWith(startswithValue))
+      : ParseErrors.startsWith(startswithValue);
+
+    return createParseResult(value, errors);
   };
 }
