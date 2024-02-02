@@ -4,7 +4,7 @@ import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideEndsWithString(
-  endswithValue: string, ignoreCase :boolean, negate:boolean
+  endswithValue: string, ignoreCase: boolean, negate: boolean
 ) {
 
   return (value: string): IParseResult<string> => {
@@ -17,6 +17,10 @@ export function provideEndsWithString(
     if (a.endsWith(b) !== negate)
       return createParseResult(value);
 
-    return createParseResult(value, ParseErrors.endsWith(value, ignoreCase));
+    const errors = negate
+      ? ParseErrors.not(ParseErrors.endsWith(endswithValue))
+      : ParseErrors.endsWith(endswithValue);
+
+    return createParseResult(value, errors);
   };
 }

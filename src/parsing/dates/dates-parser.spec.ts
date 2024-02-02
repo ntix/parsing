@@ -3,32 +3,32 @@ import { ParseErrors } from '../ParseErrors';
 import { DATE_SETTINGS } from './DATE_SETTINGS';
 
 describe('dates-parser', () => {
-  const parser = Is.date;
+  const schema = Is.date;
 
   it('success date', () => {
     const value = new Date();
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(value);
   });
 
   it('success undefined', () => {
-    const result = parser.parse(undefined);
+    const result = schema.parse(undefined);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success null', () => {
-    const result = parser.parse(null);
+    const result = schema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
   it('success string', () => {
     const value = '3000-01-02';
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(new Date(Date.parse(value)));
@@ -36,21 +36,35 @@ describe('dates-parser', () => {
 
   it('success string iso', () => {
     const value = '2023-04-14T22:54:23.861073+01:00';
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(new Date(Date.parse(value)));
   });
 
   it('success string empty', () => {
-    const result = parser.parse('');
+    const result = schema.parse('');
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('failure not date', () => {
-    const result = parser.parse('a');
+    const result = schema.parse('a');
+
+    expect(result.value).toBe(null);
+    expect(result.errors).toEqual({ date: true });
+  });
+
+  it('failure not date object', () => {
+    const result = schema.parse({});
+
+    expect(result.value).toBe(null);
+    expect(result.errors).toEqual({ date: true });
+  });
+
+  it('failure not date NaN', () => {
+    const result = schema.parse(NaN);
 
     expect(result.value).toBe(null);
     expect(result.errors).toEqual({ date: true });
@@ -62,7 +76,7 @@ describe('dates-parser', () => {
     DATE_SETTINGS.parseDayFirst = !DATE_SETTINGS.formatDayFirst;
 
     const value = '1/2/2000';
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(new Date(2000, 1, 1));

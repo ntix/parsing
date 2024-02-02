@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
@@ -14,6 +17,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts", "node_modules"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    ".spec",
+    "src/**/*.spec.ts",
+    "node_modules"
+  ]
 }
