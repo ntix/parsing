@@ -1,3 +1,15 @@
+# [1.3.0-next.1](https://github.com/ntix/parsing/compare/v1.2.0...v1.3.0-next.1) (2024-02-03)
+
+
+### Bug Fixes
+
+* **strings:** starts/ends/includes fix and test ([50e459c](https://github.com/ntix/parsing/commit/50e459c37421d3c6ef9c6eadd864d020e7e33570))
+
+
+### Features
+
+* **parse:** allow negate on types ([27d6685](https://github.com/ntix/parsing/commit/27d66858d60be5a78877f1f05fa2907a9dd8cabe))
+
 # [1.2.0](https://github.com/ntix/parsing/compare/v1.1.0...v1.2.0) (2023-10-01)
 
 
