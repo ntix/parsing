@@ -6,7 +6,7 @@ export class Is {
     throw new Error('static class');
   }
 
-  static readonly required: IRoot.Parser = new RootParser(true);
+  static readonly required: IRoot.Parser = new RootParser(true, false);
 
   static readonly boolean = new RootParser().boolean;
   static readonly int = new RootParser().int;
@@ -19,4 +19,6 @@ export class Is {
 
   static readonly for = new RootParser().for;
   static readonly use = new RootParser().use;
+
+  static readonly not = new RootParser(false, true);
 }

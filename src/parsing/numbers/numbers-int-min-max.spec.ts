@@ -1,7 +1,7 @@
 import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
-describe('numbers-min-max', () => {
+describe('numbers-int-min-max', () => {
   const min = 5;
   const max = 10;
   const maxMinSchema = Is.int.min(min).max(max);

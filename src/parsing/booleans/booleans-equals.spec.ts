@@ -2,39 +2,38 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('booleans-equals', () => {
-  const expectedValue = true;
-  const parser = Is.boolean.equals(expectedValue);
+  const schema = Is.boolean.equals(true);
 
   it('success boolean', () => {
-    const result = parser.parse(expectedValue);
+    const result = schema.parse(true);
 
     expect(result.errors).toEqual(ParseErrors.empty);
-    expect(result.value).toEqual(expectedValue);
+    expect(result.value).toEqual(true);
   });
 
   it('success undefined', () => {
-    const result = parser.parse(undefined);
+    const result = schema.parse(undefined);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success null', () => {
-    const result = parser.parse(null);
+    const result = schema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success string', () => {
-    const result = parser.parse(expectedValue.toString());
+    const result = schema.parse(true.toString());
 
     expect(result.errors).toEqual(ParseErrors.empty);
-    expect(result.value).toEqual(expectedValue);
+    expect(result.value).toEqual(true);
   });
 
   it('success string empty', () => {
-    const result = parser.parse('');
+    const result = schema.parse('');
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
@@ -42,9 +41,28 @@ describe('booleans-equals', () => {
 
   it('failure not equal', () => {
     const value = false;
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.equals(expectedValue));
+    expect(result.errors).toEqual(ParseErrors.equals(true));
     expect(result.value).toEqual(value);
+  });
+
+  describe('not', () => {
+
+    const notSchema = Is.boolean.not.equals(true);
+
+    it('success', () => {
+      const result = notSchema.parse('false');
+
+      expect(result.errors).toEqual(ParseErrors.empty);
+      expect(result.value).toEqual(false);
+    });
+
+    it('failure', () => {
+      const result = notSchema.parse('on');
+
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(true)));
+      expect(result.value).toEqual(true);
+    });
   });
 });

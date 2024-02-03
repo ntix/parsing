@@ -5,15 +5,25 @@ import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
 import { Dictionary } from './Dictionary';
 
-export function provideParseDictionary<T>() {
+export function provideParseDictionary<T>(
+  negate: boolean = false
+) {
 
   return (value: T): IParseResult<Dictionary<T>> => {
     if (isNullOrEmpty(value))
       return createParseResult(null);
 
-    if (isObject(value))
-      return createParseResult(value as Dictionary<T>);
+    const parsed = isObject(value)
+      ? value as Dictionary<T>
+      : null;
 
-    return createParseResult(null, ParseErrors.dictionary);
+    if (parsed === null === negate)
+      return createParseResult(parsed);
+
+    const errors = negate
+      ? ParseErrors.not(ParseErrors.dictionary)
+      : ParseErrors.dictionary;
+
+    return createParseResult(null, errors);
   };
 }

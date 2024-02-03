@@ -2,41 +2,47 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('json-parser', () => {
-  const parser = Is.required.json;
+  const schema = Is.required.json;
 
   it('success', () => {
     const value = '{}';
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual({});
   });
 
   it('failure', () => {
+    const warn = console.warn;
+    console.warn = jest.fn();
+
     const value = '{';
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.json);
     expect(result.value).toBe(null);
+
+    expect(console.warn).toHaveBeenCalled();
+    console.warn = warn;
   });
 
   it('required', () => {
 
-    const result = parser.parse(null);
+    const result = schema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.required);
   });
 
   it('not required', () => {
-    const requiredParser = Is.json;
+    const requiredSchema = Is.json;
 
-    const result = requiredParser.parse(null);
+    const result = requiredSchema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.empty);
   });
 
   describe('and complex', () => {
-    const complexParser = parser.for({
+    const complexParser = schema.for({
       date: Is.required.date
     });
 

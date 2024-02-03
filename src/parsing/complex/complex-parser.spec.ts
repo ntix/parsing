@@ -6,7 +6,7 @@ describe('complex-parser', () => {
   it('parse', () => {
     const value = valid;
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.value).toEqual({
       name: value.name,
@@ -24,7 +24,7 @@ describe('complex-parser', () => {
       jobType: -1
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ jobType: ParseErrors.anyOf(JobTypes) });
   });
@@ -35,7 +35,7 @@ describe('complex-parser', () => {
       scores: null
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ scores: ParseErrors.required });
   });
@@ -46,7 +46,7 @@ describe('complex-parser', () => {
       scores: ['a']
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ scores: { '0': { float: true } } });
   });
@@ -57,7 +57,7 @@ describe('complex-parser', () => {
       emails: []
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ emails: ParseErrors.minLength(EMAILS_MIN_LENGTH) });
   });
@@ -68,7 +68,7 @@ describe('complex-parser', () => {
       emails: [{ name: null, address: 'email@example.com' }]
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ emails: { [0]: { name: ParseErrors.required } } });
   });
@@ -79,7 +79,7 @@ describe('complex-parser', () => {
       emails: [{ ...valid.emails[0], address: 'email@example.co.uk' }]
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ emails: { [0]: { address: ParseErrors.matches('email') } } });
   });
@@ -90,7 +90,7 @@ describe('complex-parser', () => {
       name: null
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({ name: ParseErrors.required });
   });
@@ -103,7 +103,7 @@ describe('complex-parser', () => {
       }
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({
       name: {
@@ -118,7 +118,7 @@ describe('complex-parser', () => {
       dateOfBirth: '3000-01-01'
     };
 
-    const result = personParser.parse(value);
+    const result = personSchema.parse(value);
 
     expect(result.errors).toEqual({
       dateOfBirth: ParseErrors.max(now, false)
@@ -162,25 +162,25 @@ describe('complex-parser', () => {
   const GIVEN_NAME_MAX_LENGTH = 25;
   const FAMILY_NAME_MAX_LENGTH = 50;
 
-  const nameParser = Is.for({
+  const nameSchema = Is.for({
     given: Is.string.maxLength(GIVEN_NAME_MAX_LENGTH),
     family: Is.required.string.maxLength(FAMILY_NAME_MAX_LENGTH)
   });
 
-  const emailParser = Is.for<IEmail>({
+  const emailSchema = Is.for<IEmail>({
     name: Is.required.string,
     address: Is.required.string.matches(/.*?\.com/, 'email')
   });
 
   const EMAILS_MIN_LENGTH = 1;
 
-  const personParser = Is.for<IPerson>({
-    name: Is.required.use(nameParser),
+  const personSchema = Is.for<IPerson>({
+    name: Is.required.use(nameSchema),
     dateOfBirth: Is.required.date.max(now),
     jobType: Is.int.anyOf(JobTypes),
     salary: Is.float.min(0),
     scores: Is.required.array.each(Is.float),
-    emails: Is.array.each(emailParser).minLength(EMAILS_MIN_LENGTH),
+    emails: Is.array.each(emailSchema).minLength(EMAILS_MIN_LENGTH),
     lastSeen: Is.date
   });
 });

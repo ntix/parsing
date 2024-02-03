@@ -53,21 +53,21 @@ describe('dates-parser', () => {
     const result = schema.parse('a');
 
     expect(result.value).toBe(null);
-    expect(result.errors).toEqual({ date: true });
+    expect(result.errors).toEqual(ParseErrors.date);
   });
 
   it('failure not date object', () => {
     const result = schema.parse({});
 
     expect(result.value).toBe(null);
-    expect(result.errors).toEqual({ date: true });
+    expect(result.errors).toEqual(ParseErrors.date);
   });
 
   it('failure not date NaN', () => {
     const result = schema.parse(NaN);
 
     expect(result.value).toBe(null);
-    expect(result.errors).toEqual({ date: true });
+    expect(result.errors).toEqual(ParseErrors.date);
   });
 
   it('format/parse different day first', () => {
@@ -82,5 +82,25 @@ describe('dates-parser', () => {
     expect(result.value).toEqual(new Date(2000, 1, 1));
 
     DATE_SETTINGS.parseDayFirst = original;
+  });
+
+  describe('not', () => {
+    const notSchema = Is.not.date;
+
+    it('success', () => {
+      const value = 'oo';
+      const result = notSchema.parse(value);
+
+      expect(result.errors).toEqual(ParseErrors.empty);
+      expect(result.value).toEqual(null);
+    });
+
+    it('failure', () => {
+      const value = new Date();
+      const result = notSchema.parse(value);
+
+      expect(result.value).toBe(null);
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.date));
+    });
   });
 });

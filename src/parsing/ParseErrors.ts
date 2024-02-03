@@ -19,6 +19,8 @@ export class ParseErrors {
   static readonly float = { float: true };
   /** value should be a date */
   static readonly date = { date: true };
+  /** value should be a string */
+  static readonly string = { string: true };
   /** value should be equal to the value */
   static readonly equals = <T>(value: T) => ({ equals: value });
   /** value should be equal to any of the values */

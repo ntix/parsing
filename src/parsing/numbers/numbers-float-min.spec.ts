@@ -1,12 +1,12 @@
 import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
-describe('numbers-max', () => {
-  const max = 10;
-  const schema = Is.int.max(max);
+describe('numbers-float-min', () => {
+  const min = 10.5;
+  const schema = Is.float.min(min);
 
   it('success', () => {
-    const value = max - 1;
+    const value = min + .5;
     const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
@@ -14,38 +14,38 @@ describe('numbers-max', () => {
   });
 
   it('failure', () => {
-    const value = max + 1;
+    const value = min - .5;
     const result = schema.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.max(max, false));
+    expect(result.errors).toEqual(ParseErrors.min(min, false));
     expect(result.value).toBe(value);
   });
 
   it('failure', () => {
-    const exclusiveSchema = Is.int.max(max, true);
-    const value = max;
+    const exclusiveSchema = Is.float.min(min, true);
+    const value = min;
     const result = exclusiveSchema.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.max(max, true));
+    expect(result.errors).toEqual(ParseErrors.min(min, true));
     expect(result.value).toBe(value);
   });
 
   describe('not', () => {
-    const notMaxSchema = Is.int.not.max(max);
+    const notMinSchema = Is.float.not.min(min);
 
     it('success', () => {
-      const value = max + 1;
-      const result = notMaxSchema.parse(value);
+      const value = min - .5;
+      const result = notMinSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toBe(value);
     });
 
     it('failure', () => {
-      const value = max - 1;
-      const result = notMaxSchema.parse(value);
+      const value = min + .5;
+      const result = notMinSchema.parse(value);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.max(max, false)));
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.min(min, false)));
       expect(result.value).toBe(value);
     });
 
