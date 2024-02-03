@@ -4,38 +4,38 @@ import { parseDate } from './parseDate';
 
 describe('dates-equals', () => {
   const expectedValue = new Date(3000, 0, 1, 0, 0, 0, 0);
-  const parser = Is.date.equals(expectedValue);
+  const schema = Is.date.equals(expectedValue);
 
   it('success date', () => {
-    const result = parser.parse(expectedValue);
+    const result = schema.parse(expectedValue);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(expectedValue);
   });
 
   it('success undefined', () => {
-    const result = parser.parse(undefined);
+    const result = schema.parse(undefined);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success null', () => {
-    const result = parser.parse(null);
+    const result = schema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
   });
 
   it('success string', () => {
-    const result = parser.parse(expectedValue.toString());
+    const result = schema.parse(expectedValue.toString());
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toEqual(expectedValue);
   });
 
   it('success string empty', () => {
-    const result = parser.parse('');
+    const result = schema.parse('');
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(null);
@@ -43,18 +43,18 @@ describe('dates-equals', () => {
 
   it('failure not equal', () => {
     const value = new Date(3000, 0, 2, 0, 0, 0, 0);
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.equals(expectedValue));
     expect(result.value).toEqual(value);
   });
 
   describe('not', () => {
-    const notParser = Is.date.not.equals('2000-01-01');
+    const notSchema = Is.date.not.equals('2000-01-01');
 
     it('success', () => {
       const value = parseDate('3000-01-01');
-      const result = notParser.parse(value);
+      const result = notSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toEqual(value);
@@ -62,7 +62,7 @@ describe('dates-equals', () => {
 
     it('failure', () => {
       const value = parseDate('2000-01-01');
-      const result = notParser.parse(value);
+      const result = notSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(value)));
       expect(result.value).toEqual(value);

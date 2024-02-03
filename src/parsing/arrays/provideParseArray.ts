@@ -3,15 +3,33 @@ import { createParseResult } from '../createParseResult';
 import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
 
-export function provideParseArray<T>() {
+/**
+ * provides a parser for an array, or not an array
+ * 
+ * note. if negated result value will be null 
+ * 
+ * @param negate 
+ * @returns parseResult
+ */
+export function provideParseArray<T>(
+  negate: boolean = false
+) {
 
   return (value: T): IParseResult<T[]> => {
     if (isNullOrEmpty(value))
       return createParseResult(null);
 
-    if (Array.isArray(value))
-      return createParseResult(value as T[]);
+    const parsed = Array.isArray(value)
+      ? value as T[]
+      : null;
 
-    return createParseResult(null, ParseErrors.array);
+    if (parsed === null === negate)
+      return createParseResult(parsed);
+
+    const errors = negate
+      ? ParseErrors.not(ParseErrors.array)
+      : ParseErrors.array;
+
+    return createParseResult(null, errors);
   };
 }

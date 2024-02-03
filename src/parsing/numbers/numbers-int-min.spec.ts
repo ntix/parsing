@@ -1,7 +1,7 @@
 import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
-describe('numbers-min', () => {
+describe('numbers-int-min', () => {
   const min = 10;
   const schema = Is.int.min(min);
 

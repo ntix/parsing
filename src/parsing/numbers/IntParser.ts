@@ -18,12 +18,12 @@ import { NumberEnumMap } from './NumberEnumMap';
 export class IntParser implements IInt.Parser {
   constructor(
     private parent: IParser<unknown>,
-    private parseCurrent: IParse<number> = provideParseInt(),
+    private parseCurrent: IParse<number> = null,
     private radix: number = undefined,
     private negate: boolean = false
   ) { }
 
-  readonly parse = parseChain(this.parent, this.parseCurrent);
+  readonly parse = parseChain(this.parent, this.parseCurrent ?? provideParseInt(this.negate));
 
   readonly withRadix = (value?: number) => new IntParser(this.parent, this.parseCurrent, value, this.negate);
 

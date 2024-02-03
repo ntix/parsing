@@ -5,7 +5,7 @@ import { ParseErrors } from '../ParseErrors';
 describe('parseAllArray', () => {
 
   interface IModel { name: string, age?: number }
-  const parser = Is.for<IModel>({
+  const schema = Is.for<IModel>({
     name: Is.required.string,
     age: Is.int.min(25)
   });
@@ -16,7 +16,7 @@ describe('parseAllArray', () => {
       { name: 'NAME-2', age: 32 }
     ];
 
-    const result = parseAllArray(parser.parse)(values);
+    const result = parseAllArray(schema.parse)(values);
 
     expect(result.value).toEqual(values);
     expect(result.errors).toBe(ParseErrors.empty);
@@ -28,7 +28,7 @@ describe('parseAllArray', () => {
       { name: 'NAME-2', age: 1 }
     ];
 
-    const result = parseAllArray(parser.parse)(values);
+    const result = parseAllArray(schema.parse)(values);
 
     expect(result.value).toEqual(values);
     expect(result.errors).toEqual({

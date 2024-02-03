@@ -2,11 +2,11 @@ import { Is } from '../../Is';
 import { ParseErrors } from '../ParseErrors';
 
 describe('dictionaries-parser', () => {
-  const parser = Is.required.dictionary;
+  const schema = Is.required.dictionary;
 
   it('success', () => {
     const value = { a: '1' };
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.empty);
     expect(result.value).toBe(value);
@@ -14,7 +14,7 @@ describe('dictionaries-parser', () => {
 
   it('failure', () => {
     const value = 1;
-    const result = parser.parse(value);
+    const result = schema.parse(value);
 
     expect(result.errors).toEqual(ParseErrors.dictionary);
     expect(result.value).toBe(null);
@@ -22,21 +22,21 @@ describe('dictionaries-parser', () => {
 
   it('required', () => {
 
-    const result = parser.parse(null);
+    const result = schema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.required);
   });
 
   it('not required', () => {
-    const requiredParser = Is.dictionary;
+    const requiredSchema = Is.dictionary;
 
-    const result = requiredParser.parse(null);
+    const result = requiredSchema.parse(null);
 
     expect(result.errors).toEqual(ParseErrors.empty);
   });
 
   it('each', () => {
-    const eachParser = parser.each(Is.int);
+    const eachParser = schema.each(Is.int);
 
     const value = { a: '1' };
     const result = eachParser.parse(value);

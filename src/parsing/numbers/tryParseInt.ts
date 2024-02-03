@@ -1,7 +1,14 @@
 import { isInt, isNullOrEmpty, isNumberType } from '../../predicates';
 import { NumberParsableTypes } from './NumberParsableTypes';
 
-/** Attempt to parse an integer value */
+/** 
+ * Attempt to parse an integer value
+ * 
+ * @param value value
+ * @param [radix=undefined] will default to 10
+ * 
+ * @returns number or null
+ */
 export function tryParseInt(
   value: NumberParsableTypes, radix: number = undefined
 ): number | null {

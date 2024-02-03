@@ -7,10 +7,14 @@ import { IString } from './strings';
 import { IArray } from './arrays';
 import { IDictionary } from './dictionaries';
 import { IJson } from './json/IJson';
+import { NextBuilder } from './NextBuilder';
 
 export namespace IRoot {
 
-  export interface Parser extends IParser<unknown>, Builder { }
+  export interface Parser extends IParser<unknown>, Builder {
+    readonly not: NextBuilder<Parser, 'not' | 'parse'>
+
+  }
 
   export interface Builder {
     readonly boolean: IBoolean.Parser;

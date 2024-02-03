@@ -12,11 +12,11 @@ export class ArrayParser<T> implements IArray.Parser<T> {
 
   constructor(
     private parent: IParser<unknown>,
-    private parseCurrent: IParse<T[]> = provideParseArray<T>(),
+    private parseCurrent: IParse<T[]> = null,
     private negate: boolean = false
   ) { }
 
-  readonly parse = parseChain<T[]>(this.parent, this.parseCurrent);
+  readonly parse = parseChain<T[]>(this.parent, this.parseCurrent ?? provideParseArray<T>(this.negate));
 
   get not() {
     return new ArrayParser<T>(this.parent, this.parseCurrent, true);
