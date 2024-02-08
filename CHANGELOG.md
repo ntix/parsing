@@ -1,3 +1,15 @@
+# [2.0.0-next.1](https://github.com/ntix/parsing/compare/v1.3.0-next.1...v2.0.0-next.1) (2024-02-08)
+
+
+### Features
+
+* **parsing:** major refactor ([505dae3](https://github.com/ntix/parsing/commit/505dae36ea096c3a65de69d8d83cb26c0a69176a))
+
+
+### BREAKING CHANGES
+
+* **parsing:** chain parser revised
+
 # [1.3.0-next.1](https://github.com/ntix/parsing/compare/v1.2.0...v1.3.0-next.1) (2024-02-03)
 
 
