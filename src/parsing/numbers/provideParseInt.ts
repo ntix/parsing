@@ -1,6 +1,5 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 import { NumberParsableTypes } from './NumberParsableTypes';
 import { tryParseInt } from './tryParseInt';
@@ -10,26 +9,26 @@ import { tryParseInt } from './tryParseInt';
  * 
  * note. if negated result value will be null 
  * 
- * @param negate 
  * @returns parseResult
  */
 export function provideParseInt(
-  negate: boolean = false
-) {
+  radix: number = undefined,
+): IParse<number> {
 
-  return (value: unknown): IParseResult<number> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: NumberParsableTypes) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = tryParseInt(value as NumberParsableTypes);
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      parsed = tryParseInt(value, radix);
+      success = parsed !== null;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.int)
-      : ParseErrors.int;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.int
+    };
   };
 }

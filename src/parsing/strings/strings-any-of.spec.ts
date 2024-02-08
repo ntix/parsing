@@ -38,7 +38,7 @@ describe('strings-any-of', () => {
     const value = 'o';
     const result = schama.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.anyOf(strings));
+    expect(result.errors).toEqual(ParseErrors.anyOf(strings, false));
     expect(result.value).toBe(value);
   });
 
@@ -70,7 +70,7 @@ describe('strings-any-of', () => {
       const value = strings[0];
       const result = notSchama.parse(value);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.anyOf(strings)));
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.anyOf(strings, false)));
       expect(result.value).toBe(value);
     });
   });

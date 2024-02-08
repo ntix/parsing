@@ -1,25 +1,26 @@
 import { isNullOrEmpty, isStringType } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 
-export function provideParseString(negate: boolean = false) {
+export function provideParseString(
+): IParse<string> {
 
-  return (value: unknown): IParseResult<string> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: unknown) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = isStringType(value)
-      ? value.toString()
-      : null;
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      parsed = isStringType(value)
+        ? value
+        : null;
+      success = parsed !== null;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.string)
-      : ParseErrors.string;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.string
+    };
   };
 }

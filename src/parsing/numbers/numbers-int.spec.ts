@@ -76,7 +76,7 @@ describe('numbers-int', () => {
       const result = notSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.int));
-      expect(result.value).toBe(null);
+      expect(result.value).toBe(1);
     });
   });
 });

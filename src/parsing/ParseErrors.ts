@@ -21,32 +21,34 @@ export class ParseErrors {
   static readonly date = { date: true };
   /** value should be a string */
   static readonly string = { string: true };
-  /** value should be equal to the value */
-  static readonly equals = <T>(value: T) => ({ equals: value });
-  /** value should be equal to any of the values */
-  static readonly anyOf = <T>(values: T[] | NumberEnumMap) => ({ anyOf: Array.isArray(values) ? values : getNumberEnumValues(values) });
+  /** value should be equal to the value, ignoreCase only valid for string */
+  static readonly equals = <T>(value: T, ignoreCase?: boolean) => ({ equals: { value, ...(ignoreCase !== undefined && { ignoreCase }) } });
+  /** value should be equal to any of the values, ignoreCase only valid for string */
+  static readonly anyOf = <T>(values: T[] | NumberEnumMap, ignoreCase?: boolean) => ({ anyOf: { value: Array.isArray(values) ? values : getNumberEnumValues(values), ...(ignoreCase !== undefined && { ignoreCase }) } });
   /** value should be at least */
   static readonly min = <T>(value: T, exclusive: boolean = false) => ({ min: { value, exclusive } });
   /** value should be at most */
   static readonly max = <T>(value: T, exclusive: boolean = false) => ({ max: { value, exclusive } });
   /** value length should be at least */
-  static readonly minLength = <T>(value: T) => ({ minLength: value });
+  static readonly minLength = <T>(value: T, exclusive: boolean = false) => ({ minLength: value, exclusive });
   /** value length should be at most */
-  static readonly maxLength = <T>(value: T) => ({ maxLength: value });
+  static readonly maxLength = <T>(value: T, exclusive: boolean = false) => ({ maxLength: value, exclusive });
   /** value should be an array */
   static readonly array = { array: true };
   /** value should be a array */
   static readonly dictionary = { dictionary: true };
+  /** value should be a complex object */
+  static readonly complex = { object: true };
   /** value should be a json */
   static readonly json = { json: true };
   /** value includes */
   static readonly matches = <T>(name: T) => ({ matches: name });
   /** value includes */
-  static readonly includes = <T>(value: T, ignoreCase: boolean = false) => ({ includes: { value, ignoreCase } });
+  static readonly includes = <T>(value: T, ignoreCase?: boolean) => ({ includes: { value, ...(ignoreCase !== undefined && { ignoreCase }) } });
   /** starts with */
-  static readonly startsWith = <T>(value: T, ignoreCase: boolean = false) => ({ startsWith: { value, ignoreCase } });
+  static readonly startsWith = <T>(value: T, ignoreCase?: boolean) => ({ startsWith: { value, ...(ignoreCase !== undefined && { ignoreCase }) } });
   /** ends with */
-  static readonly endsWith = <T>(value: T, ignoreCase: boolean = false) => ({ endsWith: { value, ignoreCase } });
+  static readonly endsWith = <T>(value: T, ignoreCase?: boolean) => ({ endsWith: { value, ...(ignoreCase !== undefined && { ignoreCase }) } });
   /** values unique */
   static readonly unique = { unique: true };
 }

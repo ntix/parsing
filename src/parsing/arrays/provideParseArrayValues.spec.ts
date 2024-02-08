@@ -1,5 +1,5 @@
 import { Is } from '../../Is';
-import { parseAllArray } from './parseAllArray';
+import { provideParseArrayValues } from './provideParseArrayValues';
 import { ParseErrors } from '../ParseErrors';
 
 describe('parseAllArray', () => {
@@ -16,10 +16,10 @@ describe('parseAllArray', () => {
       { name: 'NAME-2', age: 32 }
     ];
 
-    const result = parseAllArray(schema.parse)(values);
+    const result = provideParseArrayValues(schema.parse)(values);
 
     expect(result.value).toEqual(values);
-    expect(result.errors).toBe(ParseErrors.empty);
+    expect(result.errors).toBe(ParseErrors.array);
   });
 
   it('failure', () => {
@@ -28,7 +28,7 @@ describe('parseAllArray', () => {
       { name: 'NAME-2', age: 1 }
     ];
 
-    const result = parseAllArray(schema.parse)(values);
+    const result = provideParseArrayValues(schema.parse)(values);
 
     expect(result.value).toEqual(values);
     expect(result.errors).toEqual({

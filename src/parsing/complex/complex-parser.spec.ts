@@ -125,6 +125,29 @@ describe('complex-parser', () => {
     });
   });
 
+  it('parse array', () => {
+    const invalid = {
+      ...valid,
+      name: {
+        family: 'X'.repeat(100)
+      }
+    };
+
+    const value = [invalid, null];
+
+    const result = peopleSchema.parse(value);
+
+    expect(result.errors).toEqual({
+      0: {
+        name: {
+          family: ParseErrors.maxLength(FAMILY_NAME_MAX_LENGTH)
+        }
+      },
+      1: ParseErrors.not(ParseErrors.equals(null)),
+      ...ParseErrors.minLength(3)
+    });
+  });
+
   /** data */
   const now = new Date();
   const valid = {
@@ -182,5 +205,7 @@ describe('complex-parser', () => {
     scores: Is.required.array.each(Is.float),
     emails: Is.array.each(emailSchema).minLength(EMAILS_MIN_LENGTH),
     lastSeen: Is.date
-  });
+  }).not.equals(null);
+
+  const peopleSchema = Is.array.each(personSchema).minLength(3).unique(i => i?.name);
 });

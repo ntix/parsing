@@ -1,6 +1,5 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 
 /**
@@ -12,24 +11,23 @@ import { ParseErrors } from '../ParseErrors';
  * @returns parseResult
  */
 export function provideParseArray<T>(
-  negate: boolean = false
-) {
+): IParse<T[]> {
 
-  return (value: T): IParseResult<T[]> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: unknown) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = Array.isArray(value)
-      ? value as T[]
-      : null;
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      success = Array.isArray(value);
+      if (success)
+        parsed = value as T[];
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.array)
-      : ParseErrors.array;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.array
+    };
   };
 }

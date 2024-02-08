@@ -1,24 +1,24 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 import { tryParseBoolean } from './tryParseBoolean';
 
 export function provideParseBoolean(
-  negate: boolean = false
-) {
-  return (value: unknown): IParseResult<boolean> => {
-    if (isNullOrEmpty(value)) return createParseResult(null);
+): IParse<boolean> {
+  return (value: unknown) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = tryParseBoolean(value);
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      parsed = tryParseBoolean(value);
+      success = parsed !== null;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.boolean)
-      : ParseErrors.boolean;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.boolean
+    };
   };
 }

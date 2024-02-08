@@ -38,7 +38,7 @@ describe('strings-ends-with', () => {
     const value = 'o';
     const result = schama.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.endsWith(endsWith));
+    expect(result.errors).toEqual(ParseErrors.endsWith(endsWith, false));
     expect(result.value).toBe(value);
   });
 
@@ -70,7 +70,7 @@ describe('strings-ends-with', () => {
       const value = 'o' + endsWith;
       const result = notSchama.parse(value);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.endsWith(endsWith)));
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.endsWith(endsWith, false)));
       expect(result.value).toBe(value);
     });
   });

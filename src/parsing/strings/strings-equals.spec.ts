@@ -16,7 +16,7 @@ describe('strings-equals', () => {
     const value = expectedValue.toUpperCase();
     const result = schema.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.equals(expectedValue));
+    expect(result.errors).toEqual(ParseErrors.equals(expectedValue, false));
     expect(result.value).toEqual(value);
   });
 
@@ -54,7 +54,7 @@ describe('strings-equals', () => {
     const value = 'not-value';
     const result = schema.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.equals(expectedValue));
+    expect(result.errors).toEqual(ParseErrors.equals(expectedValue, false));
     expect(result.value).toEqual(value);
   });
 });

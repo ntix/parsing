@@ -1,8 +1,8 @@
-import { provideEquals } from '../provideEquals';
-import { IParse } from '../IParse';
+import { ICurrentParser } from '../ICurrentParser';
 import { IParser } from '../IParser';
 import { parseChain } from '../parseChain';
-import { provideParseBoolean } from './provideParseBoolean';
+import { provideEquals } from '../provideEquals';
+import { asCurrent } from '../asCurrent';
 import { IBoolean } from './IBoolean';
 
 /**
@@ -11,15 +11,15 @@ import { IBoolean } from './IBoolean';
 export class BooleanParser implements IBoolean.Parser {
   constructor(
     private parent: IParser<unknown>,
-    private parseCurrent: IParse<boolean> = provideParseBoolean(),
+    private parseCurrent: ICurrentParser<boolean>,
     private negate: boolean = false
   ) { }
 
-  readonly parse = parseChain(this.parent, this.parseCurrent);
-
-  readonly equals = (equalToValue: boolean) => new BooleanParser(this, provideEquals(equalToValue, this.negate));
+  readonly parse = parseChain(this.parent, this.parseCurrent, 'BOOLEAN');
 
   get not() {
-    return new BooleanParser(this.parent, provideParseBoolean(), true);
+    return new BooleanParser(this.parent, this.parseCurrent, !this.negate);
   }
+
+  readonly equals = (equalToValue: boolean) => new BooleanParser(this, asCurrent(provideEquals(equalToValue), this.negate));
 }

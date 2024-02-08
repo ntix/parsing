@@ -38,7 +38,7 @@ describe('strings-includes', () => {
     const value = 'o';
     const result = schama.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.includes(includes));
+    expect(result.errors).toEqual(ParseErrors.includes(includes, false));
     expect(result.value).toBe(value);
   });
 
@@ -70,7 +70,7 @@ describe('strings-includes', () => {
       const value = 'o' + includes + 'o';
       const result = notSchama.parse(value);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.includes(includes)));
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.includes(includes, false)));
       expect(result.value).toBe(value);
     });
   });

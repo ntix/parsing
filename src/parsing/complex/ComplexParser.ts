@@ -1,38 +1,22 @@
-import { isEqual, isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
 import { IParser } from '../IParser';
-import { IParseResult } from '../IParseResult';
 import { parseChain } from '../parseChain';
-import { ParseErrors } from '../ParseErrors';
+import { ICurrentParser } from '../ICurrentParser';
 import { IComplex } from './IComplex';
-import { ComplexSchema } from './ComplexSchema';
+import { provideEquals } from '../provideEquals';
+import { asCurrent } from '../asCurrent';
 
 export class ComplexParser<T> implements IComplex.Parser<T> {
-  constructor(private parent: IParser<unknown>, private schema: ComplexSchema<T>) { }
+  constructor(
+    private parent: IParser<unknown>,
+    private parseCurrent: ICurrentParser<T>,
+    private negate: boolean = false
+  ) { }
 
-  readonly parse = parseChain(this.parent, (originalValue: unknown) => {
-    if (isNullOrEmpty(originalValue))
-      return createParseResult(null);
+  readonly parse = parseChain(this.parent, this.parseCurrent, 'COMPLEX');
 
-    return Object
-      .keys(this.schema)
-      .reduce<IParseResult<T>>((r, key) => {
-        const result = this.schema[key].parse(originalValue[key]);
-        const value
-          = result.value == null
-            ? r.value
-            : {
-              ...r.value,
-              [key]: result.value
-            };
-        const errors = isEqual(result.errors, ParseErrors.empty)
-          ? r.errors
-          : {
-            ...r.errors,
-            [key]: result.errors
-          };
+  get not() {
+    return new ComplexParser<T>(this.parent, this.parseCurrent, !this.negate);
+  }
 
-        return createParseResult(value, errors);
-      }, createParseResult(originalValue as T));
-  });
+  readonly equals = (equalToValue: T) => new ComplexParser<T>(this, asCurrent(provideEquals(equalToValue), this.negate));
 }

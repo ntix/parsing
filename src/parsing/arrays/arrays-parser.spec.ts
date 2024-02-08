@@ -56,7 +56,7 @@ describe('arrays-parser', () => {
       const result = notSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.array));
-      expect(result.value).toBe(null);
+      expect(result.value).toBe(value);
     });
   });
 });

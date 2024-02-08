@@ -24,6 +24,7 @@ module.exports = {
     "sort-imports": ["error", { "allowSeparatedGroups": false, "ignoreDeclarationSort": true }],
     "no-empty-interface": "off",
     "no-unused-vars": "off",
+    "eol-last": ["error", "always"],
   },
   root: true,
 };

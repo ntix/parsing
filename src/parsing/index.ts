@@ -3,6 +3,7 @@
  */
 
 export * from './createParseResult';
+export * from './ICurrentParser';
 export * from './IHasLength';
 export * from './IParse';
 export * from './IParseErrors';
@@ -19,8 +20,10 @@ export * from './provideMax';
 export * from './provideMaxLength';
 export * from './provideMin';
 export * from './provideMinLength';
+export * from './provideParseRoot';
 export * from './RelationalValidatorTypes';
 export * from './RootParser';
+export * from './asCurrent';
 export * from './arrays/index';
 export * from './booleans/index';
 export * from './complex/index';
