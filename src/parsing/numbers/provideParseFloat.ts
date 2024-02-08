@@ -1,6 +1,5 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 import { NumberParsableTypes } from './NumberParsableTypes';
 import { tryParseFloat } from './tryParseFloat';
@@ -13,21 +12,23 @@ import { tryParseFloat } from './tryParseFloat';
  * @param negate 
  * @returns parseResult
  */
-export function provideParseFloat(negate: boolean = false) {
+export function provideParseFloat(
+): IParse<number> {
 
-  return (value: unknown): IParseResult<number> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: NumberParsableTypes) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = tryParseFloat(value as NumberParsableTypes);
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      parsed = tryParseFloat(value);
+      success = parsed !== null;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.float)
-      : ParseErrors.float;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.float
+    };
   };
 }

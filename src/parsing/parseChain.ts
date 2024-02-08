@@ -1,23 +1,42 @@
 import { IParser } from './IParser';
 import { createParseResult } from './createParseResult';
 import { IParse } from './IParse';
+import { ParseErrors } from './ParseErrors';
+import { ICurrentParser } from './ICurrentParser';
 
+/**
+ * Gets a chained, parent and current parser
+ * 
+ * @param parent parent parser
+ * @param current current parser
+ * @param _parserName name for debugging
+ * @returns a chained parse function
+ */
 export function parseChain<T>(
-  parent: IParser<unknown>, current: IParse<T>
+  parent: IParser<unknown>,
+  current: ICurrentParser<T>,
+  _parserName: string
 ): IParse<T> {
 
   return (value: unknown) => {
-    if (parent == null) {
-      // when root Schema
-      return current(value);
-    }
 
-    const parentResult = parent.parse(value);
-    const result = current(parentResult.value);
+    let result = createParseResult(value);
 
-    return createParseResult(result.value, {
-      ...parentResult.errors,
-      ...result.errors
-    });
+    if (parent != null)
+      result = parent.parse(result.value);
+
+    const currentResult = current.parse(result.value);
+
+    return createParseResult(
+      currentResult.value,
+      {
+        ...result.errors,
+        ...currentResult.success !== current.negate // negate the result if needed
+          ? ParseErrors.empty
+          : current.negate
+            ? ParseErrors.not(currentResult.errors)
+            : currentResult.errors
+      }
+    );
   };
 }

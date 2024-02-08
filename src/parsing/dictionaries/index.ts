@@ -5,5 +5,6 @@
 export * from './Dictionary';
 export * from './DictionaryParser';
 export * from './IDictionary';
-export * from './parseAllDictionary';
+export * from './provideDictionaryValues';
 export * from './provideParseDictionary';
+export * from './provideParseDictionaryValues';

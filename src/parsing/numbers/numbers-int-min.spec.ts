@@ -21,7 +21,7 @@ describe('numbers-int-min', () => {
     expect(result.value).toBe(value);
   });
 
-  it('success null', () => {
+  it('success null #fail', () => {
     const value = null;
     const result = schema.parse(value);
 

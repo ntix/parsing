@@ -1,26 +1,20 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideStartsWithString(
-  startswithValue: string, ignoreCase: boolean, negate: boolean
-) {
+  startswithValue: string,
+  ignoreCase: boolean,
+): IParse<string> {
 
-  return (value: string): IParseResult<string> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: string) => ({
+    value,
+    success: isNullOrEmpty(value) || (() => {
+      const a = ignoreCase ? value.toLowerCase() : value;
+      const b = ignoreCase ? startswithValue.toLowerCase() : startswithValue;
 
-    const a = ignoreCase ? value.toLowerCase() : value;
-    const b = ignoreCase ? startswithValue.toLowerCase() : startswithValue;
-
-    if (a.startsWith(b) !== negate)
-      return createParseResult(value);
-
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.startsWith(startswithValue))
-      : ParseErrors.startsWith(startswithValue);
-
-    return createParseResult(value, errors);
-  };
+      return a.startsWith(b);
+    })(),
+    errors: ParseErrors.startsWith(startswithValue, ignoreCase)
+  });
 }

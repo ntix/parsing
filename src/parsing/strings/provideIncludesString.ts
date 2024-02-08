@@ -1,26 +1,21 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideIncludesString(
-  includesValue: string, ignoreCase = false, negate: boolean
-) {
+  includesValue: string,
+  ignoreCase = false,
+): IParse<string> {
 
-  return (value: string): IParseResult<string> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: string) => ({
+    value,
+    success: isNullOrEmpty(value) || (() => {
 
-    const a = ignoreCase ? value.toLowerCase() : value;
-    const b = ignoreCase ? includesValue.toLowerCase() : includesValue;
+      const a = ignoreCase ? value.toLowerCase() : value;
+      const b = ignoreCase ? includesValue.toLowerCase() : includesValue;
 
-    if (a.includes(b) !== negate)
-      return createParseResult(value);
-
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.includes(includesValue))
-      : ParseErrors.includes(includesValue);
-
-    return createParseResult(value, errors);
-  };
+      return a.includes(b);
+    })(),
+    errors: ParseErrors.includes(includesValue, ignoreCase)
+  });
 }

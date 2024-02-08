@@ -1,6 +1,5 @@
 import { isNullOrEmpty } from '../predicates';
-import { createParseResult } from './createParseResult';
-import { IParseErrors } from './IParseErrors';
+import { IParse } from './IParse';
 import { ParseErrors } from './ParseErrors';
 import { RelationalValidatorTypes } from './RelationalValidatorTypes';
 
@@ -8,18 +7,13 @@ import { RelationalValidatorTypes } from './RelationalValidatorTypes';
  * Validate a value is a maximum
  */
 export function provideMax<T extends RelationalValidatorTypes>(
-  maxValue: T, exclusive: boolean, negate: boolean
-) {
+  maxValue: T,
+  exclusive: boolean,
+): IParse<T> {
 
-  return (value: T) => {
-    if (isNullOrEmpty(value)
-      || (exclusive ? value < maxValue : value <= maxValue) !== negate)
-      return createParseResult(value);
-
-    let errors: IParseErrors = ParseErrors.max(maxValue, exclusive);
-    if (negate)
-      errors = ParseErrors.not(errors);
-
-    return createParseResult(value, errors);
-  };
+  return (value: T) => ({
+    value,
+    success: isNullOrEmpty(value) || (exclusive ? value < maxValue : value <= maxValue),
+    errors: ParseErrors.max(maxValue, exclusive)
+  });
 }

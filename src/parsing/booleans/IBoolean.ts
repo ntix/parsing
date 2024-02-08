@@ -6,6 +6,6 @@ export namespace IBoolean {
   export interface Parser extends IParser<boolean> {
     readonly not: NextBuilder<Parser, 'not' | 'parse'>
 
-    equals(value: boolean): NextBuilder<Parser, 'equals' | 'not', 'parse' | 'not'>
+    equals(value: boolean | null | undefined): NextBuilder<Parser, 'equals', 'parse' | 'not'>
   }
 }

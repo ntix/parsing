@@ -64,7 +64,7 @@ describe('booleans-parser', () => {
       const result = notSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.boolean));
-      expect(result.value).toBe(null);
+      expect(result.value).toBe(value);
     });
   });
 });

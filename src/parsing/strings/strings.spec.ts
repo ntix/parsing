@@ -57,7 +57,7 @@ describe('strings', () => {
       const result = notSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.string));
-      expect(result.value).toEqual(null);
+      expect(result.value).toEqual(value);
     });
 
   });
