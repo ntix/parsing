@@ -27,7 +27,7 @@ describe('strings-max-length', () => {
     const value = stringOfLength(max);
     const result = exclusiveSchama.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.maxLength(max));
+    expect(result.errors).toEqual(ParseErrors.maxLength(max, true));
     expect(result.value).toBe(value);
   });
 

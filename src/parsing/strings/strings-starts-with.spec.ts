@@ -38,7 +38,7 @@ describe('strings-starts-with', () => {
     const value = 'o';
     const result = schama.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.startsWith(startsWith));
+    expect(result.errors).toEqual(ParseErrors.startsWith(startsWith, false));
     expect(result.value).toBe(value);
   });
 
@@ -70,7 +70,7 @@ describe('strings-starts-with', () => {
       const value = startsWith + '0';
       const result = notSchama.parse(value);
 
-      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.startsWith(startsWith)));
+      expect(result.errors).toEqual(ParseErrors.not(ParseErrors.startsWith(startsWith, false)));
       expect(result.value).toBe(value);
     });
   });

@@ -27,7 +27,7 @@ describe('strings-min-length', () => {
     const value = stringOfLength(min);
     const result = exclusiveSchama.parse(value);
 
-    expect(result.errors).toEqual(ParseErrors.minLength(min));
+    expect(result.errors).toEqual(ParseErrors.minLength(min, true));
     expect(result.value).toBe(value);
   });
 

@@ -16,7 +16,7 @@ describe('strings-not-equals', () => {
   it('failure', () => {
     const result = schema.parse(expectedValue);
 
-    expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(expectedValue)));
+    expect(result.errors).toEqual(ParseErrors.not(ParseErrors.equals(expectedValue, false)));
     expect(result.value).toEqual(expectedValue);
   });
 });

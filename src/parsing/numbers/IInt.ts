@@ -11,7 +11,7 @@ export namespace IInt {
 
     readonly not: NextBuilder<Parser, 'not' | 'parse'>;
 
-    equals(value: NumberParsableTypes): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
+    equals(value: NumberParsableTypes | null | undefined): NextBuilder<Parser, 'equals', 'not' | 'parse'>;
     anyOf(values: NumberParsableTypes[] | NumberEnumMap): NextBuilder<Parser, 'anyOf', 'not' | 'parse'>;
 
     min(value: NumberParsableTypes, exclusive?: boolean): NextBuilder<Parser, 'min', 'not' | 'parse'>;

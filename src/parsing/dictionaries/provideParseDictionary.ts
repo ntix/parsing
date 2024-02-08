@@ -1,29 +1,27 @@
 import { isNullOrEmpty } from '../../predicates';
 import { isObject } from '../../predicates/isObject';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 import { Dictionary } from './Dictionary';
 
 export function provideParseDictionary<T>(
-  negate: boolean = false
-) {
+): IParse<Dictionary<T>> {
 
-  return (value: T): IParseResult<Dictionary<T>> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: unknown) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = isObject(value)
-      ? value as Dictionary<T>
-      : null;
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      success = isObject(value);
+      if (success)
+        parsed = value as Dictionary<T>;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.dictionary)
-      : ParseErrors.dictionary;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.dictionary
+    };
   };
 }

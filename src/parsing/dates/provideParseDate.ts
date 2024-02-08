@@ -1,24 +1,26 @@
 import { isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 import { DateParsableTypes } from './DateParsableTypes';
 import { tryParseDate } from './tryParseDate';
 
-export function provideParseDate(negate: boolean = false) {
+export function provideParseDate(
+): IParse<Date> {
 
-  return (value: unknown): IParseResult<Date> => {
-    if (isNullOrEmpty(value)) return createParseResult(null);
+  return (value: DateParsableTypes) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = tryParseDate(value as DateParsableTypes);
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      parsed = tryParseDate(value);
+      success = parsed !== null;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.date)
-      : ParseErrors.date;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.date
+    };
   };
 }

@@ -1,23 +1,16 @@
-import { isNullOrEmpty } from '../predicates';
-import { createParseResult } from './createParseResult';
-import { IParseErrors } from './IParseErrors';
 import { ParseErrors } from './ParseErrors';
 import { IHasLength } from './IHasLength';
-import { IParseResult } from './IParseResult';
+import { isNullOrEmpty } from '../predicates';
+import { IParse } from './IParse';
 
 export function provideMaxLength<T extends IHasLength>(
-  maxLength: number, exclusive: boolean, negate: boolean
-) {
+  maxLength: number,
+  exclusive: boolean,
+): IParse<T> {
 
-  return (value: T): IParseResult<T> => {
-    if (isNullOrEmpty(value)
-      || (exclusive ? value.length < maxLength : value.length <= maxLength) !== negate)
-      return createParseResult(value);
-
-    let errors: IParseErrors = ParseErrors.maxLength(maxLength);
-    if (negate)
-      errors = ParseErrors.not(errors);
-
-    return createParseResult(value, errors);
-  };
+  return (value: T) => ({
+    value,
+    success: isNullOrEmpty(value) || (exclusive ? value.length < maxLength : value.length <= maxLength),
+    errors: ParseErrors.maxLength(maxLength, exclusive)
+  });
 }

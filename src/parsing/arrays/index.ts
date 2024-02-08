@@ -4,6 +4,6 @@
 
 export * from './ArrayParser';
 export * from './IArray';
-export * from './parseAllArray';
 export * from './provideParseArray';
-export * from './provideUniqueArray';
+export * from './provideParseArrayValues';
+export * from './provideParseUniqueArray';

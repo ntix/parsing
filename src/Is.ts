@@ -1,4 +1,5 @@
-import { IRoot, RootParser } from './parsing';
+import { RootParser, provideParseRoot } from './parsing';
+import { asCurrent } from './parsing/asCurrent';
 
 /** Starting point for a new parsing and validating */
 export class Is {
@@ -6,19 +7,20 @@ export class Is {
     throw new Error('static class');
   }
 
-  static readonly required: IRoot.Parser = new RootParser(true, false);
+  private static root = new RootParser(asCurrent(provideParseRoot(false)));
 
-  static readonly boolean = new RootParser().boolean;
-  static readonly int = new RootParser().int;
-  static readonly float = new RootParser().float;
-  static readonly date = new RootParser().date;
-  static readonly string = new RootParser().string;
-  static readonly array = new RootParser().array;
-  static readonly dictionary = new RootParser().dictionary;
-  static readonly json = new RootParser().json;
+  static readonly not = Is.root.not;
+  static readonly required = Is.root.required;
 
-  static readonly for = new RootParser().for;
-  static readonly use = new RootParser().use;
+  static readonly boolean = Is.root.boolean;
+  static readonly int = Is.root.int;
+  static readonly float = Is.root.float;
+  static readonly date = Is.root.date;
+  static readonly string = Is.root.string;
+  static readonly array = Is.root.array;
+  static readonly dictionary = Is.root.dictionary;
+  static readonly json = Is.root.json;
 
-  static readonly not = new RootParser(false, true);
+  static readonly for = Is.root.for;
+  static readonly use = Is.root.use;
 }

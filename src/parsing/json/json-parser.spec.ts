@@ -42,16 +42,43 @@ describe('json-parser', () => {
   });
 
   describe('and complex', () => {
-    const complexParser = schema.for({
+
+    const complexSchema = schema.for({
       date: Is.required.date
     });
 
     it('success', () => {
       const value = '{"date":"1 Jan 2000"}';
-      const result = complexParser.parse(value);
+      const result = complexSchema.parse(value);
 
       expect(result.errors).toEqual(ParseErrors.empty);
       expect(result.value).toEqual({ 'date': new Date('2000-01-01T00:00:00.000Z') });
     });
   });
+
+  // todo
+  // describe('and keyed', () => {
+  //   const keyedSchema = schema.forKeyed(
+  //     Is.string,
+  //     {
+  //       date: Is.required.date
+  //     }
+  //   );
+
+  //   it('success', () => {
+  //     const value = '{"a":{"date":"1 Jan 2000"}}';
+  //     const result = keyedSchema.parse(value);
+
+  //     expect(result.errors).toEqual(ParseErrors.empty);
+  //     expect(result.value).toEqual({ 'date': new Date('2000-01-01T00:00:00.000Z') });
+  //   });
+
+  //   it('failure', () => {
+  //     const value = '{"a":{"date":"1 Jan 2000"}}';
+  //     const result = keyedSchema.parse(value);
+
+  //     expect(result.errors).toEqual(ParseErrors.unique);
+  //     expect(result.value).toEqual({ 'date': new Date('2000-01-01T00:00:00.000Z') });
+  //   });
+  // });
 });

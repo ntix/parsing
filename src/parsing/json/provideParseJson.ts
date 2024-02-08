@@ -1,26 +1,25 @@
-import { isNullOrEmpty } from '../../predicates';
-import { IParseResult } from '../IParseResult';
 import { ParseErrors } from '../ParseErrors';
-import { createParseResult } from '../createParseResult';
 import { tryParseJson } from './tryParseJson';
+import { IParse } from '../IParse';
+import { isNullOrEmpty } from '../../predicates';
 
 export function provideParseJson<T>(
-  negate: boolean = false
-) {
+): IParse<T> {
 
-  return (value: T): IParseResult<T> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: string) => {
+    let success = true;
+    let parsed = null;
 
-    const parsed = tryParseJson<T>(value);
+    if (!isNullOrEmpty(value)) {
 
-    if (parsed === null === negate)
-      return createParseResult(parsed);
+      parsed = tryParseJson<T>(value);
+      success = parsed !== null;
+    }
 
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.json)
-      : ParseErrors.json;
-
-    return createParseResult(null, errors);
+    return {
+      value: parsed,
+      success,
+      errors: ParseErrors.json
+    };
   };
 }

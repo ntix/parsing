@@ -1,23 +1,22 @@
 import { isNullOrEmpty, isStringType } from '../../predicates';
-import { createParseResult } from '../createParseResult';
-import { IParseResult } from '../IParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideMatchesString(
-  matchValue: string | RegExp, name: string, negate: boolean
-) {
+  matchValue: string | RegExp,
+  name: string,
+): IParse<string> {
 
-  return (value: string): IParseResult<string> => {
-    if (isNullOrEmpty(value))
-      return createParseResult(null);
+  return (value: string) => ({
+    value,
+    success: isNullOrEmpty(value) || (() => {
 
-    const re = isStringType(matchValue)
-      ? new RegExp(matchValue)
-      : matchValue;
+      const re = isStringType(matchValue)
+        ? new RegExp(matchValue)
+        : matchValue;
 
-    if (re.test(value) !== negate)
-      return createParseResult(value);
-
-    return createParseResult(value, ParseErrors.matches(name ?? matchValue));
-  };
+      return re.test(value);
+    })(),
+    errors: ParseErrors.matches(name ?? matchValue)
+  });
 }

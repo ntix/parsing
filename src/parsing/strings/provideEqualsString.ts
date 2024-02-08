@@ -1,25 +1,20 @@
 import { isEqual, isNullOrEmpty } from '../../predicates';
-import { createParseResult } from '../createParseResult';
+import { IParse } from '../IParse';
 import { ParseErrors } from '../ParseErrors';
 
 export function provideEqualsString(
-  equalToValue: string, ignoreCase: boolean, negate: boolean
-) {
+  equalToValue: string,
+  ignoreCase: boolean,
+): IParse<string> {
 
-  return (value: string) => {
-    if (isNullOrEmpty(value))
-      return createParseResult(value);
+  return (value: string) => ({
+    value,
+    success: isNullOrEmpty(value) || (() => {
+      const a = ignoreCase ? value.toLowerCase() : value;
+      const b = ignoreCase ? equalToValue.toLowerCase() : equalToValue;
 
-    const a = ignoreCase ? value.toLowerCase() : value;
-    const b = ignoreCase ? equalToValue.toLowerCase() : equalToValue;
-
-    if (isEqual(a, b) !== negate)
-      return createParseResult(value);
-
-    const errors = negate
-      ? ParseErrors.not(ParseErrors.equals(equalToValue))
-      : ParseErrors.equals(equalToValue);
-
-    return createParseResult(value, errors);
-  };
+      return isEqual(a, b);
+    })(),
+    errors: ParseErrors.equals(equalToValue, ignoreCase)
+  });
 }

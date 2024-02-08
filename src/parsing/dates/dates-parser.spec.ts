@@ -99,7 +99,7 @@ describe('dates-parser', () => {
       const value = new Date();
       const result = notSchema.parse(value);
 
-      expect(result.value).toBe(null);
+      expect(result.value).toBe(value);
       expect(result.errors).toEqual(ParseErrors.not(ParseErrors.date));
     });
   });
