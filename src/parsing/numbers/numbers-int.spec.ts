@@ -44,6 +44,14 @@ describe('numbers-int', () => {
     expect(result.value).toBe(null);
   });
 
+  it('success binary', () => {
+    const value = '101';
+    const result = schema.withRadix(2).parse(value);
+
+    expect(result.errors).toEqual(ParseErrors.empty);
+    expect(result.value).toBe(5);
+  });
+
   it('failure not int (float)', () => {
     const value = 1.2;
     const result = schema.parse(value);
