@@ -30,7 +30,7 @@ export class IntParser implements IInt.Parser {
     return new IntParser(this.parent, this.parseCurrent, this.radix, !this.negate);
   }
 
-  readonly withRadix = (value?: number) => new IntParser(this.parent, asCurrent(provideParseInt(value), this.negate), this.radix, this.negate);
+  readonly withRadix = (value?: number) => new IntParser(this.parent, asCurrent(provideParseInt(value), this.negate), value, this.negate);
 
   readonly equals = (value: NumberParsableTypes) => new IntParser(this, asCurrent(provideEquals(parseInt(value, this.radix)), this.negate), this.radix);
   readonly anyOf = (values: NumberParsableTypes[] | NumberEnumMap) => new IntParser(this, asCurrent(provideAnyOf(ensureNumberArray(values)), this.negate), this.radix);
