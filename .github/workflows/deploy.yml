@@ -1,22 +1,22 @@
 name: Deploy
 
-on: workflow_dispatch 
+on: workflow_dispatch
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
         with:
           persist-credentials: false
-          
+
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
-          
-      - run: npm ci
+
+      - run: npm i
       - run: npm test
       - run: npx semantic-release
         env:
