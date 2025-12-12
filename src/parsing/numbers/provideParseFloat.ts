@@ -9,8 +9,7 @@ import { tryParseFloat } from './tryParseFloat';
  * 
  * note. if negated result value will be null 
  * 
- * @param negate 
- * @returns parseResult
+ * @returns parser
  */
 export function provideParseFloat(
 ): IParse<number> {

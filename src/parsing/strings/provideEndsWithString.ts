@@ -4,7 +4,7 @@ import { ParseErrors } from '../ParseErrors';
 
 export function provideEndsWithString(
   endswithValue: string,
-  ignoreCase: boolean,
+  ignoreCase: boolean
 ): IParse<string> {
 
   return (value: string) => ({

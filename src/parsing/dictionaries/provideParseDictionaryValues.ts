@@ -13,7 +13,7 @@ import { Dictionary } from './Dictionary';
  * @returns IParseResult<Dictionary<T>>
  */
 export function provideParseDictionaryValues<T>(
-  parse: IParse<T>,
+  parse: IParse<T>
 ): IParse<Dictionary<T>> {
 
   return (value: unknown) => {

@@ -4,6 +4,11 @@ import { ParseErrors } from '../ParseErrors';
 import { DateParsableTypes } from './DateParsableTypes';
 import { tryParseDate } from './tryParseDate';
 
+/**
+ * Get a date parser
+ * 
+ * @returns parser
+ */
 export function provideParseDate(
 ): IParse<Date> {
 

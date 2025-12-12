@@ -7,15 +7,15 @@ export default {
       file: 'dist/index.umd.js',
       format: 'umd',
       name: 'parsing',
-      sourcemap: true,
-    },
+      sourcemap: true
+    }
   ],
   watch: {
-    include: 'src/**',
+    include: 'src/**'
   },
   plugins: [
     typescript({
-      tsconfig: 'tsconfig.build.json',
-    }),
+      tsconfig: 'tsconfig.build.json'
+    })
   ],
 };

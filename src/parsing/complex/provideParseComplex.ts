@@ -9,11 +9,11 @@ import { IParseErrors } from '../IParseErrors';
 /**
  * provides a parse method for object typed as T
  *
- * @param negate negate the result
+ * @param schema a complex schema
  * @returns parser
  */
 export function provideParseComplex<T>(
-  schema: ComplexSchema<T>,
+  schema: ComplexSchema<T>
 ): IParse<T> {
 
   return (value: unknown) => {

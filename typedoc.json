@@ -1,0 +1,15 @@
+{
+    "entryPoints": [
+        "src"
+    ],
+    "out": "docs",
+    "readme": "README.md",
+    "exclude": [
+        "**/index.ts",
+        "**/*.spec.ts",
+        "**/*.e2e.ts",
+        "dist/",
+        "docs/"
+    ],
+    "excludeExternals": true
+}

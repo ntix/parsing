@@ -6,11 +6,10 @@ import { ParseErrors } from '../ParseErrors';
  * provides a uniqueness check on array
  *
  * @param distinctor property selector which marks uniqueness
- * @param negate negate result
- * @returns
+ * @returns parser
  */
 export function provideParseUniqueArray<T>(
-  distinctor: (t: T) => unknown,
+  distinctor: (t: T) => unknown
 ): IParse<T[]> {
 
   return (values: T[]) => {

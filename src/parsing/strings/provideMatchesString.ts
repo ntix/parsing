@@ -4,7 +4,7 @@ import { ParseErrors } from '../ParseErrors';
 
 export function provideMatchesString(
   matchValue: string | RegExp,
-  name: string,
+  name: string
 ): IParse<string> {
 
   return (value: string) => ({

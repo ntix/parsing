@@ -1,6 +1,7 @@
 {
   "name": "@ntix/parsing",
   "version": "1.2.0",
+  "type": "module",
   "description": "a small parser",
   "repository": {
     "url": "https://github.com/ntix/parsing",
@@ -16,10 +17,10 @@
     "dist/"
   ],
   "scripts": {
-    "barrels": "barrelsby -q --delete --directory src --include \\.ts$ --exclude \"(\\.spec|this)\\.ts$\" --location all",
+    "barrels": "barrelsby --noHeader -q --delete --directory src --include \\.ts$ --exclude \"(\\.spec|this)\\.ts$\" --location all",
     "prebuild": "npm run clean && npm run barrels",
     "build": "rollup -c rollup.config.ts --configPlugin typescript",
-    "build.docs": "npm run build && typedoc --exclude \"**/*+(index|.spec|.e2e).ts\" --out docs src --readme README.md --media dist",
+    "build.docs": "npm run build && typedoc",
     "clean": "shx rm -rf dist",
     "format": "eslint src --fix",
     "pretest": "npm run barrels",
@@ -91,5 +92,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "typescript-eslint": "^8.49.0"
   }
 }

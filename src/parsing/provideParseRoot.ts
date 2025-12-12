@@ -9,7 +9,7 @@ import { ParseErrors } from './ParseErrors';
  * @returns a parse result
  */
 export function provideParseRoot(
-  isRequried: boolean,
+  isRequried: boolean
 ): IParse<unknown> {
 
   return (value: unknown) => ({

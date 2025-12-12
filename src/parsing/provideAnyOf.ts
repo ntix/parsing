@@ -6,7 +6,7 @@ import { ParseErrors } from './ParseErrors';
  * Validate a value is any of values passed
  */
 export function provideAnyOf<T>(
-  values: unknown[],
+  values: unknown[]
 ): IParse<T> {
 
   return (value: T) => ({

@@ -3,7 +3,7 @@ import { IParse } from './IParse';
 import { ParseErrors } from './ParseErrors';
 
 export function provideEquals<T>(
-  equalToValue: T,
+  equalToValue: T
 ): IParse<T> {
 
   return (value: T) => ({
