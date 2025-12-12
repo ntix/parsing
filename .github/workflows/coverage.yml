@@ -14,7 +14,7 @@ jobs:
 
       - name: npm install, build, test
         run: |
-          npm ci
+          npm i
           npm run test.coverage
 
       - name: Run codacy-coverage-reporter
