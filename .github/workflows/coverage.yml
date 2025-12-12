@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-        
+          node-version: "20"
+
       - name: npm install, build, test
         run: |
           npm ci
