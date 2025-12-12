@@ -8,7 +8,7 @@ import { RelationalValidatorTypes } from './RelationalValidatorTypes';
  */
 export function provideMax<T extends RelationalValidatorTypes>(
   maxValue: T,
-  exclusive: boolean,
+  exclusive: boolean
 ): IParse<T> {
 
   return (value: T) => ({

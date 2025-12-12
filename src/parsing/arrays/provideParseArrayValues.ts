@@ -9,10 +9,10 @@ import { createParseResult } from '../createParseResult';
  * parse all elements of an array
  *
  * @param parse function
- * @returns IParseResult<T[]>
+ * @returns parser
  */
 export function provideParseArrayValues<T>(
-  parse: IParse<T>,
+  parse: IParse<T>
 ): IParse<T[]> {
 
   return (value: unknown[]) => {

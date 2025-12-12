@@ -5,7 +5,7 @@ import { IParse } from './IParse';
 
 export function provideMaxLength<T extends IHasLength>(
   maxLength: number,
-  exclusive: boolean,
+  exclusive: boolean
 ): IParse<T> {
 
   return (value: T) => ({

@@ -7,7 +7,7 @@ import { ParseErrors } from '../ParseErrors';
  */
 export function provideAnyOfString(
   values: string[],
-  ignoreCase: boolean,
+  ignoreCase: boolean
 ): IParse<string> {
 
   return (value: string) => ({

@@ -8,7 +8,7 @@ import { RelationalValidatorTypes } from './RelationalValidatorTypes';
  */
 export function provideMin<T extends RelationalValidatorTypes>(
   minValue: T,
-  exclusive: boolean,
+  exclusive: boolean
 ): IParse<T> {
 
   return (value: T) => {

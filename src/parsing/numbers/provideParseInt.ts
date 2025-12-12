@@ -12,7 +12,7 @@ import { tryParseInt } from './tryParseInt';
  * @returns parseResult
  */
 export function provideParseInt(
-  radix: number = undefined,
+  radix: number = undefined
 ): IParse<number> {
 
   return (value: NumberParsableTypes) => {

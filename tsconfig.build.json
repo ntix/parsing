@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "dist",
+    "docs"
   ]
 }

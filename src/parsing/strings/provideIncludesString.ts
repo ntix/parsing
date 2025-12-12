@@ -4,7 +4,7 @@ import { ParseErrors } from '../ParseErrors';
 
 export function provideIncludesString(
   includesValue: string,
-  ignoreCase = false,
+  ignoreCase = false
 ): IParse<string> {
 
   return (value: string) => ({

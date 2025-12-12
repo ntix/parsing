@@ -7,8 +7,7 @@ import { ParseErrors } from '../ParseErrors';
  * 
  * note. if negated result value will be null 
  * 
- * @param negate 
- * @returns parseResult
+ * @returns parser
  */
 export function provideParseArray<T>(
 ): IParse<T[]> {
