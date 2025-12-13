@@ -7,4 +7,4 @@
 
 For examples see the tests
 
-this is a good start `/src/parsing/required.spec.ts`
+this is a good start [src/parsing/required.spec.ts](/src/parsing/required.spec.ts)
