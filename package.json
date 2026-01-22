@@ -25,7 +25,7 @@
     "format": "eslint src --fix",
     "pretest": "npm run barrels",
     "test": "jest",
-    "test.coverage": "jest --coverage --coverageReporters='json-summary' --coverageReporters='text-summary'",
+    "test.coverage": "jest --coverage",
     "test.watch": "jest --watchAll",
     "start": "npm run build.docs && serve docs",
     "commit": "git add . && npx git-cz",
